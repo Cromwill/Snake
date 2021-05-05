@@ -7,15 +7,11 @@ public class Track : MonoBehaviour
     [SerializeField] private LineRenderer _line;
     [SerializeField] private float _step;
 
-    private ERRoad _road;
-    private LineRenderer _playerTrack;
-    private float _distanceTraveled;
+    private LineRenderer[] _tracks;
+    private float _distanceTraveleds;
 
     void Start()
     {
-        _road = new ERRoad(_roadModular);
-        _distanceTraveled = 0;
-
         Vector3[] firstLine = _roadModular.splinePoints.ToArray();
         Vector3[] secondLine = new Vector3[firstLine.Length];
         Vector3[] thirdtLine = new Vector3[firstLine.Length];
@@ -29,9 +25,12 @@ public class Track : MonoBehaviour
             thirdtLine[i] = Vector3.Lerp(firstLine[i], rightPoints[i], _step);
         }
 
-        _playerTrack = CreateLine(firstLine, _line);
-        CreateLine(secondLine, _line);
-        CreateLine(thirdtLine, _line);
+        _tracks = new LineRenderer[3]
+        {
+            CreateLine(firstLine, _line),
+            CreateLine(secondLine, _line),
+            CreateLine(thirdtLine, _line)
+        };
     }
 
     private void Update()
@@ -41,7 +40,7 @@ public class Track : MonoBehaviour
 
     private LineRenderer CreateLine(Vector3[] position, LineRenderer lineRenderer)
     {
-        LineRenderer line = LineRenderer.Instantiate(lineRenderer);
+        LineRenderer line = Instantiate(lineRenderer);
         line.useWorldSpace = true;
         line.positionCount = position.Length;
         line.SetPositions(position);
@@ -55,19 +54,18 @@ public class Track : MonoBehaviour
 
     public Vector3 GetPosition(float length)
     {
-        Vector3[] track = new Vector3[_playerTrack.positionCount];
-        _playerTrack.GetPositions(track);
+        Vector3[] track = new Vector3[_tracks[0].positionCount];
+        _tracks[0].GetPositions(track);
 
         float lengthStep = 1.0f / track.Length;
         Vector3 position = Vector3.zero;
-        _distanceTraveled += length;
 
         for(int i = 0; i < track.Length - 1; i++)
         {
-            if((i * lengthStep) <= _distanceTraveled && ((i+1) * lengthStep) > _distanceTraveled)
+            if((i * lengthStep) <= length && ((i+1) * lengthStep) > length)
             {
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
-                float leadedPosition = (_distanceTraveled - i * lengthStep) * leadedLength;
+                float leadedPosition = (length - i * lengthStep) * leadedLength;
                 position = Vector3.Lerp(track[i], track[i + 1], leadedPosition);
                 position.y += 0.25f;
             }
