@@ -2,22 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Snake : MonoBehaviour, IMoveable
+public class Snake : MonoBehaviour
 {
-    private float _speed;
+    [SerializeField] private float _speedTime;
+    [SerializeField] private Track _track;
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * _speed * Time.deltaTime);
+        Move();
     }
 
-    public void EndMove()
+    private void Move()
     {
-        _speed = 0f;
-    }
-
-    public void StartMove()
-    {
-        _speed = 5f;
+        transform.position = _track.GetPosition(1 / _speedTime * Time.deltaTime);
     }
 }
