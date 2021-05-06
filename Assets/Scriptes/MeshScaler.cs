@@ -7,7 +7,7 @@ using SplineMesh;
 public class MeshScaler : MonoBehaviour
 {
     [SerializeField] private Transform _targetPoint;
-    [SerializeField] private float _minDistance;
+    [SerializeField] private float _minDistance = 2f;
 
     private Mesh _mesh;
     private Vector3[] _baseVertices;
@@ -17,33 +17,46 @@ public class MeshScaler : MonoBehaviour
         _mesh = GetComponent<MeshFilter>().mesh;
     }
 
-    private MeshVertex GetVertexWithScale(MeshVertex vertex) // не доделано
+    public MeshVertex GetVertexWithScale(MeshVertex vertex) // не доделано
     {
         if (_targetPoint == null)
             return vertex;
 
         var distance = Vector3.Distance(transform.TransformPoint(vertex.position), _targetPoint.position);
-        var scale = 1f;
-        var scaleVector = Vector3.zero;
         if (distance < _minDistance)
         {
-            scale = 1 + distance / _minDistance;
-            scaleVector = transform.TransformPoint(vertex.position) - _targetPoint.position;
+            var scale = 1 + distance / _minDistance;
+            var scaleVector = transform.TransformPoint(vertex.position) - _targetPoint.position;
+            
+            scaleVector = vertex.normal;
             scaleVector.Normalize();
+
+            vertex.position += scaleVector * scale * 0.1f;
         }
 
-        vertex.position += scaleVector * scale * 10f;
         return vertex;
+    }
+
+    private Vector3 GetVertexWithScale(Vector3 vertexPosition)
+    {
+        if (_targetPoint == null)
+            return vertexPosition;
+
+        var distance = Vector3.Distance(transform.TransformPoint(vertexPosition), _targetPoint.position);
+        if (distance < _minDistance)
+        {
+            var scale = 1 + _minDistance / distance;
+            var scaleVector = transform.TransformPoint(vertexPosition) - _targetPoint.position;
+            scaleVector.Normalize();
+            
+            vertexPosition += scaleVector * scale;
+        }
+
+        return vertexPosition;
     }
 
     private void Update()
     {
-
-        //if (_baseVertices == null || (_baseVertices != null && _baseVertices.Length == 0))
-        //    _baseVertices = _mesh.vertices;
-
-        //var vertices = new Vector3[_baseVertices.Length];
-
         //for (var i = 0; i < vertices.Length; i++)
         //{
         //    var vertex = _baseVertices[i];

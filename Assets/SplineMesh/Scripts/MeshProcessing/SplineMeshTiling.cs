@@ -134,6 +134,7 @@ namespace SplineMesh
                     generated,
                     typeof(MeshFilter),
                     typeof(MeshRenderer),
+                    typeof(MeshScaler),
                     typeof(MeshBender),
                     typeof(MeshCollider));
                 res.isStatic = !updateInPlayMode;
