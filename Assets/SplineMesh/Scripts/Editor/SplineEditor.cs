@@ -207,6 +207,7 @@ namespace SplineMesh {
             }
             if (GUILayout.Button("Add node after selected")) {
                 Undo.RecordObject(spline, "add spline node");
+
                 SplineNode newNode = new SplineNode(selection.Direction, selection.Direction + selection.Direction - selection.Position);
                 var index = spline.nodes.IndexOf(selection);
                 if(index == spline.nodes.Count - 1) {
