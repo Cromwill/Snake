@@ -16,6 +16,8 @@ namespace SplineMesh {
     [RequireComponent(typeof(MeshFilter))]
     [ExecuteInEditMode]
     public class MeshBender : MonoBehaviour {
+        public float _testScale = 1f;
+
         private bool isDirty = false;
         private Mesh result;
         private bool useSpline;
@@ -138,7 +140,7 @@ namespace SplineMesh {
                     FillRepeat();
                     break;
                 case FillingMode.StretchToInterval:
-                    FillStretch();
+                    FillStretch(_testScale);
                     break;
             }
         }
@@ -288,7 +290,7 @@ namespace SplineMesh {
                 uv8);
         }
 
-        private void FillStretch() {
+        private void FillStretch(float scale = 1f) {
             var bentVertices = new List<MeshVertex>(source.Vertices.Count);
             sampleCache.Clear();
             // for each mesh vertex, we found its projection on the curve
@@ -311,7 +313,8 @@ namespace SplineMesh {
                     sampleCache[distanceRate] = sample;
                 }
 
-                bentVertices.Add(sample.GetBent(vert));
+                var nextVert = sample.GetBent(vert);
+                bentVertices.Add(nextVert);
             }
 
             MeshUtility.Update(result,
@@ -319,7 +322,8 @@ namespace SplineMesh {
                 source.Triangles,
                 bentVertices.Select(b => b.position),
                 bentVertices.Select(b => b.normal));
-            if (TryGetComponent(out MeshCollider collider)) {
+            if (TryGetComponent(out MeshCollider collider))
+            {
                 collider.sharedMesh = result;
             }
         }
