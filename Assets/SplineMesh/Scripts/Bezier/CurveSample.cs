@@ -109,6 +109,7 @@ namespace SplineMesh {
             Quaternion q = Rotation * Quaternion.Euler(0, -90, 0);
             res.position = q * res.position + location;
             res.normal = q * res.normal;
+
             return res;
         }
     }
