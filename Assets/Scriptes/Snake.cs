@@ -5,6 +5,7 @@ using SplineMesh;
 public class Snake : MonoBehaviour
 {
     [SerializeField] private float _speedTime;
+    [SerializeField, Range(1, 100)] private float _distanceBetweenSegments = 1;
     [SerializeField] private Track _track;
     [SerializeField] private Transform _target;
 
@@ -36,7 +37,7 @@ public class Snake : MonoBehaviour
 
         for (int i = 0; i < _selfSpline.nodes.Count; i++)
         {
-            var distance = _distanceCovered - i / 100f;
+            var distance = _distanceCovered - i / (100 - _distanceBetweenSegments) / 10;
             if (distance < 0)
                 continue;
             _selfSpline.nodes[i].Position = _track.GetPosition(distance) - transform.position;
