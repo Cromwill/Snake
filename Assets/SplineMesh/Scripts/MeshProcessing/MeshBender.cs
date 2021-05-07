@@ -16,9 +16,7 @@ namespace SplineMesh {
     [RequireComponent(typeof(MeshFilter))]
     [ExecuteInEditMode]
     public class MeshBender : MonoBehaviour {
-        public float _testScale = 1f;
-
-        private MeshScaler meshScaler;
+        private SnakeBoneScaler meshScaler;
         private bool isDirty = false;
         private Mesh result;
         private bool useSpline;
@@ -115,7 +113,7 @@ namespace SplineMesh {
 
         private void Awake()
         {
-            meshScaler = GetComponent<MeshScaler>();
+            meshScaler = GetComponent<SnakeBoneScaler>();
         }
 
         private void LateUpdate() {
@@ -320,7 +318,6 @@ namespace SplineMesh {
                 }
 
                 var nextVert = sample.GetBent(vert);
-                nextVert = meshScaler.GetVertexWithScale(nextVert);
                 bentVertices.Add(nextVert);
             }
 

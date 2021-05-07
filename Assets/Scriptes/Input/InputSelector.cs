@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputSelector : MonoBehaviour
 {
-    [SerializeField] private Snake _moveableObject;
+    [SerializeField] private SplineSnake _moveableObject;
     [SerializeField] private BaseInput _mobileInput;
     [SerializeField] private BaseInput _keyboardInput;
 
