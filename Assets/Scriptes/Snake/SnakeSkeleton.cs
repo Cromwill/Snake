@@ -19,6 +19,22 @@ public class SnakeSkeleton : MonoBehaviour
     private List<SnakeBone> _bones;
     private List<SnakeBone> _activeBones;
 
+    private void OnEnable()
+    {
+        _head.ObstacleEntered += OnObstacleEntered;
+    }
+
+    private void OnDisable()
+    {
+        _head.ObstacleEntered -= OnObstacleEntered;
+    }
+
+    private void OnObstacleEntered(Obstacle obstacle)
+    {
+        Debug.Log("Obstacle: " + obstacle.name);
+        RemoveBoneFromTail();
+    }
+
     private void Start()
     {
         _bones = new List<SnakeBone>();

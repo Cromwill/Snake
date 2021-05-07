@@ -6,7 +6,6 @@ using SplineMesh;
 [RequireComponent(typeof(SnakeSkeleton))]
 public class SnakeBoneScaler : MonoBehaviour
 {
-    [SerializeField] private Transform _armature;
     [SerializeField] private float _minDistance = 1.5f;
 
     private Transform _targetFood;
@@ -22,6 +21,12 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         _snakeSkeleton.Head.TriggerEntered += OnHeadTriggerEntered;
         _snakeSkeleton.Tail.TriggerExited += OnTailTriggerExited;
+    }
+
+    private void OnDisable()
+    {
+        _snakeSkeleton.Head.TriggerEntered -= OnHeadTriggerEntered;
+        _snakeSkeleton.Tail.TriggerExited -= OnTailTriggerExited;
     }
 
     private void OnHeadTriggerEntered(Collider collider)
@@ -51,7 +56,7 @@ public class SnakeBoneScaler : MonoBehaviour
         }
 
         _nextScaleRate = 1f;
-        for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
+        for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
             var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.position + Vector3.up * 0.5f);
             if (scaleDistance <= _minDistance)

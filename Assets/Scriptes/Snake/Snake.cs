@@ -33,7 +33,9 @@ public class Snake : MonoBehaviour
     private void Move()
     {
         _distanceCovered += 1 / _speedTime * Time.deltaTime;
-        _target.position = _track.GetPosition(_distanceCovered);
+
+        if (_target != null)
+            _target.position = _track.GetPosition(_distanceCovered);
 
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
