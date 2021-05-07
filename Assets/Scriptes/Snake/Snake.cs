@@ -9,6 +9,7 @@ public class Snake : MonoBehaviour
     [SerializeField] private float _speedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField] private Track _track;
+    [SerializeField] private Transform _target;
 
     private SnakeSkeleton _snakeSkeleton;
     private float _distanceCovered;
@@ -32,6 +33,7 @@ public class Snake : MonoBehaviour
     private void Move()
     {
         _distanceCovered += 1 / _speedTime * Time.deltaTime;
+        _target.position = _track.GetPosition(_distanceCovered);
 
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
