@@ -42,29 +42,35 @@ public class SnakeBoneScaler : MonoBehaviour
         }
     }
 
-    public void Init(Transform targetFood)
-    {
-        _targetFood = targetFood;
-    }
-
     private void Update()
     {
         if (_targetFood == null)
+        {
+            SetNormalSize();
             return;
+        }
 
         _nextScaleRate = 1f;
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.position);
+            var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.position + Vector3.up * 0.5f);
             if (scaleDistance <= _minDistance)
             {
-                ScaleBone(i, _minDistance / scaleDistance);
+                ScaleBone(i, Mathf.Sqrt(_minDistance / scaleDistance));
             }
             else
             {
                 _snakeSkeleton.ActiveBones[i].transform.localScale = Vector3.one * _nextScaleRate;
                 _nextScaleRate = 1f;
             }
+        }
+    }
+
+    private void SetNormalSize()
+    {
+        for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
+        {
+            ScaleBone(i, 1f);
         }
     }
 
