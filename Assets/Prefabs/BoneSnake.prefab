@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &252618771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 252618772}
+  m_Layer: 0
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &252618772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252618771}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.055557497, y: -0.73987794, z: 1.5174563}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8011280605189784453}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129132800095011250
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +338,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2be681cf8f72f8946b16001cc691bfbe, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -3745,6 +3775,7 @@ Transform:
   m_Children:
   - {fileID: 1413316718393791259}
   - {fileID: 3408139765227976862}
+  - {fileID: 252618772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -3763,7 +3794,7 @@ MonoBehaviour:
   _armature: {fileID: 1413316718393791259}
   _head: {fileID: 7541119516911721817}
   _tail: {fileID: 7541119515664341076}
-  _animator: {fileID: 0}
+  _animator: {fileID: 7036213048735026472}
 --- !u!114 &7541119516192380931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3776,10 +3807,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14b0dd4f1f950e45a0f7344e3712565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedTime: 140
-  _distanceBetweenSegments: 0.2
+  _speedTime: 90
+  _distanceBetweenSegments: 0.25
   _track: {fileID: 0}
-  _target: {fileID: 0}
+  _target: {fileID: 252618772}
 --- !u!114 &7541119516192380928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,7 +3823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05461266a3e2c0547a66483ccc9807bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDistance: 2.5
+  _minDistance: 3
 --- !u!1 &7241451403316811982
 GameObject:
   m_ObjectHideFlags: 0
