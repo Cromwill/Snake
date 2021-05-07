@@ -74,20 +74,3 @@ public class Track : MonoBehaviour
         return position;
     }
 }
-
-public class TrackData
-{
-    private LineRenderer _lineRenderer;
-    private Vector3[] _positions;
-
-    public TrackData(LineRenderer lineRenderer)
-    {
-        _lineRenderer = lineRenderer;
-        _positions = new Vector3[_lineRenderer.positionCount];
-        _lineRenderer.GetPositions(_positions);
-    }
-
-
-
-
-}
