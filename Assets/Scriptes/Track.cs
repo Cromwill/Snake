@@ -12,7 +12,7 @@ public class Track : MonoBehaviour
 
     void Start()
     {
-        Vector3[] firstLine = _roadModular.splinePoints.ToArray();
+        Vector3[] firstLine = _roadModular.soSplinePoints.ToArray();
         Vector3[] secondLine = new Vector3[firstLine.Length];
         Vector3[] thirdtLine = new Vector3[firstLine.Length];
 

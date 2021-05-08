@@ -4,6 +4,7 @@ using UnityEngine;
 using SplineMesh;
 
 [RequireComponent(typeof(SnakeSkeleton))]
+[RequireComponent(typeof(SnakeBoneMovement))]
 public class Snake : MonoBehaviour
 {
     [SerializeField] private float _speedTime;
@@ -12,11 +13,18 @@ public class Snake : MonoBehaviour
     [SerializeField] private Transform _target;
 
     private SnakeSkeleton _snakeSkeleton;
+    private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
 
     private void Awake()
     {
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
+        _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
+    }
+
+    private void Start()
+    {
+        _snakeBoneMovement.Init(_snakeSkeleton);
     }
 
     private void Update()
@@ -37,21 +45,7 @@ public class Snake : MonoBehaviour
         if (_target != null)
             _target.position = _track.GetPosition(_distanceCovered);
 
-        for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
-        {
-            var distance = _distanceCovered - i * _distanceBetweenSegments * 0.01f;
-            if (distance < 0)
-                continue;
-            _snakeSkeleton.ActiveBones[i].Position = _track.GetPosition(distance);
-
-            Vector3 forwardVector;
-            if (i == 0)
-                forwardVector = _snakeSkeleton.ActiveBones[i].Position - _snakeSkeleton.ActiveBones[i + 1].Position;
-            else
-                forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
-
-            _snakeSkeleton.ActiveBones[i].LookRotation(forwardVector);
-        }
+        _snakeBoneMovement.Move(_track, _distanceCovered, _distanceBetweenSegments);
     }
 
     private void AddBoneInTail()

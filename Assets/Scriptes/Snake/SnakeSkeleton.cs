@@ -13,6 +13,7 @@ public class SnakeSkeleton : MonoBehaviour
     public int MinLength => 3;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
+    public IEnumerable<SnakeBone> Bones => _bones;
     public List<SnakeBone> ActiveBones => _activeBones;
     public Head Head => _head;
     public Tail Tail => _tail;
@@ -30,25 +31,17 @@ public class SnakeSkeleton : MonoBehaviour
         _head.ObstacleEntered -= OnObstacleEntered;
     }
 
-    private void OnObstacleEntered(Obstacle obstacle)
-    {
-        Debug.Log("Obstacle: " + obstacle.name);
-        _animator.SetTrigger("ObstacleDetected");
-        RemoveBoneFromTail();
-    }
-
-    private void Start()
+    private void Awake()
     {
         _bones = new List<SnakeBone>();
         _activeBones = new List<SnakeBone>();
         InitNodeList(_armature.GetChild(0));
 
-        for (int i = 0; i < _bones.Count; i++)
-        {
+        for (int i = 0; i < MinLength; i++)
+            AddBoneInTail();
+
+        for (int i = _bones.Count - 1; i >= MinLength; i--)
             _bones[i].Disable();
-            if (i < MinLength)
-                AddBoneInTail();
-        }
     }
 
     private void InitNodeList(Transform currentNode)
@@ -56,6 +49,12 @@ public class SnakeSkeleton : MonoBehaviour
         _bones.Add(currentNode.GetComponent<SnakeBone>());
         if (currentNode.childCount > 0)
             InitNodeList(currentNode.GetChild(0));
+    }
+
+    private void OnObstacleEntered(Obstacle obstacle)
+    {
+        _animator.SetTrigger("ObstacleDetected");
+        RemoveBoneFromTail();
     }
 
     public void AddBoneInTail()
