@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class InputSelector : MonoBehaviour
 {
-    [SerializeField] private SplineSnake _moveableObject;
+    [SerializeField] private Snake _moveableObject;
     [SerializeField] private BaseInput _mobileInput;
     [SerializeField] private BaseInput _keyboardInput;
+
+    private void OnValidate()
+    {
+        if (_moveableObject is IMoveable)
+            return;
+
+        _moveableObject = null;
+    }
 
     private void Start()
     {

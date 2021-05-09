@@ -5,7 +5,7 @@ using SplineMesh;
 
 [RequireComponent(typeof(SnakeSkeleton))]
 [RequireComponent(typeof(SnakeBoneMovement))]
-public class Snake : MonoBehaviour
+public class Snake : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _speedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
@@ -15,6 +15,7 @@ public class Snake : MonoBehaviour
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
+    private float _currentSpeed;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class Snake : MonoBehaviour
     private void Start()
     {
         _snakeBoneMovement.Init(_snakeSkeleton);
+        _currentSpeed = 0f;
     }
 
     private void Update()
@@ -32,7 +34,7 @@ public class Snake : MonoBehaviour
         if (_distanceCovered <= 0.99f)
             Move();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
             AddBoneInTail();
         if (Input.GetKeyDown(KeyCode.R))
             RemoveBoneFromTail();
@@ -40,7 +42,10 @@ public class Snake : MonoBehaviour
 
     private void Move()
     {
-        _distanceCovered += 1 / _speedTime * Time.deltaTime;
+        if (_currentSpeed == 0)
+            return;
+
+        _distanceCovered += 1 / _currentSpeed * Time.deltaTime;
 
         if (_target != null)
             _target.position = _track.GetPosition(_distanceCovered);
@@ -56,5 +61,15 @@ public class Snake : MonoBehaviour
     private void RemoveBoneFromTail()
     {
         _snakeSkeleton.RemoveBoneFromTail();
+    }
+
+    public void StartMove()
+    {
+        _currentSpeed = _speedTime;
+    }
+
+    public void EndMove()
+    {
+        _currentSpeed = 0f;
     }
 }
