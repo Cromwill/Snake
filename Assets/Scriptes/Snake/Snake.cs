@@ -16,6 +16,7 @@ public class Snake : MonoBehaviour, IMoveable
     private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
     private float _currentSpeed;
+    private float _targetSpeed;
 
     private void Awake()
     {
@@ -42,10 +43,8 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Move()
     {
-        if (_currentSpeed == 0)
-            return;
-
-        _distanceCovered += 1 / _currentSpeed * Time.deltaTime;
+        _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 5f * Time.deltaTime);
+        _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed * Time.deltaTime);
 
         if (_target != null)
             _target.position = _track.GetPosition(_distanceCovered);
@@ -65,11 +64,11 @@ public class Snake : MonoBehaviour, IMoveable
 
     public void StartMove()
     {
-        _currentSpeed = _speedTime;
+        _targetSpeed = _speedTime;
     }
 
     public void EndMove()
     {
-        _currentSpeed = 0f;
+        _targetSpeed = 0f;
     }
 }
