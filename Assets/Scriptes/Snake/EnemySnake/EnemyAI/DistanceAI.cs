@@ -34,13 +34,13 @@ public class DistanceAI : EnemyAI
             if (distanceToPlayer > _maxDistance && EnemySnake.DistanceCovered < PlayerSnake.DistanceCovered)
             {
                 EnemySnake.StartMove();
-                var randomMoveTime = Random.Range(1,3);
+                var randomMoveTime = Random.Range(1, 3);
                 yield return new WaitForSeconds(randomMoveTime);
                 EnemySnake.EndMove();
-                yield return new WaitForSeconds(Random.Range(0, 2));
+                yield return new WaitForSeconds(Random.Range(0, 100) / 100f);
             }
             else
-                yield return new WaitForSeconds(Random.Range(0, 2));
+                yield return new WaitForSeconds(Random.Range(0, 100) / 100f);
         }
     }
 }

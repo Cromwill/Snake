@@ -12,6 +12,7 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private Track _track;
     [SerializeField] private int _trackIndex;
     [SerializeField] private Transform _target;
+    [SerializeField] private SkinMaterialColorShaker _materialShaker;
 
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
@@ -26,6 +27,16 @@ public class Snake : MonoBehaviour, IMoveable
     {
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
         _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
+    }
+
+    private void OnEnable()
+    {
+        _snakeSkeleton.Head.ObstacleEntered += OnObstacleEntered;
+    }
+
+    private void OnDisable()
+    {
+        _snakeSkeleton.Head.ObstacleEntered -= OnObstacleEntered;
     }
 
     private void Start()
@@ -56,8 +67,13 @@ public class Snake : MonoBehaviour, IMoveable
 
         if (_target != null)
             _target.position = _track.GetPositionByIndex(_distanceCovered, _trackIndex);
-        
+
         _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _distanceBetweenSegments);
+    }
+
+    private void OnObstacleEntered(Obstacle obstacle)
+    {
+        _materialShaker.Shake(Color.red, 3);
     }
 
     private void AddBoneInTail()
