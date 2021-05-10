@@ -10,6 +10,7 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private float _speedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField] private Track _track;
+    [SerializeField] private int _trackIndex;
     [SerializeField] private Transform _target;
 
     private SnakeSkeleton _snakeSkeleton;
@@ -17,6 +18,9 @@ public class Snake : MonoBehaviour, IMoveable
     private float _distanceCovered;
     private float _currentSpeed;
     private float _targetSpeed;
+
+    public Transform HeadTransform => _snakeSkeleton.Head.transform;
+    public float DistanceCovered => _distanceCovered;
 
     private void Awake()
     {
@@ -28,7 +32,11 @@ public class Snake : MonoBehaviour, IMoveable
     {
         _snakeBoneMovement.Init(_snakeSkeleton);
         _currentSpeed = 0f;
+
+        OnStart();
     }
+
+    protected virtual void OnStart() { }
 
     private void Update()
     {
@@ -47,9 +55,9 @@ public class Snake : MonoBehaviour, IMoveable
         _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed * Time.deltaTime);
 
         if (_target != null)
-            _target.position = _track.GetPosition(_distanceCovered);
+            _target.position = _track.GetPositionByIndex(_distanceCovered, _trackIndex);
         
-        _snakeBoneMovement.Move(_track, _distanceCovered, _distanceBetweenSegments);
+        _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _distanceBetweenSegments);
     }
 
     private void AddBoneInTail()
@@ -62,12 +70,12 @@ public class Snake : MonoBehaviour, IMoveable
         _snakeSkeleton.RemoveBoneFromTail();
     }
 
-    public void StartMove()
+    public virtual void StartMove()
     {
         _targetSpeed = _speedTime;
     }
 
-    public void EndMove()
+    public virtual void EndMove()
     {
         _targetSpeed = 0f;
     }

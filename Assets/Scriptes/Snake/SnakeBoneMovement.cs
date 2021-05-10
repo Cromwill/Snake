@@ -12,9 +12,9 @@ public class SnakeBoneMovement : MonoBehaviour
         _snakeSkeleton = snakeSkeleton;
     }
 
-    public void Move(Track track, float headDistance, float boneDistance)
+    public void Move(Track track, int trackIndex, float headDistance, float boneDistance)
     {
-        _snakeSkeleton.ActiveBones[0].Position = track.GetPosition(headDistance);
+        _snakeSkeleton.ActiveBones[0].Position = track.GetPositionByIndex(headDistance, trackIndex);
         var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _snakeSkeleton.ActiveBones[1].Position;
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
@@ -24,7 +24,7 @@ public class SnakeBoneMovement : MonoBehaviour
             if (distance < 0)
                 continue;
 
-            _snakeSkeleton.ActiveBones[i].Position = track.GetPosition(distance);
+            _snakeSkeleton.ActiveBones[i].Position = track.GetPositionByIndex(distance, trackIndex);
             forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
 
             _snakeSkeleton.ActiveBones[i].LookRotation(forwardVector);

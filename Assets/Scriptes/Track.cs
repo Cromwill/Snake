@@ -51,15 +51,33 @@ public class Track : MonoBehaviour
 
     public Vector3 GetPosition(float length)
     {
-        Vector3[] track = new Vector3[_tracks[0].positionCount];
-        _tracks[0].GetPositions(track);
+        return GetPosition(length, 0);
+    }
+
+    public Vector3 GetPositionByIndex(float length, int index)
+    {
+        if(index < _tracks.Length)
+        {
+            return GetPosition(length, index);
+        }
+        else
+        {
+            Debug.LogError("the index is out of bounds of the array");
+            return Vector3.zero;
+        }
+    }
+
+    private Vector3 GetPosition(float length, int index)
+    {
+        Vector3[] track = new Vector3[_tracks[index].positionCount];
+        _tracks[index].GetPositions(track);
 
         float lengthStep = 1.0f / track.Length;
         Vector3 position = Vector3.zero;
 
-        for(int i = 0; i < track.Length - 1; i++)
+        for (int i = 0; i < track.Length - 1; i++)
         {
-            if((i * lengthStep) <= length && ((i+1) * lengthStep) > length)
+            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) > length)
             {
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
                 float leadedPosition = (length - i * lengthStep) * leadedLength;
