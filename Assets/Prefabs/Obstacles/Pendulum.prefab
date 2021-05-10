@@ -142,57 +142,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 50
   _delayStart: 0
-  _curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.5
-      value: 0
-      inSlope: 3.3333333
-      outSlope: 3.3333333
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: -0.2
-      value: 1
-      inSlope: 4.562092
-      outSlope: 4.562092
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.12747636
-      outWeight: 0.29418206
-    - serializedVersion: 3
-      time: 0
-      value: 2
-      inSlope: 0.019888105
-      outSlope: 0.019888105
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.5119535
-      outWeight: 0.51032203
-    - serializedVersion: 3
-      time: 0.2
-      value: 1
-      inSlope: -4.718244
-      outSlope: -4.718244
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33682632
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0
-      inSlope: -3.3333333
-      outSlope: -3.3333333
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+--- !u!64 &6341271166878821115
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98921887035532292}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 7fd55a78b1a6269469fdcfe44aa32b03, type: 3}
 --- !u!1001 &98921887035433636
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266,6 +229,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f41a570bb10302042b59e788187a8f71, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fd55a78b1a6269469fdcfe44aa32b03, type: 3}
+--- !u!1 &98921887035532292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 7fd55a78b1a6269469fdcfe44aa32b03,
+    type: 3}
+  m_PrefabInstance: {fileID: 98921887035433636}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &98921887035570212 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7fd55a78b1a6269469fdcfe44aa32b03,
