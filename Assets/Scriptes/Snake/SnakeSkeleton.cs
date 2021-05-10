@@ -8,7 +8,6 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Transform _armature;
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
-    [SerializeField] private Animator _animator;
 
     public int MinLength => 3;
     public int CurrentLength { get; private set; }
@@ -56,7 +55,6 @@ public class SnakeSkeleton : MonoBehaviour
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
-        _animator.SetTrigger("ObstacleDetected");
         RemoveBoneFromTail();
     }
 
