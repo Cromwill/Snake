@@ -10,6 +10,8 @@ public class Track : MonoBehaviour
     private LineRenderer[] _tracks;
     private float _distanceTraveleds;
 
+    public float DistanceLength => _roadModular.totalDistance;
+
     void Start()
     {
         Vector3[] firstLine = _roadModular.splinePoints.ToArray();
@@ -31,11 +33,6 @@ public class Track : MonoBehaviour
             CreateLine(secondLine, _line),
             CreateLine(thirdtLine, _line)
         };
-    }
-
-    private void Update()
-    {
-        
     }
 
     private LineRenderer CreateLine(Vector3[] position, LineRenderer lineRenderer)
