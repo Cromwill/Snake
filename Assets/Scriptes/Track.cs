@@ -11,6 +11,7 @@ public class Track : MonoBehaviour
     private float _distanceTraveleds;
 
     public float DistanceLength => _roadModular.totalDistance;
+    public float PlayerDistanceTraveleds { get; private set; }
 
     void Start()
     {
@@ -69,6 +70,9 @@ public class Track : MonoBehaviour
 
     private Vector3 GetPosition(float length, int index)
     {
+        if (index == 0)
+            PlayerDistanceTraveleds += length;
+
         Vector3[] track = new Vector3[_tracks[index].positionCount];
         _tracks[index].GetPositions(track);
 
