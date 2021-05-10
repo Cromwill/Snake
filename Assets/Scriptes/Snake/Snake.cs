@@ -4,18 +4,29 @@ using UnityEngine;
 using SplineMesh;
 
 [RequireComponent(typeof(SnakeSkeleton))]
-public class Snake : MonoBehaviour
+[RequireComponent(typeof(SnakeBoneMovement))]
+public class Snake : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _speedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField] private Track _track;
+    [SerializeField] private Transform _target;
 
     private SnakeSkeleton _snakeSkeleton;
+    private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
+    private float _currentSpeed;
 
     private void Awake()
     {
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
+        _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
+    }
+
+    private void Start()
+    {
+        _snakeBoneMovement.Init(_snakeSkeleton);
+        _currentSpeed = 0f;
     }
 
     private void Update()
@@ -23,7 +34,7 @@ public class Snake : MonoBehaviour
         if (_distanceCovered <= 0.99f)
             Move();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
             AddBoneInTail();
         if (Input.GetKeyDown(KeyCode.R))
             RemoveBoneFromTail();
@@ -31,23 +42,15 @@ public class Snake : MonoBehaviour
 
     private void Move()
     {
-        _distanceCovered += 1 / _speedTime * Time.deltaTime;
+        if (_currentSpeed == 0)
+            return;
 
-        for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
-        {
-            var distance = _distanceCovered - i * _distanceBetweenSegments * 0.01f;
-            if (distance < 0)
-                continue;
-            _snakeSkeleton.ActiveBones[i].Position = _track.GetPosition(distance);
+        _distanceCovered += 1 / _currentSpeed * Time.deltaTime;
 
-            Vector3 forwardVector;
-            if (i == 0)
-                forwardVector = _snakeSkeleton.ActiveBones[i].Position - _snakeSkeleton.ActiveBones[i + 1].Position;
-            else
-                forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
+        if (_target != null)
+            _target.position = _track.GetPosition(_distanceCovered);
 
-            _snakeSkeleton.ActiveBones[i].LookRotation(forwardVector);
-        }
+        _snakeBoneMovement.Move(_track, _distanceCovered, _distanceBetweenSegments);
     }
 
     private void AddBoneInTail()
@@ -58,5 +61,15 @@ public class Snake : MonoBehaviour
     private void RemoveBoneFromTail()
     {
         _snakeSkeleton.RemoveBoneFromTail();
+    }
+
+    public void StartMove()
+    {
+        _currentSpeed = _speedTime;
+    }
+
+    public void EndMove()
+    {
+        _currentSpeed = 0f;
     }
 }

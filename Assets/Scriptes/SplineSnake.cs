@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using SplineMesh;
 
 [RequireComponent(typeof(Spline))]
@@ -9,6 +7,7 @@ public class SplineSnake : MonoBehaviour
     [SerializeField] private float _speedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField] private Track _track;
+    [SerializeField] private Transform _target;
 
     private Spline _selfSpline;
     private float _distanceCovered;
@@ -33,6 +32,8 @@ public class SplineSnake : MonoBehaviour
     private void Move()
     {
         _distanceCovered += 1 / _speedTime * Time.deltaTime;
+        if (_target != null)
+            _target.position = _track.GetPosition(_distanceCovered);
 
         for (int i = 0; i < _selfSpline.nodes.Count; i++)
         {
