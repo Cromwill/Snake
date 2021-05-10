@@ -13,6 +13,7 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private int _trackIndex;
     [SerializeField] private Transform _target;
     [SerializeField] private SkinMaterialColorShaker _materialShaker;
+    [SerializeField] private GameObject _tapToPlayView;
 
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
@@ -88,6 +89,9 @@ public class Snake : MonoBehaviour, IMoveable
 
     public virtual void StartMove()
     {
+        if (_tapToPlayView != null && _tapToPlayView.activeSelf)
+            _tapToPlayView.SetActive(false);
+
         _targetSpeed = _speedTime;
     }
 

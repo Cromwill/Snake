@@ -21,8 +21,12 @@ public class SkinMaterialColorShaker : MonoBehaviour
 
     public void Shake(Color color, int shakeCount)
     {
+        Debug.Log("Shake " + name);
         if (_shakeCoroutine != null)
+        {
             StopCoroutine(_shakeCoroutine);
+            _material.color = _startColor;
+        }
 
         _shakeCoroutine = StartCoroutine(ShakeCoroutine(color, shakeCount));
     }
