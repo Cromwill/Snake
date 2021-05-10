@@ -71,7 +71,7 @@ public class Track : MonoBehaviour
     private Vector3 GetPosition(float length, int index)
     {
         if (index == 0)
-            PlayerDistanceTraveleds += length;
+            PlayerDistanceTraveleds = length;
 
         Vector3[] track = new Vector3[_tracks[index].positionCount];
         _tracks[index].GetPositions(track);
