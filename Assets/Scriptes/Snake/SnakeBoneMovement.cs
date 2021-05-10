@@ -15,6 +15,10 @@ public class SnakeBoneMovement : MonoBehaviour
     public void Move(Track track, int trackIndex, float headDistance, float boneDistance)
     {
         _snakeSkeleton.ActiveBones[0].Position = track.GetPositionByIndex(headDistance, trackIndex);
+
+        if (headDistance < float.Epsilon)
+            return;
+
         var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _snakeSkeleton.ActiveBones[1].Position;
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 

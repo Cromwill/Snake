@@ -700,6 +700,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemySnake2
       objectReference: {fileID: 0}
+    - target: {fileID: 533558741554536933, guid: 4c5cac1f289a4b242bf17b1f2c8decee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 877151299477044063, guid: 4c5cac1f289a4b242bf17b1f2c8decee,
         type: 3}
       propertyPath: m_RootOrder
@@ -759,7 +764,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _animator
       value: 
-      objectReference: {fileID: 525363109}
+      objectReference: {fileID: 525363110}
     - target: {fileID: 7431521197227194091, guid: 4c5cac1f289a4b242bf17b1f2c8decee,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -779,7 +784,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 515604103}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &525363109
+--- !u!95 &525363110
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -15113,6 +15118,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemySnake1
+      objectReference: {fileID: 0}
+    - target: {fileID: 533558741554536933, guid: 4c5cac1f289a4b242bf17b1f2c8decee,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 877151299477044063, guid: 4c5cac1f289a4b242bf17b1f2c8decee,
         type: 3}
