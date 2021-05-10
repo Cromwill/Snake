@@ -48,7 +48,7 @@ public class Snake : MonoBehaviour, IMoveable
 
         if (_target != null)
             _target.position = _track.GetPosition(_distanceCovered);
-
+        
         _snakeBoneMovement.Move(_track, _distanceCovered, _distanceBetweenSegments);
     }
 
