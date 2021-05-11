@@ -5,10 +5,11 @@ using UnityEngine;
 public class SnakeBone : MonoBehaviour
 {
     public Vector3 Position { get => transform.position; set => transform.position = value; }
+    public Vector3 LocalPosition { get => transform.localPosition;}
 
     public void Enable()
     {
-        transform.localScale = Vector3.one;
+        transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
     }
 
     public void Disable()

@@ -11,6 +11,7 @@ public class SnakeBoneScaler : MonoBehaviour
     private Transform _targetFood;
     private SnakeSkeleton _snakeSkeleton;
     private float _nextScaleRate;
+    private Vector3 _normalScale = new Vector3(1.2f, 1.2f, 1.2f);
 
     private void Awake()
     {
@@ -75,7 +76,7 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            ScaleBone(i, 1f);
+            ScaleBone(i, 1.2f);
         }
     }
 

@@ -8,6 +8,7 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Transform _armature;
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
+    [SerializeField] private float _movingTime;
 
     public int MinLength => 3;
     public int CurrentLength { get; private set; }
@@ -44,6 +45,7 @@ public class SnakeSkeleton : MonoBehaviour
 
         for (int i = _bones.Count - 1; i >= MinLength; i--)
             _bones[i].Disable();
+
     }
 
     private void InitNodeList(Transform currentNode)
@@ -63,11 +65,14 @@ public class SnakeSkeleton : MonoBehaviour
         if (_activeBones.Count >= _bones.Count)
             return;
 
-        var addedBone = _bones[_activeBones.Count];
-        addedBone.Enable();
-        _activeBones.Add(addedBone);
+        for(int i = 0; i < 2; i++)
+        {
+            var addedBone = _bones[_activeBones.Count];
+            addedBone.Enable();
+            _activeBones.Add(addedBone);
+        }
 
-        _tail.transform.SetParent(addedBone.transform);
+        _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
         _tail.transform.localPosition = Vector3.zero;
     }
 
@@ -76,10 +81,13 @@ public class SnakeSkeleton : MonoBehaviour
         if (_activeBones.Count <= MinLength)
             return;
 
-        var removedBone = _activeBones[_activeBones.Count - 1];
-        removedBone.Disable();
+        for (int i = 0; i < 2; i++)
+        {
+            var removedBone = _activeBones[_activeBones.Count - 1];
+            removedBone.Disable();
 
-        _activeBones.RemoveAt(_activeBones.Count - 1);
+            _activeBones.RemoveAt(_activeBones.Count - 1);
+        }
 
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
         _tail.transform.localPosition = Vector3.zero;
