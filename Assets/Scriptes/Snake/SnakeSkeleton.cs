@@ -58,16 +58,16 @@ public class SnakeSkeleton : MonoBehaviour
 
     public void RemoveBoneFromTail()
     {
-        if (_activeBones.Count <= 0)
+        if (_activeBones.Count <= MinLength)
             return;
+
+        _tail.transform.SetParent(_activeBones[_activeBones.Count - 2].transform);
+        _tail.transform.localPosition = Vector3.zero;
 
         var removedBone = _activeBones[_activeBones.Count - 1];
         removedBone.Disable();
 
         _activeBones.RemoveAt(_activeBones.Count - 1);
-
-        _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
-        _tail.transform.localPosition = Vector3.zero;
     }
 
     public void SetInitialTailSize()

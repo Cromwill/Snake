@@ -7,6 +7,9 @@ using UnityEngine;
 public class SnakeTailCutter : MonoBehaviour
 {
     [SerializeField] private SnakeTailStump _stumpTemplate;
+    [SerializeField] private ParticleSystem _bloodPoolGrowing;
+    [SerializeField] private ParticleSystem _bloodExplosion;
+    [SerializeField] private ParticleSystem _bloodShower;
 
     private Snake _snake;
     private SnakeSkeleton _snakeSkeleton;
@@ -29,6 +32,11 @@ public class SnakeTailCutter : MonoBehaviour
         _snakeSkeleton.Head.ObstacleEntered -= OnObstacleEntered;
     }
 
+    private void Start()
+    {
+        StopEffects();
+    }
+
     private void OnObstacleEntered(Obstacle obstacle)
     {
         if (_stuckCoroutine != null)
@@ -42,16 +50,29 @@ public class SnakeTailCutter : MonoBehaviour
 
         _tailLengthBeforeCut = _snakeSkeleton.ActiveBones.Count;
         _stuckCoroutine = StartCoroutine(StuckCoroutine());
+
+        _bloodPoolGrowing.Play(true);
+        _bloodExplosion.Play(true);
+        _bloodShower.Play(true);
     }
 
     private IEnumerator StuckCoroutine()
     {
         _snakeSkeleton.SetInitialTailSize();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         for (int i = 0; i < _tailLengthBeforeCut - _snakeSkeleton.MinLength - 2; i++)
             _snakeSkeleton.AddBoneInTail();
 
+        StopEffects();
+
         _stuckCoroutine = null;
+    }
+
+    private void StopEffects()
+    {
+        _bloodPoolGrowing.Stop(true);
+        _bloodExplosion.Stop(true);
+        _bloodShower.Stop(true);
     }
 }
