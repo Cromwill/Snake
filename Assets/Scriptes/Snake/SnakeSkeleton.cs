@@ -8,9 +8,8 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Transform _armature;
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
-    [SerializeField] private float _movingTime;
 
-    public int MinLength => 3;
+    public int MinLength => 6;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
     public IEnumerable<SnakeBone> Bones => _bones;
@@ -20,16 +19,6 @@ public class SnakeSkeleton : MonoBehaviour
 
     private List<SnakeBone> _bones;
     private List<SnakeBone> _activeBones;
-
-    private void OnEnable()
-    {
-        _head.ObstacleEntered += OnObstacleEntered;
-    }
-
-    private void OnDisable()
-    {
-        _head.ObstacleEntered -= OnObstacleEntered;
-    }
 
     private void Awake()
     {
@@ -45,7 +34,6 @@ public class SnakeSkeleton : MonoBehaviour
 
         for (int i = _bones.Count - 1; i >= MinLength; i--)
             _bones[i].Disable();
-
     }
 
     private void InitNodeList(Transform currentNode)
@@ -55,22 +43,14 @@ public class SnakeSkeleton : MonoBehaviour
             InitNodeList(currentNode.GetChild(0));
     }
 
-    private void OnObstacleEntered(Obstacle obstacle)
-    {
-        RemoveBoneFromTail();
-    }
-
     public void AddBoneInTail()
     {
         if (_activeBones.Count >= _bones.Count)
             return;
 
-        for(int i = 0; i < 2; i++)
-        {
-            var addedBone = _bones[_activeBones.Count];
-            addedBone.Enable();
-            _activeBones.Add(addedBone);
-        }
+        var addedBone = _bones[_activeBones.Count];
+        addedBone.Enable();
+        _activeBones.Add(addedBone);
 
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
         _tail.transform.localPosition = Vector3.zero;
@@ -78,18 +58,21 @@ public class SnakeSkeleton : MonoBehaviour
 
     public void RemoveBoneFromTail()
     {
-        if (_activeBones.Count <= MinLength)
+        if (_activeBones.Count <= 0)
             return;
 
-        for (int i = 0; i < 2; i++)
-        {
-            var removedBone = _activeBones[_activeBones.Count - 1];
-            removedBone.Disable();
+        var removedBone = _activeBones[_activeBones.Count - 1];
+        removedBone.Disable();
 
-            _activeBones.RemoveAt(_activeBones.Count - 1);
-        }
+        _activeBones.RemoveAt(_activeBones.Count - 1);
 
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
         _tail.transform.localPosition = Vector3.zero;
+    }
+
+    public void SetInitialTailSize()
+    {
+        while (_activeBones.Count > MinLength)
+            RemoveBoneFromTail();
     }
 }

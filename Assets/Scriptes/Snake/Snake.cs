@@ -26,7 +26,10 @@ public class Snake : MonoBehaviour, IMoveable
     private bool _isMoving;
 
     public Transform HeadTransform => _snakeSkeleton.Head.transform;
+    public Track Track => _track;
     public float DistanceCovered => _distanceCovered;
+    public int TrackIndex => _trackIndex;
+    public float BoneDistance => _distanceBetweenSegments;
 
     private void Awake()
     {
