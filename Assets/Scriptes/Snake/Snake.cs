@@ -13,7 +13,6 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private Track _track;
     [SerializeField] private int _trackIndex;
     [SerializeField] private Transform _target;
-    [SerializeField] private SkinMaterialColorShaker _materialShaker;
     [SerializeField] private GameObject _tapToPlayView;
     [SerializeField] private Animator _armatureAnimator;
 
@@ -35,16 +34,6 @@ public class Snake : MonoBehaviour, IMoveable
         _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
         _lengtheningDirection = Direction.Right;
         _currentDistanceBetweenSegments = _distanceBetweenSegments;
-    }
-
-    private void OnEnable()
-    {
-        _snakeSkeleton.Head.ObstacleEntered += OnObstacleEntered;
-    }
-
-    private void OnDisable()
-    {
-        _snakeSkeleton.Head.ObstacleEntered -= OnObstacleEntered;
     }
 
     private void Start()
@@ -85,11 +74,6 @@ public class Snake : MonoBehaviour, IMoveable
         }
 
         _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _currentDistanceBetweenSegments);
-    }
-
-    private void OnObstacleEntered(Obstacle obstacle)
-    {
-        _materialShaker.Shake(Color.red, 3);
     }
 
     private void AddBoneInTail()
