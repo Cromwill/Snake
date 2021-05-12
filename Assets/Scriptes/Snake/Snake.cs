@@ -6,7 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(SnakeBoneMovement))]
 public class Snake : MonoBehaviour, IMoveable
 {
-    [SerializeField] private float _speedTime;
+    [SerializeField] private float _defaultSpeedTime;
+    [SerializeField] private float _maxSpeedTime;
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField, Range(0.01f, 1f)] private float _segmentLengthening = 0.01f;
     [SerializeField] private Track _track;
@@ -106,7 +107,7 @@ public class Snake : MonoBehaviour, IMoveable
         if (_tapToPlayView != null && _tapToPlayView.activeSelf)
             _tapToPlayView.SetActive(false);
 
-        _currentSpeed = _speedTime;
+        _currentSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.Play("SnakeWalk");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
@@ -115,7 +116,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     public virtual void EndMove()
     {
-        _currentSpeed = 0f;
+        _currentSpeed = _defaultSpeedTime;
         _isMoving = false;
         _armatureAnimator.Play("Idle");
         _armatureAnimator.SetBool("IsMoving", _isMoving);

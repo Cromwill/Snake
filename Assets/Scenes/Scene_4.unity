@@ -1015,7 +1015,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367913201}
-  m_LocalRotation: {x: 0.24200507, y: 0.37124228, z: -0.10086138, w: 0.8907524}
+  m_LocalRotation: {x: 0.24200505, y: 0.37124228, z: -0.10086137, w: 0.8907523}
   m_LocalPosition: {x: 17.15343, y: 63.99153, z: 52.543747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1240,7 +1240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e417d6a11b6978489e898e6585ceb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedTime: 0.1
+  _defaultSpeedTime: 0.04
+  _maxSpeedTime: 0.09
   _distanceBetweenSegments: 0.3
   _segmentLengthening: 0.01
   _track: {fileID: 523130663}
@@ -4770,7 +4771,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193893227}
-  m_LocalRotation: {x: 0.24200507, y: 0.37124228, z: -0.10086138, w: 0.8907524}
+  m_LocalRotation: {x: 0.24200505, y: 0.37124228, z: -0.10086137, w: 0.8907523}
   m_LocalPosition: {x: 17.15343, y: 63.99153, z: 52.543747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -24227,6 +24228,16 @@ PrefabInstance:
       objectReference: {fileID: 523130663}
     - target: {fileID: 67989827215246318, guid: ebcca6a9a183cd24f87420da1fd03574,
         type: 3}
+      propertyPath: _maxSpeedTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 67989827215246318, guid: ebcca6a9a183cd24f87420da1fd03574,
+        type: 3}
+      propertyPath: _defaultSpeedTime
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 67989827215246318, guid: ebcca6a9a183cd24f87420da1fd03574,
+        type: 3}
       propertyPath: _distanceBetweenSegments
       value: 0.3
       objectReference: {fileID: 0}
@@ -24329,6 +24340,16 @@ PrefabInstance:
       propertyPath: _playerSnake
       value: 
       objectReference: {fileID: 436868239}
+    - target: {fileID: 7001132206959988017, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: _maxSpeedTime
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 7001132206959988017, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: _defaultSpeedTime
+      value: 0.04
+      objectReference: {fileID: 0}
     - target: {fileID: 7001132206959988031, guid: 946c863477e1a344fa54c295373d7bcf,
         type: 3}
       propertyPath: m_Name
