@@ -62,7 +62,7 @@ public class SnakeTailCutter : MonoBehaviour
         yield return new WaitForSeconds(4f);
 
         for (int i = 0; i < _tailLengthBeforeCut - _snakeSkeleton.MinLength - 2; i++)
-            _snakeSkeleton.AddBoneInTail();
+            _snakeSkeleton.AddBoneInTailSmoothly();
 
         StopEffects();
 

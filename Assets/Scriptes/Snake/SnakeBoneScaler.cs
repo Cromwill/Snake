@@ -8,7 +8,7 @@ public class SnakeBoneScaler : MonoBehaviour
 {
     [SerializeField] private float _minDistance = 1.5f;
 
-    private Transform _targetFood;
+    private Food _targetFood;
     private SnakeSkeleton _snakeSkeleton;
     private float _nextScaleRate;
     private Vector3 _normalScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -34,7 +34,7 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         if (collider.TryGetComponent(out Food food))
         {
-            _targetFood = food.transform;
+            _targetFood = food;
         }
     }
 
@@ -46,7 +46,7 @@ public class SnakeBoneScaler : MonoBehaviour
             Destroy(food.gameObject);
 
             for (int i = 0; i < 2; i++)
-                _snakeSkeleton.AddBoneInTail();
+                _snakeSkeleton.AddBoneInTailSmoothly();
         }
     }
 
@@ -61,7 +61,7 @@ public class SnakeBoneScaler : MonoBehaviour
         _nextScaleRate = 1f;
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.position + Vector3.up * 0.5f);
+            var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.ColliderCenterPosition + Vector3.up * 0.5f);
             if (scaleDistance <= _minDistance)
             {
                 ScaleBone(i, Mathf.Sqrt(_minDistance / scaleDistance));
@@ -78,7 +78,7 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            ScaleBone(i, 1f);
+            _snakeSkeleton.ActiveBones[i].EnableSmoothly(1f);
         }
     }
 
