@@ -9,7 +9,7 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
 
-    public int MinLength => 6;
+    public int MinLength => 4;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
     public IEnumerable<SnakeBone> Bones => _bones;
@@ -79,6 +79,7 @@ public class SnakeSkeleton : MonoBehaviour
 
         var removedBone = _activeBones[_activeBones.Count - 1];
         removedBone.Disable();
+        removedBone.transform.localPosition = Vector3.zero;
 
         _activeBones.RemoveAt(_activeBones.Count - 1);
     }

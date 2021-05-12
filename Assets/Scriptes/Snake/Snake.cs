@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SplineMesh;
 
 [RequireComponent(typeof(SnakeSkeleton))]
 [RequireComponent(typeof(SnakeBoneMovement))]
@@ -19,9 +18,9 @@ public class Snake : MonoBehaviour, IMoveable
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
-    private float _currentSpeed;
-    private float _targetSpeed;
     private Direction _lengtheningDirection;
+    private float _currentSpeed;
+    private float _speedRate;
     private float _currentDistanceBetweenSegments;
     private bool _isMoving;
 
@@ -41,8 +40,9 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Start()
     {
+        _currentSpeed = 0;
+        _speedRate = 1f;
         _snakeBoneMovement.Init(_snakeSkeleton);
-        _currentSpeed = 0f;
 
         OnStart();
     }
@@ -64,8 +64,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Move()
     {
-        _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 5f * Time.deltaTime);
-        _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed * Time.deltaTime);
+        _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed * _speedRate * Time.deltaTime);
 
         if (_target != null)
             _target.position = _track.GetPositionByIndex(_distanceCovered, _trackIndex);
@@ -97,12 +96,17 @@ public class Snake : MonoBehaviour, IMoveable
             _lengtheningDirection = Direction.Right;
     }
 
+    public void SetSpeedRate(float speedRate)
+    {
+        _speedRate = speedRate;
+    }
+
     public virtual void StartMove()
     {
         if (_tapToPlayView != null && _tapToPlayView.activeSelf)
             _tapToPlayView.SetActive(false);
 
-        _targetSpeed = _speedTime;
+        _currentSpeed = _speedTime;
         _isMoving = true;
         _armatureAnimator.Play("SnakeWalk");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
@@ -111,7 +115,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     public virtual void EndMove()
     {
-        _targetSpeed = 0f;
+        _currentSpeed = 0f;
         _isMoving = false;
         _armatureAnimator.Play("Idle");
         _armatureAnimator.SetBool("IsMoving", _isMoving);

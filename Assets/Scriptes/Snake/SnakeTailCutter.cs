@@ -41,6 +41,7 @@ public class SnakeTailCutter : MonoBehaviour
     {
         if (_stuckCoroutine != null)
         {
+            StopCoroutine(_stuckCoroutine);
             _stuckCoroutine = StartCoroutine(StuckCoroutine());
             return;
         }
@@ -58,6 +59,7 @@ public class SnakeTailCutter : MonoBehaviour
 
     private IEnumerator StuckCoroutine()
     {
+        _snake.SetSpeedRate(0.5f);
         _snakeSkeleton.SetInitialTailSize();
         yield return new WaitForSeconds(4f);
 
@@ -65,6 +67,7 @@ public class SnakeTailCutter : MonoBehaviour
             _snakeSkeleton.AddBoneInTailSmoothly();
 
         StopEffects();
+        _snake.SetSpeedRate(1f);
 
         _stuckCoroutine = null;
     }
