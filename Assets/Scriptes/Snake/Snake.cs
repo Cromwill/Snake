@@ -81,7 +81,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void AddBoneInTail()
     {
-        _snakeSkeleton.AddBoneInTail();
+        _snakeSkeleton.AddBoneInTailSmoothly();
     }
 
     private void RemoveBoneFromTail()

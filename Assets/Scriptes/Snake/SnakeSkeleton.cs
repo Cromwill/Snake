@@ -30,7 +30,7 @@ public class SnakeSkeleton : MonoBehaviour
         _head.transform.localPosition = Vector3.zero;
 
         for (int i = 0; i < MinLength; i++)
-            AddBoneInTail();
+            AddBoneInTailSmoothly();
 
         for (int i = _bones.Count - 1; i >= MinLength; i--)
             _bones[i].Disable();
@@ -41,6 +41,19 @@ public class SnakeSkeleton : MonoBehaviour
         _bones.Add(currentNode.GetComponent<SnakeBone>());
         if (currentNode.childCount > 0)
             InitNodeList(currentNode.GetChild(0));
+    }
+
+    public void AddBoneInTailSmoothly()
+    {
+        if (_activeBones.Count >= _bones.Count)
+            return;
+
+        var addedBone = _bones[_activeBones.Count];
+        addedBone.EnableSmoothly(2f);
+        _activeBones.Add(addedBone);
+
+        _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
+        _tail.transform.localPosition = Vector3.zero;
     }
 
     public void AddBoneInTail()
