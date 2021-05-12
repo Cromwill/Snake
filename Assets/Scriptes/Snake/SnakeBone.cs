@@ -9,7 +9,7 @@ public class SnakeBone : MonoBehaviour
 
     public void Enable()
     {
-        transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+        transform.localScale = Vector3.one;
     }
 
     public void Disable()

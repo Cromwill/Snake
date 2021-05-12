@@ -44,7 +44,9 @@ public class SnakeBoneScaler : MonoBehaviour
         {
             _targetFood = null;
             Destroy(food.gameObject);
-            _snakeSkeleton.AddBoneInTail();
+
+            for (int i = 0; i < 2; i++)
+                _snakeSkeleton.AddBoneInTail();
         }
     }
 
@@ -76,7 +78,7 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         for (int i = 0; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            ScaleBone(i, 1.2f);
+            ScaleBone(i, 1f);
         }
     }
 
