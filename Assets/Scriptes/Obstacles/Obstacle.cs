@@ -5,8 +5,11 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] private MeshRenderer[] _obstacleSignals;
+    [SerializeField] private bool _isPuncher;
     [SerializeField] private Material _workingMaterial;
     [SerializeField] private Material _notWorkingMaterial;
+
+    public bool IsPuncher => _isPuncher;
 
     public void ToggleSignal()
     {
