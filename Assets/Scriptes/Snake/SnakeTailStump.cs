@@ -20,6 +20,7 @@ public class SnakeTailStump : MonoBehaviour
             _snakeSkeleton.AddBoneInTail();
 
         _snakeSkeleton.ActiveBones[0].Position = track.GetPositionByIndex(headDistance, trackIndex);
+        _snakeSkeleton.ActiveBones[0].Position += _snakeSkeleton.ActiveBones[0].transform.right * Random.Range(-0.2f, 0.2f);
 
         if (headDistance < float.Epsilon)
             return;
@@ -34,7 +35,9 @@ public class SnakeTailStump : MonoBehaviour
                 continue;
 
             var trackPoint = track.GetPositionByIndex(distance, trackIndex);
-            _snakeSkeleton.ActiveBones[i].Position = trackPoint;
+            var currentBone = _snakeSkeleton.ActiveBones[i];
+            currentBone.Position = trackPoint;
+            currentBone.Position += currentBone.transform.right * Random.Range(-0.1f, 0.1f);
 
             forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
 
