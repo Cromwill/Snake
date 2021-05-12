@@ -78,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 3585516054190567181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.65, y: 4, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 0.1}
+  m_LocalScale: {x: 1, y: 4, z: 0.1}
   m_Children: []
   m_Father: {fileID: 3585516053678096666}
   m_RootOrder: 1
@@ -157,6 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _obstacleSignals: []
+  _workingMaterial: {fileID: 0}
+  _notWorkingMaterial: {fileID: 0}
 --- !u!1 &3585516054596415506
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,8 +186,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3585516054596415506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 0.2, y: 5, z: 0.2}
+  m_LocalPosition: {x: 0.000000059604645, y: 2, z: 0}
+  m_LocalScale: {x: 0.2, y: 8, z: 0.2}
   m_Children: []
   m_Father: {fileID: 3585516053678096666}
   m_RootOrder: 0

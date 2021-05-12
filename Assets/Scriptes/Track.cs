@@ -22,13 +22,6 @@ public class Track : MonoBehaviour
         Vector3[] leftPoints = _roadModular.soSplinePointsLeft.ToArray();
         Vector3[] rightPoints = _roadModular.soSplinePointsRight.ToArray();
 
-        for(int i = 0; i < firstLine.Length; i++)
-        {
-            firstLine[i].y += 0.1f;
-            leftPoints[i].y += 0.1f;
-            rightPoints[i].y += 0.1f;
-        }
-
         for (int i = 0; i < firstLine.Length; i++)
         {
             secondLine[i] = Vector3.Lerp(firstLine[i], leftPoints[i], _step);
