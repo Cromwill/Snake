@@ -79,6 +79,7 @@ public class SnakeSkeleton : MonoBehaviour
 
         var removedBone = _activeBones[_activeBones.Count - 1];
         removedBone.Disable();
+        removedBone.transform.localPosition = Vector3.zero;
 
         _activeBones.RemoveAt(_activeBones.Count - 1);
     }
