@@ -11,7 +11,19 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private Material _notWorkingMaterial;
     [SerializeField] private Obstacle _parentObstacle;
 
+    private bool _isDamageable;
+
     public bool IsPuncher => _isPuncher;
+    public bool IsDamageable
+    {
+        get
+        {
+            if (_parentObstacle != null)
+                return _isDamageable || _parentObstacle.IsDamageable;
+
+            return _isDamageable;
+        }
+    }
 
     public void ToggleSignal()
     {
@@ -30,5 +42,15 @@ public class Obstacle : MonoBehaviour
             if (_punchEffect != null)
                 Instantiate(_punchEffect, transform.position, Quaternion.identity);
         }
+    }
+
+    public void EnableDamageable()
+    {
+        _isDamageable = true;
+    }
+
+    public void DisableDamageable()
+    {
+        _isDamageable = false;
     }
 }
