@@ -36,7 +36,7 @@ public class SnakeBoneMovement : MonoBehaviour
             var currentBone = _snakeSkeleton.ActiveBones[i];
             currentBone.Position = trackPoint;
 
-            if (_curveMovement && i != _snakeSkeleton.ActiveBones.Count - 1)
+            if (_curveMovement)
             {
                 var delta = distance * track.DistanceLength;
                 currentBone.Position += currentBone.transform.right * _curveAmplitude * Mathf.Sin(delta * _curveSpeed);

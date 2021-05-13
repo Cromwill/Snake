@@ -41,6 +41,9 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         if (collider.TryGetComponent(out Food food))
         {
+            if (_targetFoods.Contains(food) == false)
+                return;
+
             _targetFoods.Remove(food);
             Destroy(food.gameObject);
 
@@ -62,7 +65,6 @@ public class SnakeBoneScaler : MonoBehaviour
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
             var scaleDistance = MinDistanceToTarget(_snakeSkeleton.ActiveBones[i].Position);
-            //var scaleDistance = Vector3.Distance(_snakeSkeleton.ActiveBones[i].Position, _targetFood.ColliderCenterPosition + Vector3.up * 0.5f);
             if (scaleDistance <= _minDistance)
             {
                 ScaleBone(i, Mathf.Sqrt(_minDistance / scaleDistance));

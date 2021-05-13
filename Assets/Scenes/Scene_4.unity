@@ -968,7 +968,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367913201}
-  m_LocalRotation: {x: 0.24200507, y: 0.37124228, z: -0.10086138, w: 0.8907524}
+  m_LocalRotation: {x: 0.24200505, y: 0.37124225, z: -0.100861356, w: 0.8907524}
   m_LocalPosition: {x: 17.15343, y: 63.99153, z: 52.543747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1363,11 +1363,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CubeFood (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7196679543176390363, guid: 06039bcb96ef45c4994c039cb897f136,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06039bcb96ef45c4994c039cb897f136, type: 3}
@@ -4853,7 +4848,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1193893227}
-  m_LocalRotation: {x: 0.24200507, y: 0.37124228, z: -0.10086138, w: 0.8907524}
+  m_LocalRotation: {x: 0.24200505, y: 0.37124225, z: -0.100861356, w: 0.8907524}
   m_LocalPosition: {x: 17.15343, y: 63.99153, z: 52.543747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5052,7 +5047,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225221362}
   m_LocalRotation: {x: -0.7039896, y: -0.05965575, z: -0.059554372, w: 0.7051902}
-  m_LocalPosition: {x: -6.646915, y: 54.84645, z: -69.90776}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1641655804}
@@ -24312,7 +24307,7 @@ PrefabInstance:
     - target: {fileID: 67989827215246318, guid: ebcca6a9a183cd24f87420da1fd03574,
         type: 3}
       propertyPath: _segmentLengthening
-      value: 0.1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 67989827215246318, guid: ebcca6a9a183cd24f87420da1fd03574,
         type: 3}
@@ -24323,6 +24318,21 @@ PrefabInstance:
         type: 3}
       propertyPath: _curveMovement
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 67989828331058934, guid: ebcca6a9a183cd24f87420da1fd03574,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67989828331058934, guid: ebcca6a9a183cd24f87420da1fd03574,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67989828331058934, guid: ebcca6a9a183cd24f87420da1fd03574,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 539082984527766535, guid: ebcca6a9a183cd24f87420da1fd03574,
         type: 3}
@@ -24408,6 +24418,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmoothEnemySnake1
       objectReference: {fileID: 0}
+    - target: {fileID: 7001132206959988031, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7665922657700140933, guid: 946c863477e1a344fa54c295373d7bcf,
         type: 3}
       propertyPath: m_RootOrder
@@ -24461,6 +24476,21 @@ PrefabInstance:
     - target: {fileID: 7665922657700140933, guid: 946c863477e1a344fa54c295373d7bcf,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919700305500620148, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919700305500620148, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919700305500620148, guid: 946c863477e1a344fa54c295373d7bcf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7919700306515505267, guid: 946c863477e1a344fa54c295373d7bcf,

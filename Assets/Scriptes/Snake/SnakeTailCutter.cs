@@ -46,7 +46,7 @@ public class SnakeTailCutter : MonoBehaviour
             return;
         }
 
-        var inst = Instantiate(_stumpTemplate, transform.position, Quaternion.identity);
+        var inst = Instantiate(_stumpTemplate, transform.position + Vector3.up, Quaternion.identity);
         inst.SetStructure(_snakeSkeleton, _snake.Track, _snake.TrackIndex, _snake.DistanceCovered, _snake.BoneDistance);
 
         _tailLengthBeforeCut = _snakeSkeleton.ActiveBones.Count;
