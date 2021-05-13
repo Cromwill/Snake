@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _punchEffect;
     [SerializeField] private MeshRenderer[] _obstacleSignals;
     [SerializeField] private bool _isPuncher;
     [SerializeField] private Material _workingMaterial;
@@ -11,7 +12,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private Obstacle _parentObstacle;
 
     public bool IsPuncher => _isPuncher;
-    
+
     public void ToggleSignal()
     {
         if (_obstacleSignals != null && _obstacleSignals.Length > 0)
@@ -24,6 +25,10 @@ public class Obstacle : MonoBehaviour
     public virtual void OnPlayerPunch()
     {
         if (_parentObstacle != null)
+        {
             _parentObstacle.OnPlayerPunch();
+            if (_punchEffect != null)
+                Instantiate(_punchEffect, transform.position, Quaternion.identity);
+        }
     }
 }

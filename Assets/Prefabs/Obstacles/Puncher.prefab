@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b28dc629d3706840ad0df831a006566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _punchEffect: {fileID: 0}
   _obstacleSignals:
   - {fileID: 6613321176270213463}
   _isPuncher: 1
@@ -348,8 +349,8 @@ GameObject:
   - component: {fileID: 6613321177140670556}
   - component: {fileID: 6613321177140670553}
   - component: {fileID: 6613321177140670554}
-  - component: {fileID: 6613321177140670555}
   - component: {fileID: 6613321177140670552}
+  - component: {fileID: 636794358065053339}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -420,19 +421,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6613321177140670555
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6613321177140670557}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6613321177140670552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,11 +433,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _punchEffect: {fileID: 0}
   _obstacleSignals: []
   _isPuncher: 1
   _workingMaterial: {fileID: 0}
   _notWorkingMaterial: {fileID: 0}
   _parentObstacle: {fileID: 6613321175890541983}
+--- !u!65 &636794358065053339
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6613321177140670557}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6613321177359842984
 GameObject:
   m_ObjectHideFlags: 0

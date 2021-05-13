@@ -109,17 +109,14 @@ public class Snake : MonoBehaviour, IMoveable
 
         _currentSpeed = _maxSpeedTime;
         _isMoving = true;
-        _armatureAnimator.Play("SnakeWalk");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
         _currentDistanceBetweenSegments = _distanceBetweenSegments;
     }
 
     public virtual void EndMove()
     {
-        _currentSpeed = _defaultSpeedTime;
+        _currentSpeed = 0;
         _isMoving = false;
-        _armatureAnimator.Play("Idle");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
-
     }
 }
