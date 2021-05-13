@@ -1,24 +1,28 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scriptes.Obstacles
+public class Propeller : Obstacle
 {
-    public class Propeller : Obstacle
+    private Animator _selfAnimator;
+
+    private void Start()
     {
-        private Animator _selfAnimator;
+        _selfAnimator = GetComponent<Animator>();
+        ObstacleTrigger trigger = GetComponentInChildren<ObstacleTrigger>();
 
-        // Use this for initialization
-        void Start()
-        {
-            _selfAnimator = GetComponent<Animator>();
-            ObstacleTrigger trigger = GetComponentInChildren<ObstacleTrigger>();
-
-            trigger.TriggerExit += () =>
-            {
-                _selfAnimator.SetBool("IsWorked", false);
-                ToggleSignal();
-            };
-        }
+        trigger.TriggerExit += EnableObstacle;
 
     }
+
+    public override void OnPlayerPunch()
+    {
+        EnableObstacle();
+    }
+
+    private void EnableObstacle()
+    {
+        _selfAnimator.SetBool("IsWorked", false);
+        ToggleSignal();
+    }
+
 }

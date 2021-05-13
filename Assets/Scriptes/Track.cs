@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using EasyRoads3Dv3;
 
 public class Track : MonoBehaviour
@@ -7,7 +10,7 @@ public class Track : MonoBehaviour
     [SerializeField] private LineRenderer _line;
     [SerializeField] private float _step;
 
-    private LineRenderer[] _tracks;
+    private Vector3[][] _tracks;
     private float _distanceTraveleds;
 
     public float DistanceLength => _roadModular.totalDistance;
@@ -28,26 +31,71 @@ public class Track : MonoBehaviour
             thirdtLine[i] = Vector3.Lerp(firstLine[i], rightPoints[i], _step);
         }
 
-        _tracks = new LineRenderer[3]
+        _tracks = new Vector3[3][]
         {
-            CreateLine(firstLine, _line),
-            CreateLine(secondLine, _line),
-            CreateLine(thirdtLine, _line)
+            CreateLine(firstLine),
+            CreateLine(secondLine),
+            CreateLine(thirdtLine)
         };
+
     }
 
-    private LineRenderer CreateLine(Vector3[] position, LineRenderer lineRenderer)
+    private Vector3[] CreateLine(Vector3[] positions)
     {
-        LineRenderer line = Instantiate(lineRenderer);
-        line.useWorldSpace = true;
-        line.positionCount = position.Length;
-        line.SetPositions(position);
-        line.startColor = new Color(0, 0, 0, 0);
-        line.endColor = new Color(0, 0, 0, 0);
-        line.startWidth = 0.2f;
-        line.endWidth = 0.2f;
+        List<Vector3> line = positions.ToList();
+        line[line.Count - 1] = line[0];
+        float length = 0.0f;
 
-        return line;
+        for (int i = 0; i < line.Count - 1; i++)
+        {
+            length += Vector3.Distance(line[i], line[i + 1]);
+        }
+
+        float step = length / (float)line.Count;
+
+        for (int i = 0; i < line.Count - 1; i++)
+        {
+            float distance = Vector3.Distance(line[i], line[i + 1]);
+
+            if (distance > step && i != line.Count - 2)
+            {
+                Vector3 position = Vector3.Lerp(line[i], line[i + 1], step / distance);
+                line[i + 1] = position;
+            }
+            else if (distance < step && i != line.Count - 2)
+            {
+                float postStep = step - distance;
+                distance = Vector3.Distance(line[i + 1], line[i + 2]);
+
+                Vector3 position = Vector3.Lerp(line[i + 1], line[i + 2], postStep / distance);
+                line[i + 1] = position;
+            }
+
+            if(i == line.Count - 2)
+            {
+                if(distance > step)
+                {
+                    Vector3 position = Vector3.Lerp(line[i], line[i + 1], step / distance);
+                    line.Add(line[i + 1]);
+                    line[i + 1] = position;
+                }
+                else if(distance < step)
+                {
+                    line.Remove(line[i + 1]);
+                }
+            }
+        }
+        return line.ToArray();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(_tracks != null && _tracks[0].Length > 0)
+        {
+            Gizmos.DrawCube(_tracks[0][0], new Vector3(0.2f, 0.2f, 0.2f));
+            Gizmos.DrawCube(_tracks[0][_tracks[0].Length - 1], new Vector3(0.2f, 0.2f, 0.2f));
+        }
+
     }
 
     public Vector3 GetPosition(float length)
@@ -57,7 +105,7 @@ public class Track : MonoBehaviour
 
     public Vector3 GetPositionByIndex(float length, int index)
     {
-        if(index < _tracks.Length)
+        if (index < _tracks.Length)
         {
             return GetPosition(length, index);
         }
@@ -73,10 +121,9 @@ public class Track : MonoBehaviour
         if (index == 0)
             PlayerDistanceTraveleds = length;
 
-        Vector3[] track = new Vector3[_tracks[index].positionCount];
-        _tracks[index].GetPositions(track);
+        Vector3[] track = _tracks[index];
 
-        float lengthStep = 1.0f / track.Length;
+        float lengthStep = 1.0f / (track.Length - 1.0f);
         Vector3 position = Vector3.zero;
 
         for (int i = 0; i < track.Length - 1; i++)
@@ -92,4 +139,5 @@ public class Track : MonoBehaviour
 
         return position;
     }
+
 }
