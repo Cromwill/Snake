@@ -33,6 +33,7 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         if (collider.TryGetComponent(out Food food))
         {
+            food.Eating();
             _targetFoods.Add(food);
         }
     }

@@ -10,7 +10,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private Material _workingMaterial;
     [SerializeField] private Material _notWorkingMaterial;
     [SerializeField] private Obstacle _parentObstacle;
-
+    
     private bool _isDamageable;
 
     public bool IsPuncher => _isPuncher;

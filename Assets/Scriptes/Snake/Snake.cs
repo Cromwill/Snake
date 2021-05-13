@@ -111,7 +111,6 @@ public class Snake : MonoBehaviour, IMoveable
 
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
-        _armatureAnimator.Play("SnakeWalk");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
         _currentDistanceBetweenSegments = _distanceBetweenSegments;
     }
@@ -120,8 +119,6 @@ public class Snake : MonoBehaviour, IMoveable
     {
         _targetSpeed = _defaultSpeedTime;
         _isMoving = false;
-        _armatureAnimator.Play("Idle");
         _armatureAnimator.SetBool("IsMoving", _isMoving);
-
     }
 }
