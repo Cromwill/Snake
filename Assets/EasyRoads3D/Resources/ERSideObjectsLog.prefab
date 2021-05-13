@@ -167,7 +167,7 @@ MonoBehaviour:
     vertexColor: {r: 0, g: 0, b: 0, a: 0}
   - roadTypeName: SnakeRoad
     id: 1620215918.6012554
-    timestamp: 1620815234.3495054
+    timestamp: 1620817972.4164195
     roadWidth: 6
     faceDistance: 0.5
     angleTreshold: 45
@@ -206,22 +206,43 @@ MonoBehaviour:
     maxSpeed: 55
     speedLimit: 50
     roadShape:
-    - {x: -3, y: 0}
-    - {x: 0, y: 0}
     - {x: 3, y: 0}
+    - {x: 2.3333333, y: 0}
+    - {x: 1.6666666, y: 0}
+    - {x: 0.99999994, y: 0}
+    - {x: 0.33333325, y: 0}
+    - {x: -0.33333343, y: 0}
+    - {x: -1.0000001, y: 0}
+    - {x: -1.6666667, y: 0}
+    - {x: -2.3333335, y: 0}
+    - {x: -3.0000002, y: 0}
     roadShapeExt: []
     roadShapeExt2: []
     doConnectionTri: 
     doConnectionTriExt: 
     roadShapeUVs:
     - 0
-    - 0.5
+    - 0.11111111
+    - 0.22222222
+    - 0.33333334
+    - 0.44444445
+    - 0.5555556
+    - 0.6666667
+    - 0.7777778
+    - 0.8888889
     - 1
     roadShapeExtUVs: []
     roadShapeExtUVs2: []
     roadShapeUVs2:
     - 0
-    - 0.5
+    - 0.11111111
+    - 0.22222222
+    - 0.33333334
+    - 0.44444445
+    - 0.5555556
+    - 0.6666667
+    - 0.7777778
+    - 0.8888889
     - 1
     preserveUVs: 0
     hardEdge: 
@@ -237,7 +258,7 @@ MonoBehaviour:
     connectionMaterial: {fileID: 0}
     isSideObject: 0
     isCustomRoad: 0
-    subSegments: 2
+    subSegments: 9
     soData: []
     soDataExt: []
     soDataLog: []
@@ -250,19 +271,19 @@ MonoBehaviour:
     smoothLevel: 1
     splatOpacity: 1
     followTerrainContours: 0
-    terrainContoursOffset: 5
+    terrainContoursOffset: 24.9
     terrainDeformation: 1
     defaultIndent: 2
     defaultSurrounding: 2
     castShadow: 0
     randomnessFlag: 0
     randomYPosition: 0
-    randomMinYPosition: -0.032631576
-    randomMaxYPosition: 0.020000003
-    minRandomYPositionDistance: 34.973698
-    maxRandomYPositionDistance: 54.973698
-    randomMinRotation: -1
-    randomMaxRotation: 1
+    randomMinYPosition: 0.01999998
+    randomMaxYPosition: 0.052631557
+    minRandomYPositionDistance: 15
+    maxRandomYPositionDistance: 35
+    randomMinRotation: 0
+    randomMaxRotation: 0.87218
     minRandomRotationDistance: 15
     maxRandomRotationDistance: 30
     vegetationStudioMaskLineActive: 1

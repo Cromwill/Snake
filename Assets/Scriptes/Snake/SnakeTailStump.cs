@@ -37,6 +37,7 @@ public class SnakeTailStump : MonoBehaviour
             var trackPoint = track.GetPositionByIndex(distance, trackIndex);
             var currentBone = _snakeSkeleton.ActiveBones[i];
             currentBone.Position = trackPoint;
+
             currentBone.Position += currentBone.transform.right * Random.Range(-0.1f, 0.1f);
 
             forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;

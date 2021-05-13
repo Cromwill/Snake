@@ -5,6 +5,10 @@ using System.Linq;
 
 public class SnakeBoneMovement : MonoBehaviour
 {
+    [SerializeField] private bool _curveMovement;
+    [SerializeField] private float _curveAmplitude;
+    [SerializeField] private float _curveSpeed;
+
     private SnakeSkeleton _snakeSkeleton;
 
     public void Init(SnakeSkeleton snakeSkeleton)
@@ -19,7 +23,7 @@ public class SnakeBoneMovement : MonoBehaviour
         if (headDistance < float.Epsilon)
             return;
 
-        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _snakeSkeleton.ActiveBones[1].Position;
+        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - track.GetPositionByIndex(headDistance - 0.001f, trackIndex);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
@@ -29,7 +33,14 @@ public class SnakeBoneMovement : MonoBehaviour
                 continue;
 
             var trackPoint = track.GetPositionByIndex(distance, trackIndex);
-             _snakeSkeleton.ActiveBones[i].Position = trackPoint;
+            var currentBone = _snakeSkeleton.ActiveBones[i];
+            currentBone.Position = trackPoint;
+
+            if (_curveMovement && i != _snakeSkeleton.ActiveBones.Count - 1)
+            {
+                var delta = distance * track.DistanceLength;
+                currentBone.Position += currentBone.transform.right * _curveAmplitude * Mathf.Sin(delta * _curveSpeed);
+            }
 
             forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
 
