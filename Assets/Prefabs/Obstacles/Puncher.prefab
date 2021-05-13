@@ -240,6 +240,7 @@ MonoBehaviour:
   _isPuncher: 1
   _workingMaterial: {fileID: 2100000, guid: 456b4e3b7c7c3e04ebce6eb0e4e3fa89, type: 2}
   _notWorkingMaterial: {fileID: 2100000, guid: 5c24cc546f63c1747ba7aeaba1cddc8c, type: 2}
+  _parentObstacle: {fileID: 0}
 --- !u!1 &6613321176270213450
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,9 +446,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _obstacleSignals: []
-  _isPuncher: 0
+  _isPuncher: 1
   _workingMaterial: {fileID: 0}
   _notWorkingMaterial: {fileID: 0}
+  _parentObstacle: {fileID: 6613321175890541983}
 --- !u!1 &6613321177359842984
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,9 +8,10 @@ public class Obstacle : MonoBehaviour
     [SerializeField] private bool _isPuncher;
     [SerializeField] private Material _workingMaterial;
     [SerializeField] private Material _notWorkingMaterial;
+    [SerializeField] private Obstacle _parentObstacle;
 
     public bool IsPuncher => _isPuncher;
-
+    
     public void ToggleSignal()
     {
         if (_obstacleSignals != null && _obstacleSignals.Length > 0)
@@ -18,5 +19,11 @@ public class Obstacle : MonoBehaviour
             foreach (var signal in _obstacleSignals)
                 signal.material = _notWorkingMaterial;
         }
+    }
+
+    public virtual void OnPlayerPunch()
+    {
+        if (_parentObstacle != null)
+            _parentObstacle.OnPlayerPunch();
     }
 }

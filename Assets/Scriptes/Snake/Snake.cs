@@ -76,7 +76,7 @@ public class Snake : MonoBehaviour, IMoveable
             CheckDirection();
         }
 
-        _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _currentDistanceBetweenSegments);
+        _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _distanceBetweenSegments);
     }
 
     private void AddBoneInTail()
