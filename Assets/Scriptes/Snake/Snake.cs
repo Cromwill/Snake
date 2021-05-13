@@ -70,7 +70,15 @@ public class Snake : MonoBehaviour, IMoveable
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
 
         if (_target != null)
+        {
             _target.position = _track.GetPositionByIndex(_distanceCovered, _trackIndex);
+            //float delta = 0.005f;
+            //if (_distanceCovered > delta)
+            //{
+            //    var nextPosition = _track.GetPositionByIndex(_distanceCovered - delta, _trackIndex);
+            //    _target.rotation = Quaternion.LookRotation(_target.position - nextPosition, Vector3.up);
+            //}
+        }
 
         if (_isMoving)
         {
