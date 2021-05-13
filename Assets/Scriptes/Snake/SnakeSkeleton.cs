@@ -8,6 +8,7 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Transform _armature;
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
+    [SerializeField] private List<SnakeBone> _bones;
 
     public int MinLength => 4;
     public int CurrentLength { get; private set; }
@@ -17,14 +18,18 @@ public class SnakeSkeleton : MonoBehaviour
     public Head Head => _head;
     public Tail Tail => _tail;
 
-    private List<SnakeBone> _bones;
+    
     private List<SnakeBone> _activeBones;
 
     private void Awake()
     {
-        _bones = new List<SnakeBone>();
+        if (_bones == null)
+        {
+            _bones = new List<SnakeBone>();
+            InitNodeList(_armature.GetChild(0));
+        }
+
         _activeBones = new List<SnakeBone>();
-        InitNodeList(_armature.GetChild(0));
 
         _head.transform.SetParent(_bones[0].transform);
         _head.transform.localPosition = Vector3.zero;
