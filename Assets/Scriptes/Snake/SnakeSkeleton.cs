@@ -30,7 +30,7 @@ public class SnakeSkeleton : MonoBehaviour
         _head.transform.localPosition = Vector3.zero;
 
         for (int i = 0; i < MinLength; i++)
-            AddBoneInTailSmoothly();
+            AddBoneInTail();
 
         for (int i = _bones.Count - 1; i >= MinLength; i--)
             _bones[i].Disable();
