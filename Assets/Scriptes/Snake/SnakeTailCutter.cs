@@ -15,6 +15,7 @@ public class SnakeTailCutter : MonoBehaviour
     private SnakeSkeleton _snakeSkeleton;
     private Coroutine _stuckCoroutine;
     private int _tailLengthBeforeCut;
+    private bool _isStopped;
 
     private void Awake()
     {
@@ -25,20 +26,30 @@ public class SnakeTailCutter : MonoBehaviour
     private void OnEnable()
     {
         _snakeSkeleton.Head.ObstacleEntered += OnObstacleEntered;
+        _snakeSkeleton.Head.ObstacleExited += OnObstacleExited;
     }
 
     private void OnDisable()
     {
         _snakeSkeleton.Head.ObstacleEntered -= OnObstacleEntered;
+        _snakeSkeleton.Head.ObstacleExited -= OnObstacleExited;
     }
 
     private void Start()
     {
+        _isStopped = false;
         StopEffects();
     }
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
+        if (obstacle.IsDamageable == false)
+        {
+            _snake.SetSpeedRate(0f);
+            _isStopped = true;
+            return;
+        }
+
         if (_stuckCoroutine != null)
         {
             StopCoroutine(_stuckCoroutine);
@@ -46,7 +57,7 @@ public class SnakeTailCutter : MonoBehaviour
             return;
         }
 
-        var inst = Instantiate(_stumpTemplate, transform.position, Quaternion.identity);
+        var inst = Instantiate(_stumpTemplate);
         inst.SetStructure(_snakeSkeleton, _snake.Track, _snake.TrackIndex, _snake.DistanceCovered, _snake.BoneDistance);
 
         _tailLengthBeforeCut = _snakeSkeleton.ActiveBones.Count;
@@ -55,6 +66,15 @@ public class SnakeTailCutter : MonoBehaviour
         _bloodPoolGrowing.Play(true);
         _bloodExplosion.Play(true);
         _bloodShower.Play(true);
+    }
+
+    private void OnObstacleExited(Obstacle obstacle)
+    {
+        if (_isStopped)
+        {
+            _snake.SetSpeedRate(1f);
+            _isStopped = false;
+        }
     }
 
     private IEnumerator StuckCoroutine()

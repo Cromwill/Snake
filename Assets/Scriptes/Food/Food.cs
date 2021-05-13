@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Food : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _eatingEffectTemplate;
+    [SerializeField] private MeshRenderer _meshRenderer;
+
     private Collider _collider;
 
     public Vector3 ColliderCenterPosition => _collider.bounds.center;
@@ -14,8 +17,9 @@ public class Food : MonoBehaviour
         _collider = GetComponent<Collider>();
     }
 
-    public void Hide()
+    public void Eating()
     {
-        transform.localScale = Vector3.zero;
+        Instantiate(_eatingEffectTemplate, transform.position + Vector3.up, transform.rotation);
+        _meshRenderer.enabled = false;
     }
 }

@@ -21,6 +21,7 @@ public class Snake : MonoBehaviour, IMoveable
     private float _distanceCovered;
     private Direction _lengtheningDirection;
     private float _currentSpeed;
+    private float _targetSpeed;
     private float _speedRate;
     private float _currentDistanceBetweenSegments;
     private bool _isMoving;
@@ -66,10 +67,11 @@ public class Snake : MonoBehaviour, IMoveable
     private void Move()
     {
         _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed * _speedRate * Time.deltaTime);
+        _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
 
         if (_target != null)
             _target.position = _track.GetPositionByIndex(_distanceCovered, _trackIndex);
-      
+
         if (_isMoving)
         {
             _currentDistanceBetweenSegments += _segmentLengthening * 2.0f * Time.deltaTime * (float)_lengtheningDirection;
@@ -93,7 +95,7 @@ public class Snake : MonoBehaviour, IMoveable
     {
         if (_lengtheningDirection == Direction.Right && _currentDistanceBetweenSegments >= _distanceBetweenSegments + _segmentLengthening)
             _lengtheningDirection = Direction.Left;
-        else if(_lengtheningDirection == Direction.Left && _currentDistanceBetweenSegments <= _distanceBetweenSegments)
+        else if (_lengtheningDirection == Direction.Left && _currentDistanceBetweenSegments <= _distanceBetweenSegments)
             _lengtheningDirection = Direction.Right;
     }
 
@@ -107,7 +109,7 @@ public class Snake : MonoBehaviour, IMoveable
         if (_tapToPlayView != null && _tapToPlayView.activeSelf)
             _tapToPlayView.SetActive(false);
 
-        _currentSpeed = _maxSpeedTime;
+        _targetSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
         _currentDistanceBetweenSegments = _distanceBetweenSegments;
@@ -115,7 +117,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     public virtual void EndMove()
     {
-        _currentSpeed = 0;
+        _targetSpeed = _defaultSpeedTime;
         _isMoving = false;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
     }
