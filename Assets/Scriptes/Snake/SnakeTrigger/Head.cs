@@ -13,17 +13,17 @@ public class Head : SnakeTrigger
 
     protected override void TriggerEntering(Collider other)
     {
-        var obstacle = other.GetComponent<Obstacle>();
+        var obstacle = other.GetComponent<ObstacleDamager>();
 
         if (obstacle != null)
-            ObstacleEntered?.Invoke(obstacle);
+            ObstacleEntered?.Invoke(obstacle.ParentObstacle);
         else if (other.TryGetComponent(out Food food))
             FoodFinded?.Invoke(food);
     }
 
     protected override void TriggerExiting(Collider other)
     {
-        if (other.TryGetComponent(out Obstacle obstacle))
-            ObstacleExited?.Invoke(obstacle);
+        if (other.TryGetComponent(out ObstacleDamager obstacle))
+            ObstacleExited?.Invoke(obstacle.ParentObstacle);
     }
 }

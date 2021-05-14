@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 6613321175890541969}
   - component: {fileID: 6613321175890541970}
   - component: {fileID: 6613321175890541968}
-  - component: {fileID: 6613321175890541983}
+  - component: {fileID: 4657610953185966179}
   m_Layer: 0
   m_Name: Puncher
   m_TagString: Untagged
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delayTime: 0
   _clipName: PuncherAction
---- !u!114 &6613321175890541983
+--- !u!114 &4657610953185966179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6613321175890541971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b28dc629d3706840ad0df831a006566, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _obstacleSignals:
@@ -240,7 +240,6 @@ MonoBehaviour:
   _isPuncher: 1
   _workingMaterial: {fileID: 2100000, guid: 456b4e3b7c7c3e04ebce6eb0e4e3fa89, type: 2}
   _notWorkingMaterial: {fileID: 2100000, guid: 5c24cc546f63c1747ba7aeaba1cddc8c, type: 2}
-  _parentObstacle: {fileID: 0}
 --- !u!1 &6613321176270213450
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,8 +347,8 @@ GameObject:
   - component: {fileID: 6613321177140670556}
   - component: {fileID: 6613321177140670553}
   - component: {fileID: 6613321177140670554}
-  - component: {fileID: 6613321177140670555}
-  - component: {fileID: 6613321177140670552}
+  - component: {fileID: 636794358065053339}
+  - component: {fileID: 1345944617499455192}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -420,8 +419,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6613321177140670555
-SphereCollider:
+--- !u!65 &636794358065053339
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -431,9 +430,9 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6613321177140670552
+--- !u!114 &1345944617499455192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -442,14 +441,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6613321177140670557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
+  m_Script: {fileID: 11500000, guid: cbca4fc40ee4fb7448c1218c8e820473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacleSignals: []
-  _isPuncher: 1
-  _workingMaterial: {fileID: 0}
-  _notWorkingMaterial: {fileID: 0}
-  _parentObstacle: {fileID: 6613321175890541983}
+  _punchEffect: {fileID: 506282550616833801, guid: 0d4196043c98f1548a2cbd9472ef2d7b,
+    type: 3}
 --- !u!1 &6613321177359842984
 GameObject:
   m_ObjectHideFlags: 0
