@@ -11,6 +11,7 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
     [SerializeField, Range(0.01f, 1f)] private float _segmentLengthening = 0.01f;
     [SerializeField] private Track _track;
+    [SerializeField] private Pole _pole;
     [SerializeField] private int _trackIndex;
     [SerializeField] private Transform _target;
     [SerializeField] private GameObject _tapToPlayView;
@@ -19,6 +20,7 @@ public class Snake : MonoBehaviour, IMoveable
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
     private float _distanceCovered;
+    private float _poleDistanceCovered;
     private Direction _lengtheningDirection;
     private float _currentSpeed;
     private float _targetSpeed;
@@ -56,7 +58,10 @@ public class Snake : MonoBehaviour, IMoveable
         if (_distanceCovered <= 0.99f)
             Move();
         else
-            _distanceCovered = 0;
+            _distanceCovered = 0f;
+        //else if (_poleDistanceCovered <= 0.95f)
+        //    MovePole();
+        
 
         if (Input.GetKeyDown(KeyCode.A))
             AddBoneInTail();
@@ -87,6 +92,37 @@ public class Snake : MonoBehaviour, IMoveable
         }
 
         _snakeBoneMovement.Move(_track, _trackIndex, _distanceCovered, _distanceBetweenSegments);
+    }
+
+    private void MovePole()
+    {
+        _poleDistanceCovered = Mathf.MoveTowards(_poleDistanceCovered, 1f, _currentSpeed * _speedRate * 4f * Time.deltaTime);
+        _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
+
+        _snakeSkeleton.ActiveBones[0].Position = _pole.GetPosition(_poleDistanceCovered);
+
+        var targetY = _snakeSkeleton.ActiveBones[0].Position.y;
+        _target.position = new Vector3(_target.position.x, targetY, _target.position.z);
+
+        if (_poleDistanceCovered < float.Epsilon)
+            return;
+
+        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _pole.GetPosition(_poleDistanceCovered - 0.02f);
+        _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
+        for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
+        {
+            var distance = _poleDistanceCovered - i * 0.02f;
+            if (distance < 0)
+                break;
+
+            var trackPoint = _pole.GetPosition(distance);
+            var currentBone = _snakeSkeleton.ActiveBones[i];
+            currentBone.Position = trackPoint;
+
+            forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
+
+            _snakeSkeleton.ActiveBones[i].LookRotation(forwardVector);
+        }
     }
 
     private void AddBoneInTail()
