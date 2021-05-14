@@ -14,11 +14,6 @@ public class Propeller : Obstacle
 
     }
 
-    public override void OnPlayerPunch()
-    {
-        EnableObstacle();
-    }
-
     private void EnableObstacle()
     {
         _selfAnimator.SetBool("IsWorked", false);

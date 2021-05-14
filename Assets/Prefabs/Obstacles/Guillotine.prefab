@@ -353,9 +353,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5718918879163219971}
-  - component: {fileID: 2262475346793813044}
   - component: {fileID: 6766304784438048783}
   - component: {fileID: 3708556302422622612}
+  - component: {fileID: 434881360569934912}
   m_Layer: 0
   m_Name: Guillotine
   m_TagString: Untagged
@@ -383,25 +383,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2262475346793813044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5718918879163219972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b28dc629d3706840ad0df831a006566, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _obstacleSignals:
-  - {fileID: 423034314}
-  - {fileID: 9190342184267017433}
-  _isPuncher: 0
-  _workingMaterial: {fileID: 2100000, guid: 456b4e3b7c7c3e04ebce6eb0e4e3fa89, type: 2}
-  _notWorkingMaterial: {fileID: 2100000, guid: 5c24cc546f63c1747ba7aeaba1cddc8c, type: 2}
-  _parentObstacle: {fileID: 0}
 --- !u!95 &6766304784438048783
 Animator:
   serializedVersion: 3
@@ -435,6 +416,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _delayTime: 0
   _clipName: GuillotineAction
+--- !u!114 &434881360569934912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5718918879163219972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _punchEffect: {fileID: 0}
+  _obstacleSignals:
+  - {fileID: 423034314}
+  - {fileID: 9190342184267017433}
+  _isPuncher: 0
+  _workingMaterial: {fileID: 2100000, guid: 456b4e3b7c7c3e04ebce6eb0e4e3fa89, type: 2}
+  _notWorkingMaterial: {fileID: 2100000, guid: 5c24cc546f63c1747ba7aeaba1cddc8c, type: 2}
 --- !u!1 &5718918879188106050
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 5718918879622498943}
   - component: {fileID: 5718918879622498928}
   - component: {fileID: 5718918879622498929}
-  - component: {fileID: 6354634395151676005}
+  - component: {fileID: 8615242630538626703}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -626,7 +626,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.81985474}
   m_Center: {x: 0, y: 0, z: -0.0013046265}
---- !u!114 &6354634395151676005
+--- !u!114 &8615242630538626703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -635,11 +635,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5718918879622498931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0fd75d541a5d84fa93f0d9900f6a93, type: 3}
+  m_Script: {fileID: 11500000, guid: cbca4fc40ee4fb7448c1218c8e820473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacleSignals: []
-  _isPuncher: 0
-  _workingMaterial: {fileID: 0}
-  _notWorkingMaterial: {fileID: 0}
-  _parentObstacle: {fileID: 2262475346793813044}
+  _punchEffect: {fileID: 0}
