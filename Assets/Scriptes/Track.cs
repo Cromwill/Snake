@@ -12,6 +12,7 @@ public class Track : MonoBehaviour
 
     private Vector3[][] _tracks;
     private float _distanceTraveleds;
+    private bool _isDrawing;
 
     public float DistanceLength => _roadModular.totalDistance;
     public float PlayerDistanceTraveleds { get; private set; }
@@ -38,12 +39,15 @@ public class Track : MonoBehaviour
             CreateLine(thirdtLine)
         };
 
+        _isDrawing = true;
+
+        Debug.Log(GetPosition(0));
+        Debug.Log(GetPosition(1));
     }
 
     private Vector3[] CreateLine(Vector3[] positions)
     {
         List<Vector3> line = positions.ToList();
-        line[line.Count - 1] = line[0];
         float length = 0.0f;
 
         for (int i = 0; i < line.Count - 1; i++)
@@ -71,15 +75,15 @@ public class Track : MonoBehaviour
                 line[i + 1] = position;
             }
 
-            if(i == line.Count - 2)
+            if (i == line.Count - 2)
             {
-                if(distance > step)
+                if (distance > step)
                 {
                     Vector3 position = Vector3.Lerp(line[i], line[i + 1], step / distance);
                     line.Add(line[i + 1]);
                     line[i + 1] = position;
                 }
-                else if(distance < step)
+                else if (distance < step)
                 {
                     line.Remove(line[i + 1]);
                 }
@@ -90,12 +94,11 @@ public class Track : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(_tracks != null && _tracks[0].Length > 0)
+        if (_tracks != null && _tracks[0].Length > 0)
         {
             Gizmos.DrawCube(_tracks[0][0], new Vector3(0.2f, 0.2f, 0.2f));
             Gizmos.DrawCube(_tracks[0][_tracks[0].Length - 1], new Vector3(0.2f, 0.2f, 0.2f));
         }
-
     }
 
     public Vector3 GetPosition(float length)
@@ -128,7 +131,7 @@ public class Track : MonoBehaviour
 
         for (int i = 0; i < track.Length - 1; i++)
         {
-            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) > length)
+            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) >= length)
             {
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
                 float leadedPosition = (length - i * lengthStep) * leadedLength;

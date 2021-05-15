@@ -11,7 +11,7 @@ public class SnakeSkeleton : MonoBehaviour
     
     private List<SnakeBone> _bones;
 
-    public int MinLength => 4;
+    public int MinLength => 40;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
     public IEnumerable<SnakeBone> Bones => _bones;
