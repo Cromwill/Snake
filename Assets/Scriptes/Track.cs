@@ -12,6 +12,7 @@ public class Track : MonoBehaviour
 
     private Vector3[][] _tracks;
     private float _distanceTraveleds;
+    private bool _isDrawing;
 
     public float DistanceLength => _roadModular.totalDistance;
     public float PlayerDistanceTraveleds { get; private set; }
@@ -38,12 +39,12 @@ public class Track : MonoBehaviour
             CreateLine(thirdtLine)
         };
 
+        _isDrawing = true;
     }
 
     private Vector3[] CreateLine(Vector3[] positions)
     {
         List<Vector3> line = positions.ToList();
-        line[line.Count - 1] = line[0];
         float length = 0.0f;
 
         for (int i = 0; i < line.Count - 1; i++)
@@ -95,6 +96,16 @@ public class Track : MonoBehaviour
             Gizmos.DrawCube(_tracks[0][0], new Vector3(0.2f, 0.2f, 0.2f));
             Gizmos.DrawCube(_tracks[0][_tracks[0].Length - 1], new Vector3(0.2f, 0.2f, 0.2f));
         }
+        if(_isDrawing)
+        {
+            Debug.Log("FerstOisition - " + GetPosition(0));
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(GetPosition(0), 0.5f);
+
+            Debug.Log("lastPosition - " + GetPosition(1));
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(GetPosition(1), 0.5f);
+        }
 
     }
 
@@ -128,7 +139,7 @@ public class Track : MonoBehaviour
 
         for (int i = 0; i < track.Length - 1; i++)
         {
-            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) > length)
+            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) >= length)
             {
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
                 float leadedPosition = (length - i * lengthStep) * leadedLength;

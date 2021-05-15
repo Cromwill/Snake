@@ -9,9 +9,9 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
     
-    private List<SnakeBone> _bones;
+    [SerializeField] private List<SnakeBone> _bones;
 
-    public int MinLength => 4;
+    public int MinLength => 8;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
     public IEnumerable<SnakeBone> Bones => _bones;
@@ -24,7 +24,7 @@ public class SnakeSkeleton : MonoBehaviour
 
     private void Awake()
     {
-        if (_bones == null)
+        if (_bones == null || _bones.Count <= 0)
         {
             _bones = new List<SnakeBone>();
             InitNodeList(_armature.GetChild(0));
