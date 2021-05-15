@@ -58,7 +58,7 @@ public class SnakeTailCutter : MonoBehaviour
         }
 
         var inst = Instantiate(_stumpTemplate);
-        inst.SetStructure(_snakeSkeleton, _snake.Track, _snake.TrackIndex, _snake.DistanceCovered, _snake.BoneDistance);
+        inst.SetStructure(_snakeSkeleton, _snake.Track, _snake.DistanceCovered, _snake.BoneDistance);
 
         _tailLengthBeforeCut = _snakeSkeleton.ActiveBones.Count;
         _stuckCoroutine = StartCoroutine(StuckCoroutine());
