@@ -22699,13 +22699,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14b0dd4f1f950e45a0f7344e3712565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSpeedTime: 0.05
   _maxSpeedTime: 0.1
   _distanceBetweenSegments: 0.3
-  _segmentLengthening: 0.1
   _track: {fileID: 523130663}
-  _pole: {fileID: 0}
-  _trackIndex: 0
+  _finish: {fileID: 0}
   _target: {fileID: 650683301}
   _tapToPlayView: {fileID: 1533567098}
   _armatureAnimator: {fileID: 5402837392602299638}

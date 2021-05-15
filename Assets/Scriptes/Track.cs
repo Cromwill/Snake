@@ -91,11 +91,6 @@ public class Track : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(_tracks != null && _tracks[0].Length > 0)
-        {
-            Gizmos.DrawCube(_tracks[0][0], new Vector3(0.2f, 0.2f, 0.2f));
-            Gizmos.DrawCube(_tracks[0][_tracks[0].Length - 1], new Vector3(0.2f, 0.2f, 0.2f));
-        }
         if(_isDrawing)
         {
             Debug.Log("FerstOisition - " + GetPosition(0));
@@ -106,7 +101,6 @@ public class Track : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawSphere(GetPosition(1), 0.5f);
         }
-
     }
 
     public Vector3 GetPosition(float length)
@@ -137,10 +131,18 @@ public class Track : MonoBehaviour
         float lengthStep = 1.0f / (track.Length - 1.0f);
         Vector3 position = Vector3.zero;
 
+
         for (int i = 0; i < track.Length - 1; i++)
         {
-            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) >= length)
+            float minLength = i * lengthStep;
+            float maxLength = (i + 1) * lengthStep;
+
+
+            if (minLength <= length && maxLength >= length)
             {
+                if(length == 1)
+                { }
+
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
                 float leadedPosition = (length - i * lengthStep) * leadedLength;
                 position = Vector3.Lerp(track[i], track[i + 1], leadedPosition);
