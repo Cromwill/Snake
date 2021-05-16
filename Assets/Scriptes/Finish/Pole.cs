@@ -5,6 +5,8 @@ using UnityEngine;
 public class Pole : MonoBehaviour
 {
     [SerializeField] private float _angleDelta;
+    [SerializeField] private PoleBlock _blockTemplate;
+    [SerializeField] private Texture[] _textures;
 
     public float DistanceLength { get; private set; }
 
@@ -17,6 +19,7 @@ public class Pole : MonoBehaviour
     private void Start()
     {
         DistanceLength = transform.lossyScale.y * _angleDelta;
+        SpawnBlocks();
     }
 
     public Vector3 GetPositionByParameter(float t)
@@ -29,5 +32,26 @@ public class Pole : MonoBehaviour
         posHeight += transform.right * Mathf.Sin(deltaRad) * transform.lossyScale.x / 2f;
 
         return posHeight;
+    }
+
+    private void SpawnBlocks()
+    {
+        var blockCount = _textures.Length;
+        var blockHeight = transform.lossyScale.y * 2f / blockCount;
+        var blockPosition = transform.position - transform.up * transform.lossyScale.y + transform.up * blockHeight / 2f;
+
+        var startColor = new Color(255f / 255f, 127f / 255f, 0);
+        var endColor = new Color(148f / 255f, 0, 211f / 255f);
+
+        for (int i = 0; i < blockCount; i++)
+        {
+            var block = Instantiate(_blockTemplate, blockPosition, Quaternion.identity, transform);
+            var color = Color.LerpUnclamped(startColor, endColor, i / (float)blockCount);
+
+            block.transform.localScale = new Vector3(1f, blockHeight / transform.lossyScale.y / 2f, 1f);
+            block.Init(color, _textures[i], i * 10);
+
+            blockPosition += transform.up * blockHeight;
+        }
     }
 }

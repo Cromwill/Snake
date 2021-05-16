@@ -19,7 +19,7 @@ public class SnakeTailStump : MonoBehaviour
         for (int i = 0; i < targetStructure.ActiveBones.Count - _snakeSkeleton.MinLength; i++)
             _snakeSkeleton.AddBoneInTail();
 
-        _snakeSkeleton.ActiveBones[0].Position = track.GetPosition(headDistance);
+        _snakeSkeleton.ActiveBones[0].Position = track.GetPositionByDistance(headDistance);
         _snakeSkeleton.ActiveBones[0].Position += _snakeSkeleton.ActiveBones[0].transform.right * Random.Range(-0.2f, 0.2f);
 
         if (headDistance < float.Epsilon)
@@ -34,7 +34,7 @@ public class SnakeTailStump : MonoBehaviour
             if (distance < 0)
                 continue;
 
-            var trackPoint = track.GetPosition(distance);
+            var trackPoint = track.GetPositionByDistance(distance);
             var currentBone = _snakeSkeleton.ActiveBones[i];
             currentBone.Position = trackPoint;
 

@@ -47,7 +47,6 @@ public class CameraTarget : MonoBehaviour
         if (forwardDirection.z < 0)
             angle += 180;
 
-        Debug.Log(angle);
         _lookRotationCoroutine = StartCoroutine(LookRotationCoroutine(_cameraAnimation.transform, angle - _pole.rotation.eulerAngles.y - 90f));
     }
 

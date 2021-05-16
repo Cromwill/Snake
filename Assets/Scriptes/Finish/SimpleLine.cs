@@ -13,7 +13,7 @@ public class SimpleLine : MonoBehaviour
 
     private void Start()
     {
-        _startLinePoint.position = _track.GetPosition(1);
+        _startLinePoint.position = _track.GetPositionByDistance(_track.DistanceLength);
         _endLinePoint.position = _pole.GetPositionByParameter(0);
 
         DistanceLength = Vector3.Distance(_endLinePoint.position, _startLinePoint.position);

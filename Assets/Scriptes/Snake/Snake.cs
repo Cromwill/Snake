@@ -25,6 +25,7 @@ public class Snake : MonoBehaviour, IMoveable
     public Transform HeadTransform => _snakeSkeleton.Head.transform;
     public Track Track => _track;
     public float DistanceCovered => _distanceCovered;
+    public float NormalizeDistanceCovered => _distanceCovered/_track.DistanceLength;
     public float BoneDistance => _distanceBetweenSegments;
 
     private void Awake()
@@ -68,7 +69,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Update()
     {
-        if (_distanceCovered < 1f)
+        if (_distanceCovered < _track.DistanceLength)
             Move();
         else FinishMove();
 
@@ -80,7 +81,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Move()
     {
-        _distanceCovered = Mathf.MoveTowards(_distanceCovered, 1f, _currentSpeed / _track.DistanceLength * _speedRate * Time.deltaTime);
+        _distanceCovered = Mathf.MoveTowards(_distanceCovered, _track.DistanceLength, _currentSpeed * _speedRate * Time.deltaTime);
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
 
         _snakeBoneMovement.Move(_distanceCovered, _distanceBetweenSegments);
