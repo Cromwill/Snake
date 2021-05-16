@@ -17,7 +17,7 @@ public class Track : MonoBehaviour
     public float DistanceLength => _roadModular.totalDistance;
     public float PlayerDistanceTraveleds { get; private set; }
 
-    void Start()
+    void Awake()
     {
         Vector3[] firstLine = _roadModular.soSplinePoints.ToArray();
         Vector3[] secondLine = new Vector3[firstLine.Length];
@@ -40,9 +40,6 @@ public class Track : MonoBehaviour
         };
 
         _isDrawing = true;
-
-        Debug.Log(GetPosition(0));
-        Debug.Log(GetPosition(1));
     }
 
     private Vector3[] CreateLine(Vector3[] positions)
@@ -129,10 +126,18 @@ public class Track : MonoBehaviour
         float lengthStep = 1.0f / (track.Length - 1.0f);
         Vector3 position = Vector3.zero;
 
+
         for (int i = 0; i < track.Length - 1; i++)
         {
-            if ((i * lengthStep) <= length && ((i + 1) * lengthStep) >= length)
+            float minLength = i * lengthStep;
+            float maxLength = (i + 1) * lengthStep;
+
+
+            if (minLength <= length && maxLength >= length)
             {
+                if (length == 1)
+                { }
+
                 float leadedLength = 1 / ((i + 1) * lengthStep - i * lengthStep);
                 float leadedPosition = (length - i * lengthStep) * leadedLength;
                 position = Vector3.Lerp(track[i], track[i + 1], leadedPosition);
