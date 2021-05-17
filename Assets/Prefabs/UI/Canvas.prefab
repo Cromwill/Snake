@@ -107,8 +107,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4521648002301518816}
-  - {fileID: 4521648002852506353}
   - {fileID: 1150032090700395252}
+  - {fileID: 4521648002852506353}
   m_Father: {fileID: 4521648003300792628}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -220,7 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentLevelView: {fileID: 1150032089967550402}
   _nextLevelView: {fileID: 1150032090043538946}
-  _gemCountView: {fileID: 4521648002114140241}
 --- !u!1 &1150032089967550412
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +521,7 @@ RectTransform:
   m_Children:
   - {fileID: 1150032089476517728}
   m_Father: {fileID: 1150032089734162185}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -579,7 +578,7 @@ GameObject:
   - component: {fileID: 4521648001339739052}
   - component: {fileID: 4521648001339739053}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TapToPlayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -713,6 +712,7 @@ GameObject:
   - component: {fileID: 4521648001703400247}
   - component: {fileID: 4521648001703400241}
   - component: {fileID: 4521648001703400246}
+  - component: {fileID: 2075093319}
   m_Layer: 5
   m_Name: GemCountBG
   m_TagString: Untagged
@@ -736,11 +736,11 @@ RectTransform:
   m_Father: {fileID: 4521648003300792628}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: 350}
-  m_SizeDelta: {x: 100, y: 60}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.8482916}
+  m_AnchorMax: {x: 1, y: 0.8482916}
+  m_AnchoredPosition: {x: -10, y: 0}
+  m_SizeDelta: {x: 100, y: 61}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &4521648001703400241
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -779,6 +779,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2075093319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4521648001703400244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a07be0032f12a34580d31960bdafbed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gemValue: {fileID: 4521648002114140241}
 --- !u!1 &4521648001943443148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1109,7 @@ RectTransform:
   m_Children:
   - {fileID: 1150032090043538957}
   m_Father: {fileID: 1150032089734162185}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1189,7 +1202,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4521648003300792584}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -1218,7 +1231,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3

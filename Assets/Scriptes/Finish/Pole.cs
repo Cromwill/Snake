@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Pole : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Pole : MonoBehaviour
     [SerializeField] private float _angleDelta;
     [SerializeField] private PoleBlock _blockTemplate;
     [SerializeField] private Texture[] _textures;
+
+    public event UnityAction<int> SnakeCrawled;
 
     public float DistanceLength { get; private set; }
 
@@ -47,7 +50,8 @@ public class Pole : MonoBehaviour
 
     private void OnSnakeFullCrawled()
     {
-
+        var lastBlock = _blocks[_blocks.Count - 1];
+        SnakeCrawled?.Invoke(lastBlock.GiftValue);
     }
 
     private void OnsnakePartiallyCrawled(float distance)
@@ -55,7 +59,7 @@ public class Pole : MonoBehaviour
         var nearestBlock = GetNearestBlock(_snakeHead.transform.position);
         nearestBlock.PingPongColor(Color.white);
 
-        Debug.Log(nearestBlock.GiftValue);
+        SnakeCrawled?.Invoke(nearestBlock.GiftValue);
     }
 
     public Vector3 GetPositionByParameter(float t)
