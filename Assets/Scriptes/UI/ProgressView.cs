@@ -8,7 +8,6 @@ public class ProgressView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _currentLevelView;
     [SerializeField] private TMP_Text _nextLevelView;
-    [SerializeField] private TMP_Text _gemCountView;
 
     private Slider _progress;
     private Snake _snake;
@@ -22,7 +21,6 @@ public class ProgressView : MonoBehaviour
 
         _currentLevelView.SetText(levelNumber.ToString());
         _nextLevelView.SetText((levelNumber + 1).ToString());
-        _gemCountView.SetText(GameDataStorage.LoadGemCount().ToString());
     }
 
     private void Update()
