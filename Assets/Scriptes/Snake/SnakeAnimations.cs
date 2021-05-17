@@ -12,7 +12,6 @@ public class SnakeAnimations : MonoBehaviour
     }
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private SnakeBoneMovement _snakeBoneMovement;
 
     private SnakeSkeleton _snakeSkeleton;
 

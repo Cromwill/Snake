@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Pole : MonoBehaviour
 {
-    [SerializeField] private Snake _playerSnake;
+    [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private float _angleDelta;
     [SerializeField] private PoleBlock _blockTemplate;
     [SerializeField] private Texture[] _textures;
@@ -24,28 +24,35 @@ public class Pole : MonoBehaviour
             _angleDelta = 1f;
     }
 
-    private void Awake()
-    {
-        _snakeBoneMovement = _playerSnake.GetComponent<SnakeBoneMovement>();
-        _snakeHead = _playerSnake.GetComponentInChildren<Head>();
-    }
-
     private void Start()
     {
-        DistanceLength = transform.lossyScale.y * _angleDelta;
+        DistanceLength = transform.lossyScale.y * 2f;
         SpawnBlocks();
     }
 
     private void OnEnable()
     {
-        _snakeBoneMovement.Partially—rawled += OnsnakePartiallyCrawled;
-        _snakeBoneMovement.Full—rawled += OnSnakeFullCrawled;
+        _snakeInitializer.Initialized += OnSnakeInitialized;
     }
 
     private void OnDisable()
     {
-        _snakeBoneMovement.Partially—rawled -= OnsnakePartiallyCrawled;
-        _snakeBoneMovement.Full—rawled -= OnSnakeFullCrawled;
+        _snakeInitializer.Initialized -= OnSnakeInitialized;
+
+        if (_snakeBoneMovement)
+        {
+            _snakeBoneMovement.Partially—rawled -= OnsnakePartiallyCrawled;
+            _snakeBoneMovement.Full—rawled -= OnSnakeFullCrawled;
+        }
+    }
+
+    private void OnSnakeInitialized(Snake snake)
+    {
+        _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
+        _snakeHead = snake.GetComponentInChildren<Head>();
+
+        _snakeBoneMovement.Partially—rawled += OnsnakePartiallyCrawled;
+        _snakeBoneMovement.Full—rawled += OnSnakeFullCrawled;
     }
 
     private void OnSnakeFullCrawled()
@@ -82,8 +89,8 @@ public class Pole : MonoBehaviour
         var blockHeight = transform.lossyScale.y * 2f / blockCount;
         var blockPosition = transform.position - transform.up * transform.lossyScale.y + transform.up * blockHeight / 2f;
 
-        var startColor = new Color(255f / 255f, 127f / 255f, 0);
-        var endColor = new Color(148f / 255f, 0, 211f / 255f);
+        var startColor = new Color(0f / 255f, 133f / 255f, 255f/255f);
+        var endColor = new Color(255f / 255f, 0, 255f / 255f);
 
         for (int i = 0; i < blockCount; i++)
         {

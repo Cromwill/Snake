@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class CameraTarget : MonoBehaviour
 {
-    [SerializeField] private SnakeSkeleton _followingSnake;
-    [SerializeField] private SnakeBoneMovement _snakeBoneMovement;
     [SerializeField] private Transform _pole;
     [SerializeField] private FinishTrigger _finishTrigger;
+    [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private Animator _cameraAnimation;
 
+    private SnakeSkeleton _followingSnake;
+    private SnakeBoneMovement _snakeBoneMovement;
     private Coroutine _lookRotationCoroutine;
     private bool _finished;
 
+    private void Awake()
+    {
+
+    }
+
     private void OnEnable()
     {
+        _snakeInitializer.Initialized += OnSnakeInitialized;
         _finishTrigger.PlayerFinished += OnPlayerFinished;
-        _snakeBoneMovement.Partially—rawled += OnPlayerPartiallyCrawled;
-        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
     }
 
     private void OnDisable()
     {
+        _snakeInitializer.Initialized -= OnSnakeInitialized;
         _finishTrigger.PlayerFinished -= OnPlayerFinished;
-        _snakeBoneMovement.Partially—rawled -= OnPlayerPartiallyCrawled;
-        _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+
+        if (_snakeBoneMovement != null)
+        {
+            _snakeBoneMovement.Partially—rawled -= OnPlayerPartiallyCrawled;
+            _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+        }
+    }
+
+    private void OnSnakeInitialized(Snake snake)
+    {
+        _followingSnake = snake.GetComponent<SnakeSkeleton>();
+        _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
+
+        _snakeBoneMovement.Partially—rawled += OnPlayerPartiallyCrawled;
+        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
     }
 
     private void OnPlayerFullCrawled()

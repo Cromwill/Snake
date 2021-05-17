@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SnakePunchReaction : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _punchEffect;
+    [SerializeField] private ParticleSystem _punchEffectTemplate;
 
     private Animator _selfAnimator;
     private Snake _snake;
@@ -29,6 +29,8 @@ public class SnakePunchReaction : MonoBehaviour
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
+        obstacle.DisableObstacle();
+
         if (_punchCoroutine != null)
         {
             StopCoroutine(_punchCoroutine);
@@ -36,18 +38,18 @@ public class SnakePunchReaction : MonoBehaviour
             return;
         }
 
-        _selfAnimator.Play("ObstacleDetected");
-        _punchEffect.Play();
         _punchCoroutine = StartCoroutine(PunchCoroutine());
+        _snakeSkeleton.RemoveBoneFromTail();
+
+        Instantiate(_punchEffectTemplate, _snakeSkeleton.Head.transform.position + Vector3.up, Quaternion.identity);
     }
 
     private IEnumerator PunchCoroutine()
     {
         _snake.SetSpeedRate(0.0f);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         _snake.SetSpeedRate(1f);
         _punchCoroutine = null;
-        _punchEffect.Stop();
     }
 }

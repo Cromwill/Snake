@@ -7,14 +7,14 @@ using UnityEngine;
 public class Snake : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _maxSpeedTime;
-    [SerializeField, Range(0.01f, 1f)] private float _distanceBetweenSegments = 0.01f;
-    [SerializeField] private Track _track;
-    [SerializeField] private FinishPath _finish;
-    [SerializeField] private GameObject _tapToPlayView;
+    [SerializeField] private float _distanceBetweenSegments = 1f;
     [SerializeField] private Animator _armatureAnimator;
 
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
+    private Track _track;
+    private FinishPath _finish;
+    private GameObject _tapToPlayView;
     private float _distanceCovered;
     private float _finishDistanceCovered;
     private float _currentSpeed;
@@ -54,6 +54,15 @@ public class Snake : MonoBehaviour, IMoveable
     private void OnPartiallyCrawled(float distance)
     {
         enabled = false;
+    }
+
+    public void Init(Track track, FinishPath finish, GameObject tapToPlay)
+    {
+        _track = track;
+        _finish = finish;
+        _tapToPlayView = tapToPlay;
+
+        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
     }
 
     private void Start()

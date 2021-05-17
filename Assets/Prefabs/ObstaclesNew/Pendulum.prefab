@@ -696,6 +696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8713809007647644865}
   - component: {fileID: 8713809007647644866}
+  - component: {fileID: 561680831}
   m_Layer: 0
   m_Name: ExitTrigger
   m_TagString: Untagged
@@ -711,7 +712,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8713809007647644864}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.54, y: -2.52, z: 2.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8713809006600178265}
@@ -729,6 +730,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97f3eff14f5a68488494ca8e80d72c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &561680831
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8713809007647644864}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.003572, y: 3.5344815, z: 1}
+  m_Center: {x: 0.5328264, y: 1.2672408, z: 0}
 --- !u!1 &8713809007745033162
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +770,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8713809007745033162}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 5.88, y: 0, z: -1.85}
+  m_LocalPosition: {x: 5.88, y: 0, z: -2.12}
   m_LocalScale: {x: 0.90586, y: 0.90586, z: 0.90586}
   m_Children: []
   m_Father: {fileID: 8713809006600178265}

@@ -98,8 +98,10 @@ public class SnakeBoneMovement : MonoBehaviour
 
         if (_curveMovement)
         {
+            int center = _snakeSkeleton.ActiveBones.Count / 2;
+
             var delta = boneDistance;
-            var amplitude = _curveAmplitude * Mathf.Sqrt(boneIndex * 2f);
+            var amplitude = _curveAmplitude * (1 - (Mathf.Abs(boneIndex - center) / (float)_snakeSkeleton.ActiveBones.Count));
             currentBone.Position += currentBone.transform.right * amplitude * Mathf.Sin(delta * _curveSpeed);
         }
 
