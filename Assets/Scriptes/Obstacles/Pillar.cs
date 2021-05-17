@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Pillar : Obstacle
+public class Pillar : ObstacleOld
 {
     [SerializeField] private float speed;
     [SerializeField] private Direction _direction;

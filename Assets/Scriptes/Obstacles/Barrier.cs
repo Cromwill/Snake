@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Barrier : Obstacle
+public class Barrier : ObstacleOld
 {
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private Direction _direction;

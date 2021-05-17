@@ -43,12 +43,12 @@ public class SnakeTailCutter : MonoBehaviour
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
-        if (obstacle.IsDamageable == false)
-        {
-            _snake.SetSpeedRate(0f);
-            _isStopped = true;
-            return;
-        }
+        //if (obstacle.IsDamageable == false)
+        //{
+        //    _snake.SetSpeedRate(0f);
+        //    _isStopped = true;
+        //    return;
+        //}
 
         if (_stuckCoroutine != null)
         {

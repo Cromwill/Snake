@@ -3,21 +3,21 @@
 public class ObstacleDamager : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _punchEffect;
-    private Obstacle _parentObstacle;
+    private ObstacleOld _parentObstacle;
 
-    public Obstacle ParentObstacle 
+    public ObstacleOld ParentObstacle 
     { 
         get
         {
             if(_parentObstacle == null)
-                _parentObstacle = GetComponentInParent<Obstacle>();
+                _parentObstacle = GetComponentInParent<ObstacleOld>();
             return _parentObstacle;
         }
     }
 
     private void Awake()
     {
-        _parentObstacle = GetComponentInParent<Obstacle>();
+        _parentObstacle = GetComponentInParent<ObstacleOld>();
     }
 
     public virtual void OnPlayerPunch()

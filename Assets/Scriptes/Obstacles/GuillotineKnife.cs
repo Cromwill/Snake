@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GuillotineKnife : Obstacle
+public class GuillotineKnife : ObstacleOld
 {
     [SerializeField] private Transform _knife;
     [SerializeField] private float _liftingSpeed;
@@ -19,7 +19,7 @@ public class GuillotineKnife : Obstacle
         _direction = -1;
         _isWorked = true;
 
-        ObstacleTrigger trigger = GetComponentInChildren<ObstacleTrigger>();
+        ObstacleExitTrigger trigger = GetComponentInChildren<ObstacleExitTrigger>();
         trigger.TriggerExit += () =>
         {
             _isWorked = false;

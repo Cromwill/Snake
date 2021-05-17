@@ -36,13 +36,9 @@ public class SnakePunchReaction : MonoBehaviour
             return;
         }
 
-        if (obstacle.IsPuncher)
-        {
-            _selfAnimator.Play("ObstacleDetected");
-            _punchEffect.Play();
-            obstacle.OnPlayerPunch();
-            _punchCoroutine = StartCoroutine(PunchCoroutine());
-        }
+        _selfAnimator.Play("ObstacleDetected");
+        _punchEffect.Play();
+        _punchCoroutine = StartCoroutine(PunchCoroutine());
     }
 
     private IEnumerator PunchCoroutine()

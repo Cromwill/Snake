@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class ObstacleOld : MonoBehaviour
 {
     [SerializeField] private MeshRenderer[] _obstacleSignals;
     [SerializeField] private bool _isPuncher;
@@ -18,7 +18,7 @@ public class Obstacle : MonoBehaviour
     private void Start()
     {
         _selfAnimator = GetComponent<Animator>();
-        ObstacleTrigger trigger = GetComponentInChildren<ObstacleTrigger>();
+        ObstacleExitTrigger trigger = GetComponentInChildren<ObstacleExitTrigger>();
 
         trigger.TriggerExit += EnableObstacle;
     }

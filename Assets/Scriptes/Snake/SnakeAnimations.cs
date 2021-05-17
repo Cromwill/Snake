@@ -40,7 +40,6 @@ public class SnakeAnimations : MonoBehaviour
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
-        if (obstacle.IsDamageable)
-            _animator.SetTrigger(AnimationParameters.ObstacleDetected);
+        _animator.SetTrigger(AnimationParameters.ObstacleDetected);
     }
 }
