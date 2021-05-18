@@ -28,10 +28,10 @@ public class SnakeBoneMovement : MonoBehaviour
     {
         _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
 
-        if (headDistance < boneDistance)
+        if (headDistance + boneDistance > _track.DistanceLength)
             return;
 
-        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _track.GetPositionByDistance(headDistance - boneDistance);
+        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + boneDistance);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)

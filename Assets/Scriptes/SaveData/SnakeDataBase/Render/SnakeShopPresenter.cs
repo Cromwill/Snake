@@ -15,6 +15,13 @@ public class SnakeShopPresenter : MonoBehaviour
 
     public SnakeData Data { get; private set; }
 
+    private Text _buttonText;
+
+    private void Awake()
+    {
+        _buttonText = _selectButton.GetComponentInChildren<Text>();
+    }
+
     private void OnEnable()
     {
         _selectButton.onClick.AddListener(OnSelectButtonClicked);
@@ -36,5 +43,17 @@ public class SnakeShopPresenter : MonoBehaviour
     private void OnSelectButtonClicked()
     {
         SelectedButtonClicked?.Invoke(this);
+    }
+
+    public void SetSelected()
+    {
+        _buttonText.text = "Selected";
+        _buttonText.color = Color.green;
+    }
+
+    public void SetUnselected()
+    {
+        _buttonText.text = "Select";
+        _buttonText.color = Color.black;
     }
 }

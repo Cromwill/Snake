@@ -876,6 +876,7 @@ Transform:
   m_Children:
   - {fileID: 2326915593013591065}
   - {fileID: 7518785970840540940}
+  - {fileID: 4840455898834965010}
   m_Father: {fileID: 4041607730071056751}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1661,12 +1662,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4840455898834965011}
-  m_LocalRotation: {x: -0.059554372, y: 0.7051902, z: 0.7039896, w: 0.05965575}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: -0.000071682036, y: -0.00084891915, z: -0.9964406, w: -0.08429428}
+  m_LocalPosition: {x: 0, y: -0.0004214784, z: -0.009356831}
+  m_LocalScale: {x: 0.020000001, y: 0.020000001, z: 0.020000003}
   m_Children: []
-  m_Father: {fileID: 4946774847598387697}
-  m_RootOrder: 3
+  m_Father: {fileID: 1761714578736976387}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4840455898834965023
 MonoBehaviour:
@@ -1708,8 +1709,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999998, y: 1, z: 2.3960602}
-  m_Center: {x: 0.000000038709153, y: 0.00000006199579, z: 0.6980305}
+  m_Size: {x: 0.9999998, y: 1.5518467, z: 3.171398}
+  m_Center: {x: 0.000000038519026, y: 0.27592334, z: 1.0856898}
 --- !u!1 &4840455899341740397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,7 +1742,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 4946774847598387697}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4840455899341740393
 MonoBehaviour:
@@ -1952,7 +1953,6 @@ Transform:
   - {fileID: 4041607730071056751}
   - {fileID: 4970406680294881294}
   - {fileID: 4629773320497917032}
-  - {fileID: 4840455898834965010}
   - {fileID: 4840455899341740396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1984,9 +1984,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5625a83ec8d69c140a2a436fb8970cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _curveMovement: 1
+  _curveMovement: 0
   _curveAmplitude: 0.3
-  _curveSpeed: 1
+  _curveSpeed: 0.6
 --- !u!114 &4840455899762722311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1999,7 +1999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14b0dd4f1f950e45a0f7344e3712565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeedTime: 12
+  _maxSpeedTime: 13
   _distanceBetweenSegments: 1.5
   _armatureAnimator: {fileID: 2488632984227085092}
 --- !u!114 &4840455899762722308

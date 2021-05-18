@@ -42,9 +42,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.7561865
+  m_TransitionDuration: 0.6081126
   m_TransitionOffset: 0
-  m_ExitTime: 0.7829127
+  m_ExitTime: 0.82542205
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -169,7 +169,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -190,7 +190,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Delay0s 0
+  m_Name: Stop 0
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -204,7 +204,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 93a5c9a8e757e8b4c82bdf6c9bc37c52, type: 2}
+  m_Motion: {fileID: 7400000, guid: 277f37b6ef131364c90c1c4a52c6be20, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
