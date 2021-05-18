@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Propeller : Obstacle
+public class Propeller : ObstacleOld
 {
     private Animator _selfAnimator;
 
     private void Start()
     {
         _selfAnimator = GetComponent<Animator>();
-        ObstacleTrigger trigger = GetComponentInChildren<ObstacleTrigger>();
+        ObstacleExitTrigger trigger = GetComponentInChildren<ObstacleExitTrigger>();
 
         trigger.TriggerExit += EnableObstacle;
 

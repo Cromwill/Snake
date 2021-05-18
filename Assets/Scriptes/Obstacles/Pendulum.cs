@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pendulum : Obstacle
+public class Pendulum : ObstacleOld
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delayStart;

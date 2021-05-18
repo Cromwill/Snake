@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class InputSelector : MonoBehaviour
 {
-    [SerializeField] private Snake _moveableObject;
+    [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private BaseInput _mobileInput;
     [SerializeField] private BaseInput _keyboardInput;
 
-    private void OnValidate()
+    private void OnEnable()
     {
-        if (_moveableObject is IMoveable)
-            return;
-
-        _moveableObject = null;
+        _snakeInitializer.Initialized += OnSnakeInitialized;
     }
 
-    private void Start()
+    private void OnDisable()
+    {
+        _snakeInitializer.Initialized -= OnSnakeInitialized;
+    }
+
+    private void OnSnakeInitialized(Snake snake)
     {
 #if UNITY_EDITOR
-        _keyboardInput.Init(_moveableObject as IMoveable);
+        _keyboardInput.Init(snake );
 #else
-        _mobileInput.Init(_moveableObject);
+        _mobileInput.Init(snake);
 #endif
     }
 }

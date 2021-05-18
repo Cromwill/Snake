@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SimpleLine : MonoBehaviour
 {
+    [SerializeField] private Track _track;
+    [SerializeField] private Pole _pole;
     [SerializeField] private Transform _startLinePoint;
     [SerializeField] private Transform _endLinePoint;
 
@@ -11,6 +13,9 @@ public class SimpleLine : MonoBehaviour
 
     private void Start()
     {
+        _startLinePoint.position = _track.GetPositionByDistance(_track.DistanceLength);
+        _endLinePoint.position = _pole.GetPositionByParameter(0);
+
         DistanceLength = Vector3.Distance(_endLinePoint.position, _startLinePoint.position);
     }
 

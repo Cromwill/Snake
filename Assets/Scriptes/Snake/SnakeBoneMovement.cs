@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Linq;
 
 public class SnakeBoneMovement : MonoBehaviour
@@ -8,6 +9,9 @@ public class SnakeBoneMovement : MonoBehaviour
     [SerializeField] private bool _curveMovement;
     [SerializeField] private float _curveAmplitude;
     [SerializeField] private float _curveSpeed;
+
+    public event UnityAction<float> Partially—rawled;
+    public event UnityAction Full—rawled;
 
     private SnakeSkeleton _snakeSkeleton;
     private Track _track;
@@ -22,14 +26,17 @@ public class SnakeBoneMovement : MonoBehaviour
 
     public void Move(float headDistance, float boneDistance)
     {
-        _snakeSkeleton.ActiveBones[0].Position = _track.GetPosition(headDistance);
+        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
 
-        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _track.GetPosition(headDistance - boneDistance / _track.DistanceLength);
+        if (headDistance < boneDistance)
+            return;
+
+        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _track.GetPositionByDistance(headDistance - boneDistance);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            var distance = headDistance - i * boneDistance / _track.DistanceLength;
+            var distance = headDistance - i * boneDistance;
             if (distance < 0)
                 break;
 
@@ -41,7 +48,7 @@ public class SnakeBoneMovement : MonoBehaviour
     {
         for (int i = fromBoneIndex; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            var distance = headDistance - (i - fromBoneIndex) * boneDistance / _track.DistanceLength;
+            var distance = headDistance - (i - fromBoneIndex) * boneDistance;
             if (distance < 0)
                 continue;
 
@@ -56,36 +63,45 @@ public class SnakeBoneMovement : MonoBehaviour
         var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _finishPath.GetPositionByDistance(headDistance - 0.01f);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
-        for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
+        int boneIndex = 1;
+        float distance = 0f;
+        for (; boneIndex < _snakeSkeleton.ActiveBones.Count; boneIndex++)
         {
-            var distance = headDistance - i * boneDistance;
+            distance = headDistance - boneIndex * boneDistance;
             if (distance < 0)
             {
-                var shiftParam = 1f - (boneDistance / _track.DistanceLength) + distance / _track.DistanceLength;
-                MoveFrom(i, shiftParam, boneDistance);
+                var shiftParam = _track.DistanceLength + distance;
+                MoveFrom(boneIndex, shiftParam, boneDistance);
                 break;
             }
 
             var trackPoint = _finishPath.GetPositionByDistance(distance);
-            var currentBone = _snakeSkeleton.ActiveBones[i];
+            var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
             currentBone.Position = trackPoint;
 
-            forwardVector = _snakeSkeleton.ActiveBones[i - 1].Position - _snakeSkeleton.ActiveBones[i].Position;
+            forwardVector = _snakeSkeleton.ActiveBones[boneIndex - 1].Position - _snakeSkeleton.ActiveBones[boneIndex].Position;
 
-            _snakeSkeleton.ActiveBones[i].LookRotation(forwardVector);
+            _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
         }
+
+        if (headDistance == _finishPath.DistanceLength)
+            Full—rawled?.Invoke();
+        else if (boneIndex == _snakeSkeleton.ActiveBones.Count && _finishPath.GetParameterByDistance(distance) >= 1f)
+            Partially—rawled?.Invoke(headDistance);
     }
 
     private void MoveBoneOnTrack(int boneIndex, float boneDistance)
     {
-        var trackPoint = _track.GetPosition(boneDistance);
+        var trackPoint = _track.GetPositionByDistance(boneDistance);
         var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
         currentBone.Position = trackPoint;
 
         if (_curveMovement)
         {
-            var delta = boneDistance * _track.DistanceLength;
-            var amplitude = _curveAmplitude * Mathf.Sqrt(boneIndex * 2f);
+            int center = _snakeSkeleton.ActiveBones.Count / 2;
+
+            var delta = boneDistance;
+            var amplitude = _curveAmplitude * (1 - (Mathf.Abs(boneIndex - center) / (float)_snakeSkeleton.ActiveBones.Count));
             currentBone.Position += currentBone.transform.right * amplitude * Mathf.Sin(delta * _curveSpeed);
         }
 
