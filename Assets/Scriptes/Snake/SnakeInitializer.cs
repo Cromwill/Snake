@@ -18,8 +18,6 @@ public class SnakeInitializer : MonoBehaviour
         SnakeInventory snakeInventory = new SnakeInventory(_snakeDataBase);
         snakeInventory.Load(new JsonSaveLoad());
 
-        Debug.Log(snakeInventory.SelectedSnake.Name);
-
         var selectedSnake = snakeInventory.SelectedSnake.Prefab;
 
         var inst = Instantiate(selectedSnake, transform.position, transform.rotation);
