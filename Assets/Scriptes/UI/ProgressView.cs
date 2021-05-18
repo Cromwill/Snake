@@ -15,10 +15,11 @@ public class ProgressView : MonoBehaviour
     {
         _snake = FindObjectOfType<Snake>();
 
-        int levelNumber = GameDataStorage.LoadProgress();
+        var currentLevelData = new CurrentLevelData();
+        currentLevelData.Load(new JsonSaveLoad());
 
-        _currentLevelView.SetText(levelNumber.ToString());
-        _nextLevelView.SetText((levelNumber + 1).ToString());
+        _currentLevelView.SetText(currentLevelData.CurrentLevel.ToString());
+        _nextLevelView.SetText((currentLevelData.CurrentLevel + 1).ToString());
     }
 
     private void Update()

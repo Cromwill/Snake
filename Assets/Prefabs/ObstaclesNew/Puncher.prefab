@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 417525816}
   - component: {fileID: 417525817}
+  - component: {fileID: 9175065592659260718}
   m_Layer: 0
   m_Name: DangerLine
   m_TagString: Untagged
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b14a6ea9b472a3e43af596aabcf23184, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.29803923}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -82,6 +83,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9175065592659260718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417525815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f576bd7cbf18b43be7ebf6b5c9ad4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _redLine: {fileID: 21300000, guid: b14a6ea9b472a3e43af596aabcf23184, type: 3}
+  _greenLine: {fileID: 21300000, guid: b14a6ea9b472a3e43af596aabcf23184, type: 3}
+  _trigger: {fileID: 3367092955766811729}
 --- !u!1 &3367092955377365986
 GameObject:
   m_ObjectHideFlags: 0

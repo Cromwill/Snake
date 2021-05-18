@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class MobileInput : BaseInput
 {
@@ -10,13 +9,21 @@ public class MobileInput : BaseInput
 
     private void Update()
     {
-        if (Input.touchCount > 0)
+#if UNITY_EDITOR
+
+#else
+        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
         {
-            var firstTouch = Input.GetTouch(Input.touchCount - 1);
-            if (firstTouch.phase == TouchPhase.Began)
-                Touched?.Invoke();
-            else if (firstTouch.phase == TouchPhase.Ended)
-                Released?.Invoke();
+            if (Input.touchCount > 0)
+            {
+                var firstTouch = Input.GetTouch(Input.touchCount - 1);
+                if (firstTouch.phase == TouchPhase.Began)
+                    Touched?.Invoke();
+                else if (firstTouch.phase == TouchPhase.Ended)
+                    Released?.Invoke();
+
+            }
         }
+#endif
     }
 }
