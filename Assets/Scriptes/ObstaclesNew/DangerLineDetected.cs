@@ -19,5 +19,7 @@ public class DangerLineDetected : MonoBehaviour
     private void ToggleSprite()
     {
         _spriteRenderer.sprite = _greenLine;
+        Color color = _spriteRenderer.color;
+        _spriteRenderer.color = new Color(color.r, color.g, color.b, 1.0f);
     }
 }

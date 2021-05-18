@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1566993263}
   - component: {fileID: 1566993264}
+  - component: {fileID: 5332780790744351443}
   m_Layer: 0
   m_Name: DangerLineSquare
   m_TagString: Untagged
@@ -82,6 +83,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5332780790744351443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566993262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f576bd7cbf18b43be7ebf6b5c9ad4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _redLine: {fileID: 21300000, guid: 9046ff92734b3644fbe824b221b96f9b, type: 3}
+  _greenLine: {fileID: 21300000, guid: 2f3c3d3912456ac499e3975f64c5493e, type: 3}
+  _trigger: {fileID: 1552602044451155808}
 --- !u!1 &1552602043074887264
 GameObject:
   m_ObjectHideFlags: 0
