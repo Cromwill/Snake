@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    [SerializeField] private bool _isShop;
+
     private void Awake()
     {
+        if (_isShop)
+            return;
+
         var currentLevelData = new CurrentLevelData();
         currentLevelData.Load(new JsonSaveLoad());
 
@@ -27,6 +32,14 @@ public class Menu : MonoBehaviour
     public void LoadLevel(string name)
     {
         SceneManager.LoadScene(name);
+    }
+
+    public void LoadCurrentLevel()
+    {
+        var currentLevel = new CurrentLevelData();
+        currentLevel.Load(new JsonSaveLoad());
+
+        SceneManager.LoadScene(currentLevel.CurrentLevel);
     }
 
     public void LoadLevel(int index)

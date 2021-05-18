@@ -63,6 +63,7 @@ public class Snake : MonoBehaviour, IMoveable
         _finish = finish;
         _tapToPlayView = tapToPlay;
 
+        _distanceCovered = _snakeSkeleton.MinLength * _distanceBetweenSegments;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
     }
 

@@ -27,7 +27,7 @@ public class PathLineDrawer : MonoBehaviour
     public void DrawLine(float coveredDistance)
     {
         SetPositionsOnLineRenderer(_pathLine, GetPositions(_track.DistanceLength, coveredDistance - 1));
-        SetPositionsOnLineRenderer(_coveredLine, GetPositions(0, coveredDistance + 2));
+        SetPositionsOnLineRenderer(_coveredLine, GetPositions(0, coveredDistance + 1));
     }
 
     private Vector3[] GetPositions(float startLine, float finishLine)

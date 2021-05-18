@@ -16,6 +16,12 @@ public class GemBalancePresenter : MonoBehaviour
 
     private void OnGemValueChanged(int gemValue)
     {
+        if (_gemBalance == null)
+        {
+            _gemBalance = new GemBalance();
+            _gemBalance.Load(new JsonSaveLoad());
+        }
+
         _gemValue.text = _gemBalance.Balance.ToString();
     }
 
