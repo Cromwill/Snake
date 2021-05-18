@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(SnakeSkeleton))]
@@ -9,6 +8,8 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private float _maxSpeedTime;
     [SerializeField] private float _distanceBetweenSegments = 1f;
     [SerializeField] private Animator _armatureAnimator;
+
+    public event Action<float> Moving; 
 
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
@@ -94,6 +95,7 @@ public class Snake : MonoBehaviour, IMoveable
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
 
         _snakeBoneMovement.Move(_distanceCovered, _distanceBetweenSegments);
+        Moving?.Invoke(_distanceCovered);
     }
 
     private void FinishMove()
