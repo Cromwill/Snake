@@ -26,7 +26,7 @@ public class Pole : MonoBehaviour
 
     private void Start()
     {
-        DistanceLength = transform.lossyScale.y * 2f;
+        DistanceLength = transform.lossyScale.y * _angleDelta / 2f;
         SpawnBlocks();
     }
 
@@ -97,7 +97,7 @@ public class Pole : MonoBehaviour
             var block = Instantiate(_blockTemplate, blockPosition, Quaternion.identity, transform);
             var color = Color.LerpUnclamped(startColor, endColor, i / (float)blockCount);
 
-            block.transform.localScale = new Vector3(1f, blockHeight / transform.lossyScale.y / 2f, 1f);
+            block.transform.localScale = new Vector3(.7f, blockHeight / transform.lossyScale.y / 2f, .7f);
             block.Init(color, _textures[i], i * 10);
 
             blockPosition += transform.up * blockHeight;

@@ -5,16 +5,25 @@ using UnityEngine;
 public class CupShower : MonoBehaviour
 {
     [SerializeField] private GameObject _cupGroup;
-    [SerializeField] private SnakeBoneMovement _snakeBoneMovement;
+    [SerializeField] private SnakeInitializer _snakeInitaizlizer;
+
+    private SnakeBoneMovement _snakeBoneMovement;
 
     private void OnEnable()
     {
-        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
+        _snakeInitaizlizer.Initialized += OnSnakeInitizlised;
     }
 
     private void OnDisable()
     {
-        _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+        if (_snakeBoneMovement)
+            _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+    }
+
+    private void OnSnakeInitizlised(Snake snake)
+    {
+        _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
+        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
     }
 
     private void OnPlayerFullCrawled()
