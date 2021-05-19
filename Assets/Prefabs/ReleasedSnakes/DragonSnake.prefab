@@ -435,6 +435,7 @@ MonoBehaviour:
   _maxSpeedTime: 13
   _distanceBetweenSegments: 1.5
   _armatureAnimator: {fileID: 7543610800174685416}
+  _deltaSegment: 0
 --- !u!114 &1833670936438762717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1868,7 +1869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6237692142416744070}
   m_LocalRotation: {x: -0.00084650517, y: 2.2132944e-16, z: -9.018916e-19, w: -0.99999964}
-  m_LocalPosition: {x: 0, y: -0.019418813, z: -0.0067773787}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 0.020000003, z: 0.020000003}
   m_Children: []
   m_Father: {fileID: 4110889856602650888}
@@ -1914,8 +1915,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999999, y: 1, z: 2.951872}
-  m_Center: {x: 0.000000037252903, y: 0.000000074512734, z: 0.9759367}
+  m_Size: {x: 0.9999998, y: 2.4844825, z: 2.951872}
+  m_Center: {x: 0.000000037252896, y: -1.170676, z: 0.9759381}
 --- !u!1 &6237692142535723773
 GameObject:
   m_ObjectHideFlags: 0

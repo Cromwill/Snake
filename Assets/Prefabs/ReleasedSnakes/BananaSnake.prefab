@@ -1663,7 +1663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4840455898834965011}
   m_LocalRotation: {x: -0.000071682036, y: -0.00084891915, z: -0.9964406, w: -0.08429428}
-  m_LocalPosition: {x: 0, y: -0.0004214784, z: -0.009356831}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 0.020000001, z: 0.020000003}
   m_Children: []
   m_Father: {fileID: 1761714578736976387}
@@ -2002,6 +2002,7 @@ MonoBehaviour:
   _maxSpeedTime: 13
   _distanceBetweenSegments: 1.5
   _armatureAnimator: {fileID: 2488632984227085092}
+  _deltaSegment: 0
 --- !u!114 &4840455899762722308
 MonoBehaviour:
   m_ObjectHideFlags: 0

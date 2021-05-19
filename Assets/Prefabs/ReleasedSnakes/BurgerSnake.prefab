@@ -1139,7 +1139,6 @@ Transform:
   m_Children:
   - {fileID: 6237692142535723772}
   - {fileID: 2602208416898974315}
-  - {fileID: 6237692142416744065}
   - {fileID: 146973545665078414}
   - {fileID: 5747205938766024914}
   m_Father: {fileID: 0}
@@ -2145,7 +2144,7 @@ Transform:
   - {fileID: 3019381227369949240}
   - {fileID: 215274404843614947}
   m_Father: {fileID: 1313171669268018584}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4344078413830719479
 Animator:
@@ -2196,6 +2195,7 @@ Transform:
   m_Children:
   - {fileID: 6354805035278343882}
   - {fileID: 8700096307249466360}
+  - {fileID: 6237692142416744065}
   m_Father: {fileID: 5747205938766024914}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2592,7 +2592,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 1313171669268018584}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &1078308645015913487
 SkinnedMeshRenderer:
@@ -3923,11 +3923,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6237692142416744070}
-  m_LocalRotation: {x: -0.706508, y: 8.377044e-16, z: 8.3770436e-16, w: 0.70770514}
-  m_LocalPosition: {x: 0, y: 0.1943402, z: -0.6165307}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: 0.0022004247, y: 2.191558e-16, z: -1.1841546e-15, w: -0.9999976}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.02, y: 0.020000001, z: 0.020000001}
   m_Children: []
-  m_Father: {fileID: 1313171669268018584}
+  m_Father: {fileID: 3019381227369949240}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -89.903, y: 0, z: 0}
 --- !u!114 &6237692142416744066
@@ -3970,8 +3970,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999998, y: 0.5846332, z: 1.5136518}
-  m_Center: {x: -1.621525e-22, y: -0.2938942, z: 0.34605038}
+  m_Size: {x: 0.52664995, y: 0.70874447, z: 1.2480433}
+  m_Center: {x: 0.02591604, y: 0.2184797, z: 0.21324602}
 --- !u!1 &6237692142535723773
 GameObject:
   m_ObjectHideFlags: 0
