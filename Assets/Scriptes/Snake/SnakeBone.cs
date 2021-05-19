@@ -51,6 +51,8 @@ public class SnakeBone : MonoBehaviour
     {
         var rotation = Quaternion.LookRotation(forward, Vector3.up);
         rotation.eulerAngles = new Vector3(rotation.eulerAngles.x - 90f, rotation.eulerAngles.y, rotation.eulerAngles.z);
-        transform.rotation = rotation;
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 10f * Time.deltaTime);
+        //transform.rotation = rotation;
     }
 }

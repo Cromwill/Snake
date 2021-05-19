@@ -28,10 +28,10 @@ public class SnakeBoneMovement : MonoBehaviour
     {
         _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
 
-        if (headDistance + boneDistance > _track.DistanceLength)
+        if (headDistance + 0.01f > _track.DistanceLength)
             return;
 
-        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + boneDistance);
+        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
@@ -60,7 +60,7 @@ public class SnakeBoneMovement : MonoBehaviour
     {
         _snakeSkeleton.ActiveBones[0].Position = _finishPath.GetPositionByDistance(headDistance);
 
-        var forwardVector = _snakeSkeleton.ActiveBones[0].Position - _finishPath.GetPositionByDistance(headDistance - 0.01f);
+        var forwardVector = _finishPath.GetPositionByDistance(headDistance + 0.01f) - _snakeSkeleton.ActiveBones[0].Position;
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
         int boneIndex = 1;
@@ -79,7 +79,7 @@ public class SnakeBoneMovement : MonoBehaviour
             var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
             currentBone.Position = trackPoint;
 
-            forwardVector = _snakeSkeleton.ActiveBones[boneIndex - 1].Position - _snakeSkeleton.ActiveBones[boneIndex].Position;
+            forwardVector = _finishPath.GetPositionByDistance(distance + 0.01f) - currentBone.Position;
 
             _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
         }
@@ -105,7 +105,7 @@ public class SnakeBoneMovement : MonoBehaviour
             currentBone.Position += currentBone.transform.right * amplitude * Mathf.Sin(delta * _curveSpeed);
         }
 
-        var forwardVector = _snakeSkeleton.ActiveBones[boneIndex - 1].Position - _snakeSkeleton.ActiveBones[boneIndex].Position;
+        var forwardVector = _track.GetPositionByDistance(boneDistance + 0.01f) - currentBone.Position;
 
         _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
     }
