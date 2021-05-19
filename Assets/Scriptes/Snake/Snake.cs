@@ -73,6 +73,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Start()
     {
+        _currentDistanceBetweenSegments = _distanceBetweenSegments;
         _currentSpeed = 0;
         _speedRate = 1f;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
