@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObstacleSignalSwitcher : MonoBehaviour
 {
-    [SerializeField] private Renderer _signalRenderer;
+    [SerializeField] private Renderer[] _signalRenderers;
     [SerializeField] private Material _redMaterial;
     [SerializeField] private Material _greenMaterial;
 
-    public void SetRed()
-    {
-        _signalRenderer.material = _redMaterial;
-    }
+    public void SetRed() => SetMaterial(_redMaterial);
 
-    public void SetGreen()
+    public void SetGreen() => SetMaterial(_greenMaterial);
+
+    private void SetMaterial(Material material)
     {
-        _signalRenderer.material = _greenMaterial;
+        foreach (var signal in _signalRenderers)
+            signal.material = material;
     }
 }

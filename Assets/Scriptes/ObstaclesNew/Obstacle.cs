@@ -5,7 +5,6 @@ public abstract class Obstacle : MonoBehaviour
 {
     [SerializeField] private ObstacleExitTrigger _obstacleExitTrigger;
     
-
     private ObstacleSignalSwitcher _signalSwither;
 
     private void Awake()
@@ -32,13 +31,13 @@ public abstract class Obstacle : MonoBehaviour
 
     public void EnableObstacle()
     {
-        _signalSwither.SetGreen();
+        _signalSwither.SetRed();
         OnEnableObstacle();
     }
 
     public void DisableObstacle()
     {
-        _signalSwither.SetRed();
+        _signalSwither.SetGreen();
         OnDisableObstacle();
     }
 

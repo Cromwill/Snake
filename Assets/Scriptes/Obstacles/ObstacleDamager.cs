@@ -2,31 +2,21 @@
 
 public class ObstacleDamager : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _punchEffect;
-    private ObstacleOld _parentObstacle;
+    [SerializeField] private Material _dangerous;
+    [SerializeField] private Material _safe;
 
-    public ObstacleOld ParentObstacle 
-    { 
-        get
-        {
-            if(_parentObstacle == null)
-                _parentObstacle = GetComponentInParent<ObstacleOld>();
-            return _parentObstacle;
-        }
-    }
+    private Renderer _selfRenderer;
 
     private void Awake()
     {
-        _parentObstacle = GetComponentInParent<ObstacleOld>();
+        _selfRenderer = GetComponent<Renderer>();
     }
 
-    public virtual void OnPlayerPunch()
+    private void Update()
     {
-        if (_parentObstacle != null)
-        {
-            _parentObstacle.OnPlayerPunch();
-            if (_punchEffect != null)
-                Instantiate(_punchEffect, transform.position, Quaternion.identity);
-        }
+        if (transform.localScale.y == 0.05f)
+            _selfRenderer.material = _safe;
+        else
+            _selfRenderer.material = _dangerous;
     }
 }
