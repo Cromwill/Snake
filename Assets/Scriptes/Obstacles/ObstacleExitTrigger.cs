@@ -7,7 +7,9 @@ public class ObstacleExitTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.TryGetComponent(out Head head))
+        if (other.TryGetComponent(out Head head))
+        {
             TriggerExit?.Invoke();
+        }
     }
 }
