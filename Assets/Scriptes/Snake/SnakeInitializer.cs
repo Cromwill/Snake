@@ -20,7 +20,7 @@ public class SnakeInitializer : MonoBehaviour
 
         var inst = Instantiate(selectedSnake, transform.position, transform.rotation);
         inst.Init(_track, _finish, _tapToPlay);
-        inst.Moving += _lineDrawer.DrawLine;
+        //inst.Moving += _lineDrawer.DrawLine;
 
         Initialized?.Invoke(inst);
     }
