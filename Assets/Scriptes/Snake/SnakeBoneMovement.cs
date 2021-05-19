@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
 
 public class SnakeBoneMovement : MonoBehaviour
 {
@@ -96,6 +93,11 @@ public class SnakeBoneMovement : MonoBehaviour
         var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
         currentBone.Position = trackPoint;
 
+        //var forwardVector = _snakeSkeleton.ActiveBones[boneIndex - 1].Position - _snakeSkeleton.ActiveBones[boneIndex].Position;
+        var forwardVector = _track.GetPositionByDistance(boneDistance + 0.01f) - _snakeSkeleton.ActiveBones[boneIndex].Position;
+
+        _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
+
         if (_curveMovement)
         {
             int center = _snakeSkeleton.ActiveBones.Count / 2;
@@ -104,9 +106,5 @@ public class SnakeBoneMovement : MonoBehaviour
             var amplitude = _curveAmplitude * (1 - (Mathf.Abs(boneIndex - center) / (float)_snakeSkeleton.ActiveBones.Count));
             currentBone.Position += currentBone.transform.right * amplitude * Mathf.Sin(delta * _curveSpeed);
         }
-
-        var forwardVector = _snakeSkeleton.ActiveBones[boneIndex - 1].Position - _snakeSkeleton.ActiveBones[boneIndex].Position;
-
-        _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
     }
 }
