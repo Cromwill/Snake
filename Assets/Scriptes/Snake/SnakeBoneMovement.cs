@@ -58,12 +58,12 @@ public class SnakeBoneMovement : MonoBehaviour
     {
         _snakeSkeleton.ActiveBones[0].Position = _finishPath.GetPositionByDistance(headDistance);
 
-        if (headDistance + 0.01f > _finishPath.DistanceLength)
-            return;
-
-        var forwardVector = _finishPath.GetPositionByDistance(headDistance + 0.01f) - _snakeSkeleton.ActiveBones[0].Position;
-        _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
-        _snakeSkeleton.ActiveBones[0].Position -= _snakeSkeleton.ActiveBones[0].transform.right * 0.2f;
+        if (headDistance + 0.01f <= _finishPath.DistanceLength)
+        {
+            var forwardVector = _finishPath.GetPositionByDistance(headDistance + 0.01f) - _snakeSkeleton.ActiveBones[0].Position;
+            _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
+            _snakeSkeleton.ActiveBones[0].Position -= _snakeSkeleton.ActiveBones[0].transform.right * 0.2f;
+        }
 
         int boneIndex = 1;
         float distance = 0f;
@@ -81,7 +81,7 @@ public class SnakeBoneMovement : MonoBehaviour
             var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
             currentBone.Position = trackPoint;
 
-            forwardVector = _finishPath.GetPositionByDistance(distance + 0.01f) - currentBone.Position;
+            var forwardVector = _finishPath.GetPositionByDistance(distance + 0.01f) - currentBone.Position;
 
             _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
         }
