@@ -164,8 +164,6 @@ public class Snake : MonoBehaviour, IMoveable
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
-
-
     }
 
     public virtual void EndMove()
