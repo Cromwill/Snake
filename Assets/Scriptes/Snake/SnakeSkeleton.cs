@@ -9,7 +9,7 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
     
-    [SerializeField] private List<SnakeBone> _bones;
+    private List<SnakeBone> _bones;
 
     public int MinLength => 6;
     public int CurrentLength { get; private set; }
