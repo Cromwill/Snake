@@ -11,7 +11,7 @@ public class SnakeSkeleton : MonoBehaviour
     
     [SerializeField] private List<SnakeBone> _bones;
 
-    public int MinLength => 2;
+    public int MinLength => 6;
     public int CurrentLength { get; private set; }
     public Transform Armature => _armature;
     public IEnumerable<SnakeBone> Bones => _bones;
