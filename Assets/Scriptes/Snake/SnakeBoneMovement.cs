@@ -14,14 +14,12 @@ public class SnakeBoneMovement : MonoBehaviour
     private SnakeSkeleton _snakeSkeleton;
     private Track _track;
     private FinishPath _finishPath;
-    private Snake _selfSnake;
 
-    public void Init(SnakeSkeleton snakeSkeleton, Track track, FinishPath finishPath, Snake snake)
+    public void Init(SnakeSkeleton snakeSkeleton, Track track, FinishPath finishPath)
     {
         _snakeSkeleton = snakeSkeleton;
         _track = track;
         _finishPath = finishPath;
-        _selfSnake = snake;
     }
 
     public void Move(float headDistance, float boneDistance)

@@ -57,16 +57,18 @@ public class SnakeBoneStretching : MonoBehaviour
 
     private IEnumerator StopStretchingCoroutine()
     {
-        for (int i = 0; i < _boneDistances.Count; i++)
+        bool allBonesStretched = false;
+        while (allBonesStretched == false)
         {
-            if (_boneDistances[i] == _minDistance)
-                continue;
-
-            while (_boneDistances[i] != _minDistance )
+            allBonesStretched = true;
+            for (int i = 0; i < _boneDistances.Count; i++)
             {
-                _boneDistances[i] = Mathf.MoveTowards(_boneDistances[i], _minDistance, _stretchingSpeed * Time.deltaTime);
-                yield return new WaitForEndOfFrame();
+                _boneDistances[i] = Mathf.MoveTowards(_boneDistances[i], _minDistance, _stretchingSpeed * 0.2f * Time.deltaTime);
+
+                if (_boneDistances[i] != _minDistance)
+                    allBonesStretched = false;
             }
+            yield return new WaitForEndOfFrame();
         }
 
         _stopStretching = null;
