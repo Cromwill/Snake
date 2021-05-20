@@ -40,6 +40,7 @@ public class SnakePunchReaction : MonoBehaviour
 
         _punchCoroutine = StartCoroutine(PunchCoroutine());
         _snakeSkeleton.RemoveBoneFromTail();
+        _snakeSkeleton.RemoveBoneFromTail();
 
         Instantiate(_punchEffectTemplate, _snakeSkeleton.Head.transform.position + Vector3.up, Quaternion.identity);
     }
