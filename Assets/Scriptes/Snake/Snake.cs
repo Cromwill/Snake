@@ -32,6 +32,7 @@ public class Snake : MonoBehaviour, IMoveable
     public float DistanceCovered => _distanceCovered;
     public float NormalizeDistanceCovered => _distanceCovered / _track.DistanceLength;
     public float BoneDistance => _distanceBetweenSegments;
+    public bool IsMoving => _isMoving;
 
     private void Awake()
     {
@@ -68,7 +69,7 @@ public class Snake : MonoBehaviour, IMoveable
         _tapToPlayView = tapToPlay;
 
         _distanceCovered = _snakeSkeleton.MinLength * _distanceBetweenSegments;
-        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
+        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, this);
     }
 
     private void Start()
@@ -76,7 +77,7 @@ public class Snake : MonoBehaviour, IMoveable
         _currentDistanceBetweenSegments = _distanceBetweenSegments;
         _currentSpeed = 0;
         _speedRate = 1f;
-        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
+        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, this);
 
         OnStart();
     }
@@ -176,7 +177,6 @@ public class Snake : MonoBehaviour, IMoveable
 
             _acceleration = StartCoroutine(Acceleration(-1));
         }
-
 
         _targetSpeed = 0;
         _isMoving = false;

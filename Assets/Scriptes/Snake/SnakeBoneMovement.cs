@@ -13,12 +13,14 @@ public class SnakeBoneMovement : MonoBehaviour
     private SnakeSkeleton _snakeSkeleton;
     private Track _track;
     private FinishPath _finishPath;
+    private Snake _selfSnake;
 
-    public void Init(SnakeSkeleton snakeSkeleton, Track track, FinishPath finishPath)
+    public void Init(SnakeSkeleton snakeSkeleton, Track track, FinishPath finishPath, Snake snake)
     {
         _snakeSkeleton = snakeSkeleton;
         _track = track;
         _finishPath = finishPath;
+        _selfSnake = snake;
     }
 
     public void Move(float headDistance, float boneDistance)
@@ -35,7 +37,8 @@ public class SnakeBoneMovement : MonoBehaviour
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
             var distance = headDistance - i * boneDistance;
-            if (distance < 0)
+
+            if (distance <= 0)
                 break;
 
             MoveBoneOnTrack(i, distance);
