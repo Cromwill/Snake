@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,6 +36,28 @@ public class SnakeBoneMovement : MonoBehaviour
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
             var distance = headDistance - i * boneDistance;
+            if (distance < 0)
+                break;
+
+            MoveBoneOnTrack(i, distance);
+        }
+    }
+
+    public void Move(float headDistance, List<float> distances)
+    {
+        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
+
+        if (headDistance + 0.01f > _track.DistanceLength)
+            return;
+
+        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f);
+        _snakeSkeleton.ActiveBones[0].Position += _snakeSkeleton.ActiveBones[0].transform.right * _curveAmplitude * Mathf.Sin(headDistance * _curveSpeed);
+        _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
+
+        var distance = headDistance;
+        for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
+        {
+            distance -= distances[i];
             if (distance < 0)
                 break;
 

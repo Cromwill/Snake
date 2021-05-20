@@ -1,20 +1,22 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SnakeSkeleton))]
 [RequireComponent(typeof(SnakeBoneMovement))]
+[RequireComponent(typeof(SnakeBoneStretching))]
 public class Snake : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _maxSpeedTime;
     [SerializeField] private float _distanceBetweenSegments = 1f;
     [SerializeField] private Animator _armatureAnimator;
-    [SerializeField] private float _deltaSegment;
 
     public event Action<float> Moving;
 
     private SnakeSkeleton _snakeSkeleton;
     private SnakeBoneMovement _snakeBoneMovement;
+    private SnakeBoneStretching _boneStretching;
     private Track _track;
     private FinishPath _finish;
     private GameObject _tapToPlayView;
@@ -24,8 +26,6 @@ public class Snake : MonoBehaviour, IMoveable
     private float _targetSpeed;
     private float _speedRate;
     private bool _isMoving;
-    private float _currentDistanceBetweenSegments;
-    private Coroutine _acceleration;
 
     public Transform HeadTransform => _snakeSkeleton.Head.transform;
     public Track Track => _track;
@@ -37,6 +37,7 @@ public class Snake : MonoBehaviour, IMoveable
     {
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
         _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
+        _boneStretching = GetComponent<SnakeBoneStretching>();
     }
 
     private void OnEnable()
@@ -73,10 +74,10 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Start()
     {
-        _currentDistanceBetweenSegments = _distanceBetweenSegments;
         _currentSpeed = 0;
         _speedRate = 1f;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
+        _boneStretching.Init(_snakeSkeleton.Bones.Count(), _distanceBetweenSegments, _maxSpeedTime);
 
         OnStart();
     }
@@ -100,7 +101,7 @@ public class Snake : MonoBehaviour, IMoveable
         _distanceCovered = Mathf.MoveTowards(_distanceCovered, _track.DistanceLength, _currentSpeed * _speedRate * Time.deltaTime);
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 4f * Time.deltaTime);
 
-        _snakeBoneMovement.Move(_distanceCovered, _currentDistanceBetweenSegments);
+        _snakeBoneMovement.Move(_distanceCovered, _boneStretching.Distances);
         Moving?.Invoke(_distanceCovered);
     }
 
@@ -121,29 +122,6 @@ public class Snake : MonoBehaviour, IMoveable
         _snakeSkeleton.RemoveBoneFromTail();
     }
 
-    private IEnumerator Acceleration(int direction)
-    {
-        float targetDistance = direction > 0 ? _distanceBetweenSegments + _deltaSegment : _distanceBetweenSegments;
-
-        while (true)
-        {
-            _currentDistanceBetweenSegments = _currentDistanceBetweenSegments + (_deltaSegment * Time.deltaTime * direction);
-
-            if (direction > 0 && _currentDistanceBetweenSegments >= _distanceBetweenSegments + _deltaSegment)
-            {
-                _currentDistanceBetweenSegments = _distanceBetweenSegments + _deltaSegment;
-                break;
-            }
-            else if (direction < 0 && _currentDistanceBetweenSegments <= _distanceBetweenSegments)
-            {
-                _currentDistanceBetweenSegments = _distanceBetweenSegments;
-                break;
-            }
-
-            yield return null;
-        }
-    }
-
     public void SetSpeedRate(float speedRate)
     {
         _speedRate = speedRate;
@@ -154,32 +132,19 @@ public class Snake : MonoBehaviour, IMoveable
         if (_tapToPlayView != null && _tapToPlayView.activeSelf)
             _tapToPlayView.SetActive(false);
 
-        if (!_isMoving)
-        {
-            if (_acceleration != null)
-                StopCoroutine(_acceleration);
-
-            _acceleration = StartCoroutine(Acceleration(1));
-        }
-
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
+
+        _boneStretching.StartStretching();
     }
 
     public virtual void EndMove()
     {
-        if (_isMoving)
-        {
-            if (_acceleration != null)
-                StopCoroutine(_acceleration);
-
-            _acceleration = StartCoroutine(Acceleration(-1));
-        }
-
-
         _targetSpeed = 0;
         _isMoving = false;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
+
+        _boneStretching.StopStretching();
     }
 }
