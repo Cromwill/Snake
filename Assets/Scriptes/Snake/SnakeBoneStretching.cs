@@ -21,7 +21,7 @@ public class SnakeBoneStretching : MonoBehaviour
             _boneDistances.Add(minDistance);
 
         _minDistance = minDistance;
-        _stretchingSpeed = _snakeSpeed/2f;
+        _stretchingSpeed = _snakeSpeed / 3f;
     }
 
     public void StartStretching()
@@ -42,13 +42,10 @@ public class SnakeBoneStretching : MonoBehaviour
     {
         for (int i = 0; i < _boneDistances.Count; i++)
         {
-            if (_boneDistances[i] == _minDistance + _deltaSegments)
-                continue;
-
-            while (_boneDistances[i] != _minDistance + _deltaSegments)
+            while (Mathf.Abs(_boneDistances[i] - (_minDistance + _deltaSegments)) > 0.001f)
             {
                 _boneDistances[i] = Mathf.MoveTowards(_boneDistances[i], _minDistance + _deltaSegments, _stretchingSpeed * Time.deltaTime);
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(Time.deltaTime);
             }
         }
 
@@ -63,12 +60,12 @@ public class SnakeBoneStretching : MonoBehaviour
             allBonesStretched = true;
             for (int i = 0; i < _boneDistances.Count; i++)
             {
-                _boneDistances[i] = Mathf.MoveTowards(_boneDistances[i], _minDistance, _stretchingSpeed * 0.2f * Time.deltaTime);
+                _boneDistances[i] = Mathf.MoveTowards(_boneDistances[i], _minDistance, _stretchingSpeed * 0.15f * Time.deltaTime);
 
                 if (_boneDistances[i] != _minDistance)
                     allBonesStretched = false;
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(Time.deltaTime);
         }
 
         _stopStretching = null;

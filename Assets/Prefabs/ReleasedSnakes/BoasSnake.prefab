@@ -837,6 +837,7 @@ GameObject:
   - component: {fileID: 1833670936438762717}
   - component: {fileID: 1833670936438762716}
   - component: {fileID: 1833670936438762712}
+  - component: {fileID: 177564236577431531}
   m_Layer: 0
   m_Name: BoasSnake
   m_TagString: Untagged
@@ -890,7 +891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _curveMovement: 0
-  _curveAmplitude: 0.5
+  _curveAmplitude: 0.3
   _curveSpeed: 0.6
 --- !u!114 &1833670936438762719
 MonoBehaviour:
@@ -904,7 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14b0dd4f1f950e45a0f7344e3712565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeedTime: 13
+  _maxSpeedTime: 20
   _distanceBetweenSegments: 1.5
   _armatureAnimator: {fileID: 2929484882321787335}
 --- !u!114 &1833670936438762717
@@ -947,6 +948,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minDistance: 2
+--- !u!114 &177564236577431531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833670936438763298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27885f9cbcbe3d3469b253edc821ae13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deltaSegments: 0.7
 --- !u!1 &1840230504845160860
 GameObject:
   m_ObjectHideFlags: 0
