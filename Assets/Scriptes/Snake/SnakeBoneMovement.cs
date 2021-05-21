@@ -7,6 +7,10 @@ public class SnakeBoneMovement : MonoBehaviour
     [SerializeField] private bool _curveMovement;
     [SerializeField] private float _curveAmplitude;
     [SerializeField] private float _curveSpeed;
+    [SerializeField] private Transform _cameraTarget;
+    [SerializeField] private float _cameraForward;
+
+    public Vector3 CameraTargetPosition => _cameraTarget.position;
 
     public event UnityAction<float> PartiallyÑrawled;
     public event UnityAction FullÑrawled;
@@ -25,6 +29,7 @@ public class SnakeBoneMovement : MonoBehaviour
     public void Move(float headDistance, float boneDistance)
     {
         _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
+        
 
         if (headDistance + 0.01f > _track.DistanceLength)
             return;
@@ -47,6 +52,10 @@ public class SnakeBoneMovement : MonoBehaviour
     public void Move(float headDistance, List<float> distances)
     {
         _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
+
+        float cameraDistance = headDistance + _cameraForward < _track.DistanceLength ? headDistance + _cameraForward : _track.DistanceLength;
+
+        _cameraTarget.position = _track.GetPositionByDistance(cameraDistance);
 
         if (headDistance + 0.01f > _track.DistanceLength)
             return;

@@ -84,7 +84,8 @@ public class CameraTarget : MonoBehaviour
     {
         if (_finished == false)
         {
-            transform.position = _followingSnake.Head.transform.position;
+            //transform.position = _followingSnake.Head.transform.position;
+            transform.position = _snakeBoneMovement.CameraTargetPosition;
         }
         else
         {

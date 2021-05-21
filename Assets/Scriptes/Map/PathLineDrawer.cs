@@ -18,7 +18,7 @@ public class PathLineDrawer : MonoBehaviour
         _pathLine = Instantiate(_pathLinePrefab, Vector3.zero, Quaternion.identity);
         _coveredLine = Instantiate(_coveredLinePrefab, Vector3.zero, Quaternion.identity);
 
-        SetLineWidth(_pathLine, 0.75f);
+        SetLineWidth(_pathLine, 0.5f);
         SetLineWidth(_coveredLine, 1.0f);
 
         DrawLine(0);
@@ -45,7 +45,7 @@ public class PathLineDrawer : MonoBehaviour
                 distance = _track.DistanceLength - 0.1f;
 
             positions[i] = _track.GetPositionByDistance(distance);
-
+            positions[i].y = -0.2f;
         }
 
         return positions;
