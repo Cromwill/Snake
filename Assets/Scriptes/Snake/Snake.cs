@@ -32,6 +32,8 @@ public class Snake : MonoBehaviour, IMoveable
     public float DistanceCovered => _distanceCovered;
     public float NormalizeDistanceCovered => _distanceCovered / _track.DistanceLength;
     public float BoneDistance => _distanceBetweenSegments;
+    public float MaxSpeed => _maxSpeedTime;
+    public float CurrentSpeed => _currentSpeed;
 
     private void Awake()
     {
@@ -107,6 +109,7 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void FinishMove()
     {
+        _currentSpeed = 0;
         _finishDistanceCovered = Mathf.MoveTowards(_finishDistanceCovered, _finish.DistanceLength, _maxSpeedTime * Time.deltaTime);
 
         _snakeBoneMovement.MoveFinish(_finishDistanceCovered, _distanceBetweenSegments);
