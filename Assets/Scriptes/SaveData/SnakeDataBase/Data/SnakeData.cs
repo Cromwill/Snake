@@ -12,10 +12,12 @@ public class SnakeData : GUIDData
     [SerializeField] private string _description;
     [SerializeField] private int _price;
     [SerializeField] private Snake _prefab;
+    [SerializeField] private GameObject _previewModel;
 
     public Sprite Preview => _preview;
     public string Name => _name;
     public string Description => _description;
     public int Price => _price;
     public Snake Prefab => _prefab;
+    public GameObject PreviewModel => _previewModel;
 }

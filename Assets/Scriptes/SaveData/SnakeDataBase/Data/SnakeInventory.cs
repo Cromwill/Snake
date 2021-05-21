@@ -20,7 +20,10 @@ public class SnakeInventory : ISavedObject
     {
         _dataBase = dataBase;
         if (string.IsNullOrEmpty(_selectedGUID))
+        {
+            Add(_dataBase.DefaultData);
             SelectSnake(_dataBase.DefaultData);
+        }
     }
 
     public void Add(SnakeData data)

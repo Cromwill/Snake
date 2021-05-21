@@ -25,6 +25,7 @@ public class GemBalance : ISavedObject
             return false;
 
         _balance -= value;
+
         GemChanged?.Invoke(Balance);
         return true;
     }

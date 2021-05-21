@@ -4,32 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using TMPro;
 
 public class SnakeShopPresenter : MonoBehaviour
 {
     [SerializeField] private Image _preview;
-    [SerializeField] private TMP_Text _name;
-    [SerializeField] private Button _selectButton;
+    [SerializeField] private TMP_Text _price;
+    [SerializeField] private Image _background;
+    [SerializeField] private Button _button;
+    [Header("Presenter variants")][SerializeField] private Image _buyedBackground;
+    [SerializeField] private GameObject _priceGroup;
+    [SerializeField] private Color _nonBuyedColor;
+    [SerializeField] private Color _buyedColor;
+    [SerializeField] private Color _selectedColor;
 
-    public event UnityAction<SnakeShopPresenter> SelectedButtonClicked;
+    public event UnityAction<SnakeShopPresenter> ButtonClicked;
 
     public SnakeData Data { get; private set; }
 
-    private Text _buttonText;
-
-    private void Awake()
-    {
-        _buttonText = _selectButton.GetComponentInChildren<Text>();
-    }
-
     private void OnEnable()
     {
-        _selectButton.onClick.AddListener(OnSelectButtonClicked);
+        _button.onClick.AddListener(OnButtonClicked);
     }
 
     private void OnDestroy()
     {
-        _selectButton.onClick.RemoveListener(OnSelectButtonClicked);
+        _button.onClick.RemoveListener(OnButtonClicked);
     }
 
     public void Render(SnakeData data)
@@ -37,23 +37,31 @@ public class SnakeShopPresenter : MonoBehaviour
         Data = data;
 
         _preview.sprite = data.Preview;
-        _name.text = data.Name;
+        _price.text = data.Price.ToString();
+
+        _background.color = _nonBuyedColor;
+
+        GemBalance balance = new GemBalance();
+        balance.Load(new JsonSaveLoad());
+
+        if (data.Price > balance.Balance)
+            _price.color = Color.gray;
     }
 
-    private void OnSelectButtonClicked()
+    private void OnButtonClicked()
     {
-        SelectedButtonClicked?.Invoke(this);
+        ButtonClicked?.Invoke(this);
+    }
+
+    public void SetBuyed()
+    {
+        _priceGroup.SetActive(false);
+        _background.color = _buyedColor;
     }
 
     public void SetSelected()
     {
-        _buttonText.text = "Selected";
-        _buttonText.color = Color.green;
-    }
-
-    public void SetUnselected()
-    {
-        _buttonText.text = "Select";
-        _buttonText.color = Color.black;
+        _priceGroup.SetActive(false);
+        _background.color = _selectedColor;
     }
 }
