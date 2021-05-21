@@ -55,7 +55,8 @@ public class SnakeHat : MonoBehaviour
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
-        ResetState();
+        _animator.SetTrigger("Damaged");
+        //ResetState();
     }
 
     private void Update()
@@ -66,8 +67,7 @@ public class SnakeHat : MonoBehaviour
         _animator.SetFloat("Move", _snake.CurrentSpeed / _snake.MaxSpeed);
         transform.position = Vector3.Lerp(transform.position, _targetHead.ColliderCenter + Vector3.up, 25f * Time.deltaTime);
 
-        float yRotation = Mathf.Lerp(transform.rotation.y, _targetHead.transform.rotation.y, 25f * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(transform.rotation.x, yRotation, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(0, _targetHead.transform.eulerAngles.y, 0);
     }
 
     private IEnumerator SetStartTransform()
