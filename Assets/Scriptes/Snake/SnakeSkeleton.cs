@@ -31,9 +31,6 @@ public class SnakeSkeleton : MonoBehaviour
 
         _activeBones = new List<SnakeBone>();
 
-        _head.transform.SetParent(_bones[0].transform);
-        _head.transform.localPosition = Vector3.zero;
-
         for (int i = 0; i < MinLength; i++)
             AddBoneInTail();
 
