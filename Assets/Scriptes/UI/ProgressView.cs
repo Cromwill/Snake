@@ -5,12 +5,17 @@ using TMPro;
 
 public class ProgressView : MonoBehaviour
 {
-    [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private Slider _progress;
     [SerializeField] private TMP_Text _currentLevelView;
     [SerializeField] private TMP_Text _nextLevelView;
 
+    private SnakeInitializer _snakeInitializer;
     private Snake _snake;
+
+    private void Awake()
+    {
+        _snakeInitializer = FindObjectOfType<SnakeInitializer>();
+    }
 
     private void OnEnable()
     {
@@ -32,8 +37,8 @@ public class ProgressView : MonoBehaviour
         var currentLevelData = new CurrentLevelData();
         currentLevelData.Load(new JsonSaveLoad());
 
-        _currentLevelView.SetText(currentLevelData.CurrentLevel.ToString());
-        _nextLevelView.SetText((currentLevelData.CurrentLevel + 1).ToString());
+        _currentLevelView.SetText((currentLevelData.CurrentLevel + 1).ToString());
+        _nextLevelView.SetText((currentLevelData.CurrentLevel + 2).ToString());
     }
 
     private void Update()

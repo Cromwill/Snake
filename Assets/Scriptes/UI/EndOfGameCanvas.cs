@@ -6,16 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class EndOfGameCanvas : MonoBehaviour
 {
-    [SerializeField] private Pole _pole;
     [SerializeField] private EarnedGemsPresenter _eargedGems;
 
     private Canvas _selfCanvas;
     private Animator _selfAnimator;
+    private Pole _pole;
 
     private void Awake()
     {
         _selfCanvas = GetComponent<Canvas>();
         _selfAnimator = GetComponent<Animator>();
+        _pole = FindObjectOfType<Pole>();
     }
 
     private void OnEnable()
