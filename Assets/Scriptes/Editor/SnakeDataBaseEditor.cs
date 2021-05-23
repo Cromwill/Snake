@@ -41,6 +41,11 @@ public class SnakeDataBaseEditor : Editor
 
             if (GUILayout.Button(new GUIContent("-", "Удалить")))
                 _dataBase.RemoveAt(i);
+
+            if (GUILayout.Button(new GUIContent("Up", "Сместить к началу")))
+                _dataBase.MoveFront(i);
+            if (GUILayout.Button(new GUIContent("Down", "Сместить в конец")))
+                _dataBase.MoveBack(i);
         }
 
         if (GUILayout.Button(new GUIContent("+", "Добавить")))

@@ -734,6 +734,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35197a3d92193b94e8c0b4730ebf4490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1294163824782528501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 633186588687650985}
+  m_Layer: 0
+  m_Name: HatContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &633186588687650985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294163824782528501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.667, z: 0.799}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4840455898834965010}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1304815813727659825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2288,10 +2318,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4840455898834965011}
-  m_LocalRotation: {x: 0.00007169062, y: 0.00084886036, z: 0.9964406, w: 0.084294274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 0.020000009, z: 0.02000001}
-  m_Children: []
+  m_Children:
+  - {fileID: 633186588687650985}
   m_Father: {fileID: 7691004737315516604}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2308,6 +2339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isPlayerHead: 1
+  _hatContainer: {fileID: 633186588687650985}
 --- !u!54 &4840455898834965020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2335,8 +2367,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999998, y: 1.7643889, z: 1.7214944}
-  m_Center: {x: 0.0000000061754175, y: 0.16965255, z: 0.36072284}
+  m_Size: {x: 0.9999998, y: 2.1059957, z: 1.3578712}
+  m_Center: {x: 0.000000037252896, y: -0.0011501351, z: 0.17890865}
 --- !u!1 &4840455899341740397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2980,7 +3012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05461266a3e2c0547a66483ccc9807bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDistance: 2
+  _minDistance: 5
 --- !u!114 &5759445519353002805
 MonoBehaviour:
   m_ObjectHideFlags: 0

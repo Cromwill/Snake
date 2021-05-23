@@ -12,6 +12,7 @@ public class Snake : MonoBehaviour, IMoveable
     [SerializeField] private float _distanceBetweenSegments = 1f;
     [SerializeField] private Animator _armatureAnimator;
 
+    public event Action StartMoving;
     public event Action<float> Moving;
 
     private SnakeSkeleton _snakeSkeleton;
@@ -19,7 +20,6 @@ public class Snake : MonoBehaviour, IMoveable
     private SnakeBoneStretching _boneStretching;
     private Track _track;
     private FinishPath _finish;
-    private GameObject _tapToPlayView;
     private float _distanceCovered;
     private float _finishDistanceCovered;
     private float _currentSpeed;
@@ -64,11 +64,10 @@ public class Snake : MonoBehaviour, IMoveable
         enabled = false;
     }
 
-    public void Init(Track track, FinishPath finish, GameObject tapToPlay)
+    public void Init(Track track, FinishPath finish)
     {
         _track = track;
         _finish = finish;
-        _tapToPlayView = tapToPlay;
 
         _distanceCovered = _snakeSkeleton.MinLength * _distanceBetweenSegments;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish);
@@ -132,14 +131,13 @@ public class Snake : MonoBehaviour, IMoveable
 
     public virtual void StartMove()
     {
-        if (_tapToPlayView != null && _tapToPlayView.activeSelf)
-            _tapToPlayView.SetActive(false);
-
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
 
         _boneStretching.StartStretching();
+
+        StartMoving?.Invoke();
     }
 
     public virtual void EndMove()

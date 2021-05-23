@@ -45,7 +45,7 @@ public class PathLineDrawer : MonoBehaviour
                 distance = _track.DistanceLength - 0.1f;
 
             positions[i] = _track.GetPositionByDistance(distance);
-            positions[i].y = -0.2f;
+            positions[i].y -= 0.2f;
         }
 
         return positions;

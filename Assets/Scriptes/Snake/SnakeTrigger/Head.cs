@@ -5,8 +5,10 @@ using UnityEngine.Events;
 public class Head : SnakeTrigger
 {
     [SerializeField] private bool _isPlayerHead;
+    [SerializeField] private Transform _hatContainer;
 
     public Vector3 ColliderCenter => _collider.bounds.center;
+    public Transform HatContainer => _hatContainer;
 
     public event UnityAction<Obstacle> ObstacleEntered;
     public event UnityAction<Obstacle> ObstacleExited;

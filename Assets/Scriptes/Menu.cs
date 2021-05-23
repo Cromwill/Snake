@@ -42,7 +42,7 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(currentLevel.CurrentLevel);
     }
 
-    public void LoadLevel(int index)
+    public void LoadlLevelWithSave(int index)
     {
         var currentLevel = new CurrentLevelData();
         currentLevel.Load(new JsonSaveLoad());

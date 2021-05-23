@@ -8,7 +8,7 @@ public class SnakeHat : MonoBehaviour
 {
     private Collider _collider;
     private Animator _animator;
-    private Head _targetHead;
+    private Head _parent;
     private FinishTrigger _finishTrigger;
     private Snake _snake;
     private Vector3 _startPosition;
@@ -44,10 +44,13 @@ public class SnakeHat : MonoBehaviour
     {
         if (other.TryGetComponent(out Head head))
         {
-            _targetHead = head;
-            _targetHead.ObstacleEntered += OnObstacleEntered;
+            _parent = head;
+            transform.SetParent(head.HatContainer);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+            _parent.ObstacleEntered += OnObstacleEntered;
 
-            _snake = _targetHead.GetComponentInParent<Snake>();
+            _snake = _parent.GetComponentInParent<Snake>();
 
             _animator.SetBool("Hooked", true);
         }
@@ -61,13 +64,10 @@ public class SnakeHat : MonoBehaviour
 
     private void Update()
     {
-        if (_targetHead == null)
+        if (_parent == null)
             return;
 
         _animator.SetFloat("Move", _snake.CurrentSpeed / _snake.MaxSpeed);
-        transform.position = Vector3.Lerp(transform.position, _targetHead.ColliderCenter + Vector3.up, 25f * Time.deltaTime);
-
-        transform.rotation = Quaternion.Euler(0, _targetHead.transform.eulerAngles.y, 0);
     }
 
     private IEnumerator SetStartTransform()
@@ -88,8 +88,9 @@ public class SnakeHat : MonoBehaviour
 
     private void ResetState()
     {
-        _targetHead.ObstacleEntered -= OnObstacleEntered;
-        _targetHead = null;
+        _parent.ObstacleEntered -= OnObstacleEntered;
+        transform.SetParent(null);
+        _parent = null;
         _snake = null;
         StartCoroutine(SetStartTransform());
 

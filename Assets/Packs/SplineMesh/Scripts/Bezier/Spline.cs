@@ -155,6 +155,7 @@ namespace SplineMesh {
                 if(d > curve.Length && d < curve.Length + 0.0001f) {
                     d = curve.Length;
                 }
+                //Debug.Log(d + " " + curve.Length);
                 if (d > curve.Length) {
                     d -= curve.Length;
                 } else {
