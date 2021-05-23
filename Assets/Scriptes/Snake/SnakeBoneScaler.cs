@@ -48,13 +48,13 @@ public class SnakeBoneScaler : MonoBehaviour
             _targetFoods.Remove(food);
             Destroy(food.gameObject);
 
-            _snakeSkeleton.AddBoneInTail();
-            _snakeSkeleton.AddBoneInTail();
+            _snakeSkeleton.AddBoneInTailSmoothly();
+            _snakeSkeleton.AddBoneInTailSmoothly();
 
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (_targetFoods.Count == 0)
         {
