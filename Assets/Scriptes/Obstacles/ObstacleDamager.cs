@@ -15,7 +15,9 @@ public class ObstacleDamager : MonoBehaviour
     private void Update()
     {
         if (transform.localScale.y == 0.05f)
+        {
             _selfRenderer.material = _safe;
+        }
         else
             _selfRenderer.material = _dangerous;
     }
