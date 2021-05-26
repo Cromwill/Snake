@@ -65,7 +65,7 @@ public class SnakeSkeleton : MonoBehaviour
         var addedBone = _bones[_activeBones.Count];
         addedBone.Enable();
         _activeBones.Add(addedBone);
-
+        
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
     }
 

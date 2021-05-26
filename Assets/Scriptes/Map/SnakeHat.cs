@@ -13,6 +13,8 @@ public class SnakeHat : MonoBehaviour
     private Snake _snake;
     private Vector3 _startPosition;
 
+    public bool OnSnake { get; private set; }
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
@@ -53,13 +55,15 @@ public class SnakeHat : MonoBehaviour
             _snake = _parent.GetComponentInParent<Snake>();
 
             _animator.SetBool("Hooked", true);
+
+            OnSnake = true;
         }
     }
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
-        _animator.SetTrigger("Damaged");
-        //ResetState();
+        //_animator.SetTrigger("Damaged");
+        ResetState();
     }
 
     private void Update()
@@ -95,5 +99,6 @@ public class SnakeHat : MonoBehaviour
         StartCoroutine(SetStartTransform());
 
         _animator.SetBool("Hooked", false);
+        OnSnake = false;
     }
 }
