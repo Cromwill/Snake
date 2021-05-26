@@ -51,11 +51,10 @@ public class SnakeSkeleton : MonoBehaviour
             return;
 
         var addedBone = _bones[_activeBones.Count];
-        addedBone.EnableSmoothly(1f);
         _activeBones.Add(addedBone);
+        addedBone.EnableSmoothly(1f);
 
-        _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
-        _tail.transform.localPosition = Vector3.zero;
+        _tail.transform.parent = _activeBones[_activeBones.Count - 1].transform;
     }
 
     public void AddBoneInTail()
@@ -68,7 +67,6 @@ public class SnakeSkeleton : MonoBehaviour
         _activeBones.Add(addedBone);
 
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
-        _tail.transform.localPosition = Vector3.zero;
     }
 
     public void RemoveBoneFromTail()

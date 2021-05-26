@@ -67,9 +67,8 @@ public class SnakeBoneScaler : MonoBehaviour
         {
             //if (_snakeSkeleton.ActiveBones[i].Enabled == false)
             //    continue;
-
             var scaleDistance = MinDistanceToTarget(_snakeSkeleton.ActiveBones[i].Position);
-            if (scaleDistance + 0.01f < _minDistance)
+            if (scaleDistance < _minDistance)
             {
                 ScaleBone(i, Mathf.Sqrt(_minDistance / scaleDistance));
             }
@@ -86,7 +85,7 @@ public class SnakeBoneScaler : MonoBehaviour
         float minDistance = float.MaxValue;
         foreach (var food in _targetFoods)
         {
-            var distance = Vector3.Distance(bonePosition, food.ColliderCenterPosition);
+            var distance = Vector3.Distance(bonePosition, food.ColliderCenterPosition + Vector3.up * 0.3f);
             if (distance < minDistance)
                 minDistance = distance;
         }
