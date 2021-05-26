@@ -105,8 +105,6 @@ public class Snake : MonoBehaviour, IMoveable
         _distanceCovered = Mathf.MoveTowards(_distanceCovered, _track.DistanceLength, _currentSpeed * _acceleration * _speedRate * Time.deltaTime);
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 14f * Time.deltaTime);
 
-        Debug.Log("Speed - " + _acceleration);
-
         _snakeBoneMovement.Move(_distanceCovered, _boneStretching.Distances);
         Moving?.Invoke(_distanceCovered);
     }

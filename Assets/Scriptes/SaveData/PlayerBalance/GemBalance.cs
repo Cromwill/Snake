@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class GemBalance : ISavedObject
 {
     [SerializeField] private int _balance;
-
+    
     public int Balance => _balance;
 
     public static event UnityAction<int> GemChanged;

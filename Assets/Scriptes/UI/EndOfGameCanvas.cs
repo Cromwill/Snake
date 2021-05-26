@@ -7,16 +7,19 @@ using UnityEngine;
 public class EndOfGameCanvas : MonoBehaviour
 {
     [SerializeField] private EarnedGemsPresenter _eargedGems;
+    [SerializeField] private GameObject _hatBonus;
 
     private Canvas _selfCanvas;
     private Animator _selfAnimator;
     private Pole _pole;
+    private SnakeHat _hat;
 
     private void Awake()
     {
         _selfCanvas = GetComponent<Canvas>();
         _selfAnimator = GetComponent<Animator>();
         _pole = FindObjectOfType<Pole>();
+        _hat = FindObjectOfType<SnakeHat>();
     }
 
     private void OnEnable()
@@ -37,6 +40,13 @@ public class EndOfGameCanvas : MonoBehaviour
 
         GemBalance gemBalance = new GemBalance();
         gemBalance.Load(new JsonSaveLoad());
+
+        if (_hat.OnSnake)
+        {
+            _hatBonus.SetActive(true);
+            gemValue += 100;
+        }
+
 
         gemBalance.Add(gemValue);
         gemBalance.Save(new JsonSaveLoad());
