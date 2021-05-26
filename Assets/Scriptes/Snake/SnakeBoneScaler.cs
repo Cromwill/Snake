@@ -86,7 +86,7 @@ public class SnakeBoneScaler : MonoBehaviour
         float minDistance = float.MaxValue;
         foreach (var food in _targetFoods)
         {
-            var distance = Vector3.Distance(bonePosition, food.ColliderCenterPosition + Vector3.up * 0.5f);
+            var distance = Vector3.Distance(bonePosition, food.ColliderCenterPosition);
             if (distance < minDistance)
                 minDistance = distance;
         }
