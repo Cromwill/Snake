@@ -26,6 +26,8 @@ public class Snake : MonoBehaviour, IMoveable
     private float _targetSpeed;
     private float _speedRate;
     private bool _isMoving;
+    private float _acceleration;
+    private Coroutine _accelerating;
 
     public Transform HeadTransform => _snakeSkeleton.Head.transform;
     public Track Track => _track;
@@ -40,6 +42,7 @@ public class Snake : MonoBehaviour, IMoveable
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
         _snakeBoneMovement = GetComponent<SnakeBoneMovement>();
         _boneStretching = GetComponent<SnakeBoneStretching>();
+        _acceleration = 1.0f;
     }
 
     private void OnEnable()
@@ -99,8 +102,10 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Move()
     {
-        _distanceCovered = Mathf.MoveTowards(_distanceCovered, _track.DistanceLength, _currentSpeed * _speedRate * Time.deltaTime);
+        _distanceCovered = Mathf.MoveTowards(_distanceCovered, _track.DistanceLength, _currentSpeed * _acceleration * _speedRate * Time.deltaTime);
         _currentSpeed = Mathf.Lerp(_currentSpeed, _targetSpeed, 14f * Time.deltaTime);
+
+        Debug.Log("Speed - " + _acceleration);
 
         _snakeBoneMovement.Move(_distanceCovered, _boneStretching.Distances);
         Moving?.Invoke(_distanceCovered);
@@ -124,9 +129,27 @@ public class Snake : MonoBehaviour, IMoveable
         _snakeSkeleton.RemoveBoneFromTail();
     }
 
+    private IEnumerator Acceleration()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(3.0f);
+            _acceleration *= 1.1f;
+        }
+    }
+
+    private void StopAcceleration()
+    {
+        _acceleration = 1.0f;
+        if (_accelerating != null)
+            StopCoroutine(_accelerating);
+        _accelerating = null;
+    }
+
     public void SetSpeedRate(float speedRate)
     {
         _speedRate = speedRate;
+        StopAcceleration();
     }
 
     public virtual void StartMove()
@@ -134,6 +157,9 @@ public class Snake : MonoBehaviour, IMoveable
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
+
+        if (_accelerating == null)
+            _accelerating = StartCoroutine(Acceleration());
 
         _boneStretching.StartStretching();
 
@@ -145,7 +171,7 @@ public class Snake : MonoBehaviour, IMoveable
         _targetSpeed = 0;
         _isMoving = false;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
-
+        StopAcceleration();
         _boneStretching.StopStretching();
     }
 }

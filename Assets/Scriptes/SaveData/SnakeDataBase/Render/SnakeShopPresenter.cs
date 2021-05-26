@@ -9,6 +9,7 @@ using TMPro;
 public class SnakeShopPresenter : MonoBehaviour
 {
     [SerializeField] private Image _preview;
+    [SerializeField] private Image _selectPreview;
     [SerializeField] private TMP_Text _price;
     [SerializeField] private Image _background;
     [SerializeField] private Button _button;
@@ -17,6 +18,8 @@ public class SnakeShopPresenter : MonoBehaviour
     [SerializeField] private Color _nonBuyedColor;
     [SerializeField] private Color _buyedColor;
     [SerializeField] private Color _selectedColor;
+    [SerializeField] private Sprite _buyedSprite;
+    [SerializeField] private Sprite _selectedSprite;
 
     public event UnityAction<SnakeShopPresenter> ButtonClicked;
 
@@ -55,13 +58,22 @@ public class SnakeShopPresenter : MonoBehaviour
 
     public void SetBuyed()
     {
+        if (!_selectPreview.gameObject.activeSelf)
+            _selectPreview.gameObject.SetActive(true);
+
         _priceGroup.SetActive(false);
         _background.color = _buyedColor;
+        _selectPreview.sprite = _buyedSprite;
     }
 
     public void SetSelected()
     {
+
+        if (!_selectPreview.gameObject.activeSelf)
+            _selectPreview.gameObject.SetActive(true);
+
         _priceGroup.SetActive(false);
         _background.color = _selectedColor;
+        _selectPreview.sprite = _selectedSprite;
     }
 }

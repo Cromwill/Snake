@@ -22,12 +22,12 @@ public class SnakeHat : MonoBehaviour
 
     private void OnEnable()
     {
-        _finishTrigger.PlayerFinished += OnPlayerFinished;
+        //_finishTrigger.PlayerFinished += OnPlayerFinished;
     }
 
     private void OnDisable()
     {
-        _finishTrigger.PlayerFinished -= OnPlayerFinished;
+        //_finishTrigger.PlayerFinished -= OnPlayerFinished;
     }
 
     private void Start()
