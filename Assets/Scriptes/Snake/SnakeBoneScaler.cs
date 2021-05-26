@@ -65,11 +65,11 @@ public class SnakeBoneScaler : MonoBehaviour
         _nextScaleRate = 1f;
         for (int i = 1; i < _snakeSkeleton.ActiveBones.Count; i++)
         {
-            if (_snakeSkeleton.ActiveBones[i].Enabled == false)
-                continue;
+            //if (_snakeSkeleton.ActiveBones[i].Enabled == false)
+            //    continue;
 
             var scaleDistance = MinDistanceToTarget(_snakeSkeleton.ActiveBones[i].Position);
-            if (scaleDistance <= _minDistance)
+            if (scaleDistance + 0.01f < _minDistance)
             {
                 ScaleBone(i, Mathf.Sqrt(_minDistance / scaleDistance));
             }
