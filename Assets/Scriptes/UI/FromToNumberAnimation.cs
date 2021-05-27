@@ -7,14 +7,17 @@ public class FromToNumberAnimation : MonoBehaviour
 {
     [SerializeField] private TMP_Text _targetText;
     [SerializeField] private string _format;
-    [SerializeField] private int _fromValue;
-    [SerializeField] private int _toValue;
     [SerializeField] private float _speed;
 
     private Coroutine _animationCoroutine;
+    private int _fromValue;
+    private int _toValue;
 
-    private void OnEnable()
+    public void StartAnimation(int from, int to)
     {
+        _fromValue = from;
+        _toValue = to;
+
         if (_animationCoroutine != null)
             StopCoroutine(_animationCoroutine);
 

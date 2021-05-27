@@ -44,6 +44,7 @@ public class EndOfGameCanvas : MonoBehaviour
         if (_hat.OnSnake)
         {
             _hatBonus.SetActive(true);
+            _eargedGems.PlayFromToAnimation(gemValue, gemValue + 100);
             gemValue += 100;
         }
 

@@ -8,7 +8,7 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Transform _armature;
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
-    
+
     private List<SnakeBone> _bones;
 
     public int MinLength => 4;
@@ -18,7 +18,7 @@ public class SnakeSkeleton : MonoBehaviour
     public List<SnakeBone> ActiveBones => _activeBones;
     public Head Head => _head;
     public Tail Tail => _tail;
-    
+
     private List<SnakeBone> _activeBones;
 
     private void Awake()
@@ -55,6 +55,12 @@ public class SnakeSkeleton : MonoBehaviour
         addedBone.EnableSmoothly(1f);
 
         _tail.transform.parent = _activeBones[_activeBones.Count - 1].transform;
+
+        if (_activeBones.Count > 0)
+        {
+            var test = _bones[_activeBones.Count - 1].transform.localScale;
+            _bones[_activeBones.Count].transform.localPosition = new Vector3(0, test.y, 0);
+        }
     }
 
     public void AddBoneInTail()
@@ -65,7 +71,7 @@ public class SnakeSkeleton : MonoBehaviour
         var addedBone = _bones[_activeBones.Count];
         addedBone.Enable();
         _activeBones.Add(addedBone);
-        
+
         _tail.transform.SetParent(_activeBones[_activeBones.Count - 1].transform);
     }
 
