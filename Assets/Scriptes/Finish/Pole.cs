@@ -5,10 +5,12 @@ using UnityEngine.Events;
 
 public class Pole : MonoBehaviour
 {
+    [SerializeField] private Texture2D _colorsSprite;
     [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private float _angleDelta;
     [SerializeField] private PoleBlock _blockTemplate;
     [SerializeField] private Texture[] _textures;
+    [SerializeField] private float _radius—oefficient;
 
     public event UnityAction<int> SnakeCrawled;
 
@@ -75,8 +77,8 @@ public class Pole : MonoBehaviour
 
         var posHeight = transform.position + Vector3.down * transform.lossyScale.y + Vector3.up * 2 * transform.lossyScale.y * t;
 
-        posHeight += transform.forward * Mathf.Cos(deltaRad) * transform.lossyScale.z / 2f;
-        posHeight += transform.right * Mathf.Sin(deltaRad) * transform.lossyScale.x / 2f;
+        posHeight += transform.forward * Mathf.Cos(deltaRad) * _radius—oefficient * transform.lossyScale.z / 2f;
+        posHeight += transform.right * Mathf.Sin(deltaRad) * _radius—oefficient * transform.lossyScale.x / 2f;
 
         return posHeight;
     }
@@ -95,9 +97,11 @@ public class Pole : MonoBehaviour
         for (int i = 0; i < blockCount; i++)
         {
             var block = Instantiate(_blockTemplate, blockPosition, Quaternion.identity, transform);
-            var color = Color.LerpUnclamped(startColor, endColor, i / (float)blockCount);
+            //var color = Color.LerpUnclamped(startColor, endColor, i / (float)blockCount);
 
-            block.transform.localScale = new Vector3(.7f, blockHeight / transform.lossyScale.y / 2f, .7f);
+            var color = _colorsSprite.GetPixel(0, i);
+
+            block.transform.localScale = new Vector3(1.2f, blockHeight / transform.lossyScale.y / 2f, 1.2f);
             block.Init(color, _textures[i], i * 10);
 
             blockPosition += transform.up * blockHeight;
