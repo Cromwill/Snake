@@ -58,8 +58,7 @@ public class SnakeSkeleton : MonoBehaviour
 
         if (_activeBones.Count > 0)
         {
-            var test = _bones[_activeBones.Count - 1].transform.localScale;
-            _bones[_activeBones.Count].transform.localPosition = new Vector3(0, test.y, 0);
+            _bones[_activeBones.Count].transform.localScale = new Vector3(0, 0, 0.01f);
         }
     }
 
