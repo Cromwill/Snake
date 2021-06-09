@@ -2,20 +2,35 @@
 
 public class ToggleWater : MonoBehaviour
 {
+    [SerializeField] private ToggleBackgroundImage _toggleBackgroundImage;
     [SerializeField] private GameObject _toonWater;
     [SerializeField] private GameObject _realWater;
 
+    private bool _toonRender;
+
     private void Start()
     {
-        if (_toonWater.activeSelf && _realWater.activeSelf)
-            _realWater.SetActive(false);
-        if (!_toonWater.activeSelf && !_realWater.activeSelf)
-            _toonWater.SetActive(true);
+        _toonRender = true;
+
+        ToogleWater();
     }
 
     public void ToogleWater()
     {
-        _toonWater.SetActive(!_toonWater.activeSelf);
-        _realWater.SetActive(!_realWater.activeSelf);
+        _toggleBackgroundImage.HideAll();
+        HideAll();
+
+        if (_toonRender)
+            _toonWater.SetActive(true);
+        else
+            _realWater.SetActive(true);
+
+        _toonRender = !_toonRender;
+    }
+
+    public void HideAll()
+    {
+        _toonWater.SetActive(false);
+        _realWater.SetActive(false);
     }
 }
