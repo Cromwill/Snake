@@ -24,12 +24,14 @@ public class EndOfGameCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled += OnSnakeCrawled;
     }
 
     private void OnDisable()
     {
-        _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled -= OnSnakeCrawled;
     }
 
     private void OnSnakeCrawled(int gemValue)

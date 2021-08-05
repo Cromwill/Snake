@@ -21,13 +21,15 @@ public class GameCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled += OnSnakeCrawled;
         _snakeInitializer.Initialized += OnSnakeInitialized;
     }
 
     private void OnDisable()
     {
-        _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled -= OnSnakeCrawled;
 
         if (_snake)
             _snake.StartMoving -= OnSnakeMoving;
