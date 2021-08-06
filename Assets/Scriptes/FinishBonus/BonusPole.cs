@@ -40,9 +40,17 @@ public class BonusPole : MonoBehaviour
         return posHeight;
     }
 
-    public Vector3 GetInputJumpPosition(float t)
+    public IEnumerable<Vector3> GetAllForwardPositions(float startParam = 0f, float endParam = 1f)
     {
-        var defaultPosition = GetPositionByParameter(t);
-        return new Vector3(_inputPosition.x, defaultPosition.y, _inputPosition.z);
+        var parameter = 0f;
+        var shift = 1f / _angleDelta;
+
+        while (parameter <= 1f)
+        {
+            if (parameter > startParam && parameter < endParam)
+                yield return GetPositionByParameter(parameter);
+
+            parameter += shift;
+        }
     }
 }

@@ -14,6 +14,7 @@ public class SnakeBoneMovement : MonoBehaviour
 
     public event UnityAction<float> Partially—rawled;
     public event UnityAction Full—rawled;
+    public event UnityAction BonusPole—rawled;
 
     private SnakeSkeleton _snakeSkeleton;
     private Track _track;
@@ -154,6 +155,9 @@ public class SnakeBoneMovement : MonoBehaviour
 
             _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
         }
+
+        if (headDistance == _bonusFinish.DistanceLength)
+            BonusPole—rawled?.Invoke();
     }
 
     private void MoveBoneOnTrack(int boneIndex, float boneDistance)

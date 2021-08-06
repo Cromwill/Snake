@@ -12,6 +12,8 @@ public class EndOfGameCanvas : MonoBehaviour
     private Canvas _selfCanvas;
     private Animator _selfAnimator;
     private Pole _pole;
+    private BonusFinish _bonusFinish;
+    private BonusDiamondCollector _diamondCollector;
     private SnakeHat _hat;
 
     private void Awake()
@@ -19,6 +21,8 @@ public class EndOfGameCanvas : MonoBehaviour
         _selfCanvas = GetComponent<Canvas>();
         _selfAnimator = GetComponent<Animator>();
         _pole = FindObjectOfType<Pole>();
+        _bonusFinish = FindObjectOfType<BonusFinish>();
+        _diamondCollector = FindObjectOfType<BonusDiamondCollector>();
         _hat = FindObjectOfType<SnakeHat>();
     }
 
@@ -26,12 +30,16 @@ public class EndOfGameCanvas : MonoBehaviour
     {
         if (_pole)
             _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Crawled += OnBonusFinishCrawled;
     }
 
     private void OnDisable()
     {
         if (_pole)
             _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Crawled -= OnBonusFinishCrawled;
     }
 
     private void OnSnakeCrawled(int gemValue)
@@ -52,6 +60,18 @@ public class EndOfGameCanvas : MonoBehaviour
 
 
         gemBalance.Add(gemValue);
+        gemBalance.Save(new JsonSaveLoad());
+    }
+
+    private void OnBonusFinishCrawled()
+    {
+        _selfAnimator.SetTrigger("Show");
+        _selfCanvas.enabled = true;
+        _eargedGems.Render(_diamondCollector.CollectedDiamondCost);
+
+        GemBalance gemBalance = new GemBalance();
+        gemBalance.Load(new JsonSaveLoad());
+        gemBalance.Add(_diamondCollector.CollectedDiamondCost);
         gemBalance.Save(new JsonSaveLoad());
     }
 }

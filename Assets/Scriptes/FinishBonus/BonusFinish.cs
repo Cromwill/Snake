@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.Events;
 
 public class BonusFinish : MonoBehaviour
 {
@@ -19,9 +20,11 @@ public class BonusFinish : MonoBehaviour
     private Stack<JumpInfo> _jumps;
     private BonusPole _firstPole;
     private BonusPole _currentPole;
+    private SnakeBoneMovement _snakeBoneMovement;
 
-    public bool IsJumping { get; private set; }
     public float DistanceLength { get; private set; }
+
+    public event UnityAction Crawled;
 
     #region EditorMethods
 
@@ -39,22 +42,46 @@ public class BonusFinish : MonoBehaviour
             _rightPole.transform.localPosition = Vector3.right * _distanceBetweenPoles;
         }
     }
+
+    private void OnValidate()
+    {
+        DistanceLength = _poleScale.y * 3f;
+
+        if (_leftPole)
+            _leftPole.Init(_angleDelta, _radiusScale);
+        if (_rightPole)
+            _rightPole.Init(_angleDelta, _radiusScale);
+    }
+
 #endif
 
     #endregion
+
+    private void OnDisable()
+    {
+        if (_snakeBoneMovement)
+            _snakeBoneMovement.BonusPole—rawled -= OnSnakeCrawled;
+    }
+
 
     private void Start()
     {
         _jumps = new Stack<JumpInfo>();
 
+        DistanceLength = _poleScale.y * 3f;
+
         _leftPole.Init(_angleDelta, _radiusScale);
         _rightPole.Init(_angleDelta, _radiusScale);
 
-        DistanceLength = _poleScale.y * 3f;
 
         _firstPole = _rightPole;
         _currentPole = _firstPole;
-        IsJumping = false;
+    }
+
+    public void Init(SnakeBoneMovement snakeBoneMovement)
+    {
+        _snakeBoneMovement = snakeBoneMovement;
+        _snakeBoneMovement.BonusPole—rawled += OnSnakeCrawled;
     }
 
     public Vector3 GetPositionByDistance(float distance)
@@ -98,6 +125,11 @@ public class BonusFinish : MonoBehaviour
     private BonusPole GetNextPole(BonusPole pole)
     {
         return pole.Equals(_leftPole) ? _rightPole : _leftPole;
+    }
+
+    private void OnSnakeCrawled()
+    {
+        Crawled?.Invoke();
     }
 
     private JumpInfo GetJumpByParameter(float t)

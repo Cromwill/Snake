@@ -87,6 +87,9 @@ public class Snake : MonoBehaviour, IMoveable
         _distanceCovered = _snakeSkeleton.MinLength * _distanceBetweenSegments;
         _bonusPoleDistanceCovered = 10 * _distanceBetweenSegments;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, _bonusFinish);
+
+        if (bonusFinish)
+            bonusFinish.Init(_snakeBoneMovement);
     }
 
     private void Start()
@@ -145,15 +148,10 @@ public class Snake : MonoBehaviour, IMoveable
         if (_snakeSkeleton.ActiveBones.Count < 10)
             _snakeSkeleton.AddBoneInTail();
 
+        if (_moveStarted)
+            _bonusPoleDistanceCovered = Mathf.MoveTowards(_bonusPoleDistanceCovered, _bonusFinish.DistanceLength, _maxSpeedTime * Time.deltaTime);
+
         _snakeBoneMovement.MoveBonusFinish(_bonusPoleDistanceCovered, _distanceBetweenSegments);
-
-        if (_moveStarted == false)
-            return;
-
-        _bonusPoleDistanceCovered = Mathf.MoveTowards(_bonusPoleDistanceCovered, _bonusFinish.DistanceLength, _maxSpeedTime * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-            _bonusFinish.Jump(_bonusPoleDistanceCovered / _bonusFinish.DistanceLength);
     }
 
     private void AddBoneInTail()
@@ -193,8 +191,10 @@ public class Snake : MonoBehaviour, IMoveable
     {
         _targetSpeed = _maxSpeedTime;
         _isMoving = true;
-        _moveStarted = true;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
+
+        if (_bonusFinish && _moveStarted)
+            _bonusFinish.Jump(_bonusPoleDistanceCovered / _bonusFinish.DistanceLength);
 
         if (_accelerating == null)
             _accelerating = StartCoroutine(Acceleration());
@@ -202,6 +202,7 @@ public class Snake : MonoBehaviour, IMoveable
         _boneStretching.StartStretching();
 
         StartMoving?.Invoke();
+        _moveStarted = true;
     }
 
     public virtual void EndMove()
