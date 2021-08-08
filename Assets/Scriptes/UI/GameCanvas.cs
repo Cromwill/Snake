@@ -26,7 +26,7 @@ public class GameCanvas : MonoBehaviour
         if (_pole)
             _pole.SnakeCrawled += OnSnakeCrawled;
         if (_bonusFinish)
-            _bonusFinish.Crawled += OnBonusPoleCrawled;
+            _bonusFinish.Finished += OnBonusPoleCrawled;
 
         _snakeInitializer.Initialized += OnSnakeInitialized;
     }
@@ -36,7 +36,7 @@ public class GameCanvas : MonoBehaviour
         if (_pole)
             _pole.SnakeCrawled -= OnSnakeCrawled;
         if (_bonusFinish)
-            _bonusFinish.Crawled -= OnBonusPoleCrawled;
+            _bonusFinish.Finished -= OnBonusPoleCrawled;
 
         if (_snake)
             _snake.StartMoving -= OnSnakeMoving;

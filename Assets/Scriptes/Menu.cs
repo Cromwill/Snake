@@ -65,4 +65,9 @@ public class Menu : MonoBehaviour
 
         SceneManager.LoadScene(currentLevelData.CurrentLevel);
     }
+
+    public void LoadHatCollection()
+    {
+        SceneManager.LoadScene("HatCollection");
+    }
 }

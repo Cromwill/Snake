@@ -6,9 +6,12 @@ using UnityEngine.Events;
 
 public class BonusFinish : MonoBehaviour
 {
+    [Header("Cup")]
+    [SerializeField] private GameObject _cupObject;
     [Header("Pole references"), Space(5f)]
     [SerializeField] private BonusPole _leftPole;
     [SerializeField] private BonusPole _rightPole;
+    [SerializeField] private Material _poleMaterial;
     [Header("Pole parameters"), Space(5f)]
     [SerializeField] private Vector3 _poleScale;
     [SerializeField] private float _distanceBetweenPoles;
@@ -24,7 +27,7 @@ public class BonusFinish : MonoBehaviour
 
     public float DistanceLength { get; private set; }
 
-    public event UnityAction Crawled;
+    public event UnityAction Finished;
 
     #region EditorMethods
 
@@ -51,6 +54,9 @@ public class BonusFinish : MonoBehaviour
             _leftPole.Init(_angleDelta, _radiusScale);
         if (_rightPole)
             _rightPole.Init(_angleDelta, _radiusScale);
+
+        if (_poleMaterial)
+            _poleMaterial.SetFloat("_TopLine", _poleScale.y * 2f);
     }
 
 #endif
@@ -129,7 +135,11 @@ public class BonusFinish : MonoBehaviour
 
     private void OnSnakeCrawled()
     {
-        Crawled?.Invoke();
+        var topPosition = _currentPole.transform.position + _currentPole.transform.up * _currentPole.transform.lossyScale.y;
+        _cupObject.transform.position = topPosition;
+        _cupObject.SetActive(true);
+
+        Finished?.Invoke();
     }
 
     private JumpInfo GetJumpByParameter(float t)

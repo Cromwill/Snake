@@ -83,7 +83,7 @@ public class BonusDiamondSpawner : MonoBehaviour
             if (isHide)
                 continue;
 
-            var inst = Instantiate(_diamondTemplate, leftForwardPositions[i], Quaternion.identity, transform);
+            var inst = Instantiate(_diamondTemplate, leftForwardPositions[i], _diamondTemplate.transform.rotation, transform);
             spawnedDiamonds.Add(inst);
         }
 

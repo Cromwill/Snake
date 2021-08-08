@@ -19,13 +19,13 @@ public class BonusCanvas : MonoBehaviour
     private void OnEnable()
     {
         _snakeInitializer.Initialized += OnSnakeInitialized;
-        _bonusFinish.Crawled += OnBonusFinishCrawled;
+        _bonusFinish.Finished += OnBonusFinishCrawled;
     }
 
     private void OnDisable()
     {
         _snakeInitializer.Initialized += OnSnakeInitialized;
-        _bonusFinish.Crawled -= OnBonusFinishCrawled;
+        _bonusFinish.Finished -= OnBonusFinishCrawled;
 
         if (_snake)
             _snake.StartMoving -= OnSnakeStartMoving;
