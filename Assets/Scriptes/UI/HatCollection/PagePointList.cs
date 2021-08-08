@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PagePointList : MonoBehaviour
 {
-    [SerializeField] private HatPreviewRenderList _hatRenderList;
     [SerializeField] private ScrollPages _scrollPages;
     [SerializeField] private PagePoint _template;
     [SerializeField] private Transform _container;
@@ -14,14 +13,14 @@ public class PagePointList : MonoBehaviour
 
     private void OnEnable()
     {
-        _hatRenderList.Initialized += Render;
         _scrollPages.Scrolled += OnPageScrolled;
+        _scrollPages.PageCountChanged += OnPageCountChanged;
     }
 
     private void OnDisable()
     {
-        _hatRenderList.Initialized -= Render;
         _scrollPages.Scrolled -= OnPageScrolled;
+        _scrollPages.PageCountChanged -= OnPageCountChanged;
     }
 
     private void OnPageScrolled(int pageIndex)
@@ -35,8 +34,16 @@ public class PagePointList : MonoBehaviour
         _currentPage = pageIndex;
     }
 
-    public void Render(int pageCount)
+    public void OnPageCountChanged(int pageCount)
     {
+        if (_pagePoints != null)
+        {
+            foreach (var page in _pagePoints)
+                Destroy(page);
+
+            _pagePoints.Clear();
+        }
+
         if (pageCount <= 1)
             return;
 

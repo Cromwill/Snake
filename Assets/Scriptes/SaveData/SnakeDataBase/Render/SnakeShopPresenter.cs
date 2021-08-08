@@ -68,7 +68,6 @@ public class SnakeShopPresenter : MonoBehaviour
 
     public void SetSelected()
     {
-
         if (!_selectPreview.gameObject.activeSelf)
             _selectPreview.gameObject.SetActive(true);
 

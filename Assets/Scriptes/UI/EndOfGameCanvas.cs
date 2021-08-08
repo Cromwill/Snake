@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
 [RequireComponent(typeof(Animator))]
@@ -10,6 +11,7 @@ public class EndOfGameCanvas : MonoBehaviour
     [SerializeField] private EarnedGemsPresenter _eargedGems;
     [SerializeField] private GameObject _hatBonus;
     [SerializeField] private GameObject _achievementObject;
+    [SerializeField] private Image _hatPreview;
 
     private Canvas _selfCanvas;
     private Animator _selfAnimator;
@@ -68,6 +70,7 @@ public class EndOfGameCanvas : MonoBehaviour
             if (HasInCollection(_hatData) == false)
             {
                 _achievementObject.SetActive(true);
+                _hatPreview.sprite = _hatData.HatPreview;
                 HatCollection collection = new HatCollection(_dataBase);
                 collection.Load(new JsonSaveLoad());
                 collection.Add(_hatData);

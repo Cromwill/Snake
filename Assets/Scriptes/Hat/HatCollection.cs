@@ -11,18 +11,22 @@ public class HatCollection : ISavedObject
     private HatDataBase _dataBase;
 
     public IEnumerable<HatData> Data => from data in _dataBase.Data
-                                          where _buyedGUID.Contains(data.GUID)
-                                          select data;
-    public HatData SelectedHat => _dataBase.Data.First((data) => data.GUID == _selectedGUID);
+                                        where _buyedGUID.Contains(data.GUID)
+                                        select data;
+    public HatData SelectedHat
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_selectedGUID))
+                return null;
+
+            return _dataBase.Data.First((data) => data.GUID == _selectedGUID);
+        }
+    }
 
     public HatCollection(HatDataBase dataBase)
     {
         _dataBase = dataBase;
-        if (string.IsNullOrEmpty(_selectedGUID))
-        {
-            Add(_dataBase.DefaultData);
-            SelectHat(_dataBase.DefaultData);
-        }
     }
 
     public void Add(HatData data)
@@ -51,9 +55,6 @@ public class HatCollection : ISavedObject
 
         _buyedGUID = saved._buyedGUID;
         _selectedGUID = saved._selectedGUID;
-
-        if (string.IsNullOrEmpty(_selectedGUID))
-            SelectHat(_dataBase.DefaultData);
     }
 
     public void Save(ISaveLoadVisiter saveLoadVisiter)

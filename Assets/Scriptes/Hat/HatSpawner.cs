@@ -18,7 +18,8 @@ public class HatSpawner : MonoBehaviour
         collection.Load(new JsonSaveLoad());
 
         var selectedHat = collection.SelectedHat;
-        if (_isNewHat)
+
+        if (_isNewHat || selectedHat == null)
             selectedHat = GetNextHat(selectedHat);
 
         var inst = Instantiate(selectedHat.Prefab, transform.position, Quaternion.identity);
@@ -27,6 +28,9 @@ public class HatSpawner : MonoBehaviour
 
     private HatData GetNextHat(HatData data)
     {
+        if (data == null)
+            return _dataBase.DefaultData;
+
         var dataBase = _dataBase.Data.ToList();
         var dataIndex = dataBase.IndexOf(data);
 

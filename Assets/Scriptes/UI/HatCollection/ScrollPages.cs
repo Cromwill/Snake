@@ -13,10 +13,12 @@ public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private ScrollRect _scrollRect;
     private float _targetContentPosition;
+    private int _pageCount;
     private int _currentPage;
     private bool _pointerDown;
 
     public event UnityAction<int> Scrolled;
+    public event UnityAction<int> PageCountChanged;
 
     private void Awake()
     {
@@ -35,6 +37,12 @@ public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void Update()
     {
+        if (_pageCount != _content.childCount)
+        {
+            PageCountChanged?.Invoke(_content.childCount);
+            _pageCount = _content.childCount;
+        }
+
         if (_pointerDown)
             return;
 
@@ -75,5 +83,24 @@ public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         _pointerDown = false;
+    }
+
+    public void ForcePageScroll(int page)
+    {
+        var pageCount = _content.childCount;
+
+        if (pageCount > 1)
+        {
+            var controlPoint = 1f / (pageCount - 1);
+
+            if (page >= pageCount)
+                return;
+
+            _currentPage = page;
+
+            _targetContentPosition = -1 * controlPoint * _currentPage * _content.sizeDelta.x;
+
+            Scrolled?.Invoke(_currentPage);
+        }
     }
 }

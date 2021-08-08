@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class SelectLevelTestPanel : MonoBehaviour
 {
     [SerializeField] private Menu _menu;
+    [SerializeField] private SnakeDataBase _snakeDataBase;
+    [SerializeField] private HatDataBase _hatDataBase;
     [SerializeField] private Slider _levelSlider;
     [SerializeField] private Button _selectButton;
     [SerializeField] private Text _buttonText;
@@ -39,5 +41,32 @@ public class SelectLevelTestPanel : MonoBehaviour
     private void OnSelectButtonClicked()
     {
         _menu.LoadlLevelWithSave(_currentLevelValue - 1);
+    }
+
+    public void ResetSnakeInventory()
+    {
+        SnakeInventory inventory = new SnakeInventory(_snakeDataBase);
+        inventory.Save(new JsonSaveLoad());
+    }
+
+    public void ResetHatCollection()
+    {
+        HatCollection hatCollection = new HatCollection(_hatDataBase);
+        hatCollection.Save(new JsonSaveLoad());
+    }
+
+    public void AddGems(int value)
+    {
+        GemBalance gems = new GemBalance();
+        gems.Load(new JsonSaveLoad());
+
+        gems.Add(value);
+        gems.Save(new JsonSaveLoad());
+    }
+
+    public void ResetGems()
+    {
+        GemBalance gems = new GemBalance();
+        gems.Save(new JsonSaveLoad());
     }
 }

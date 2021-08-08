@@ -26,7 +26,7 @@ public class Menu : MonoBehaviour
 
     public void LoadShop()
     {
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Shop_v2");
     }
 
     public void LoadLevel(string name)
