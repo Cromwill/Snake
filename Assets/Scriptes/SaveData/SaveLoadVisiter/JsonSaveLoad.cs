@@ -5,6 +5,7 @@ public class JsonSaveLoad : ISaveLoadVisiter
     private const string GemBalanceKey = nameof(GemBalanceKey);
     private const string SnakeInventoryKey = nameof(SnakeInventoryKey);
     private const string CurrentLevelData = nameof(CurrentLevelData);
+    private const string HatCollectionKey = nameof(HatCollectionKey);
 
     #region GemBalance
     public void Save(GemBalance balance)
@@ -63,6 +64,26 @@ public class JsonSaveLoad : ISaveLoadVisiter
         }
 
         return currentLevel;
+    }
+    #endregion
+
+    #region HatCollection
+    public void Save(HatCollection hatCollection)
+    {
+        string saveJson = JsonUtility.ToJson(hatCollection);
+        PlayerPrefs.SetString(HatCollectionKey, saveJson);
+        PlayerPrefs.Save();
+    }
+
+    public HatCollection Load(HatCollection hatCollection)
+    {
+        if (PlayerPrefs.HasKey(HatCollectionKey))
+        {
+            string saveJson = PlayerPrefs.GetString(HatCollectionKey);
+            return JsonUtility.FromJson<HatCollection>(saveJson);
+        }
+
+        return hatCollection;
     }
     #endregion
 }

@@ -11,35 +11,53 @@ public class GameCanvas : MonoBehaviour
     private Pole _pole;
     private SnakeInitializer _snakeInitializer;
     private Snake _snake;
+    private BonusFinish _bonusFinish;
 
     private void Awake()
     {
         _selfCanvas = GetComponent<Canvas>();
         _pole = FindObjectOfType<Pole>();
         _snakeInitializer = FindObjectOfType<SnakeInitializer>();
+        _bonusFinish = FindObjectOfType<BonusFinish>();
     }
 
     private void OnEnable()
     {
-        _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Finished += OnBonusPoleCrawled;
+
         _snakeInitializer.Initialized += OnSnakeInitialized;
     }
 
     private void OnDisable()
     {
-        _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Finished -= OnBonusPoleCrawled;
 
         if (_snake)
             _snake.StartMoving -= OnSnakeMoving;
+
+        _snakeInitializer.Initialized -= OnSnakeInitialized;
     }
 
     private void OnSnakeCrawled(int gemValue)
     {
         _selfCanvas.enabled = false;
     }
+
+    private void OnBonusPoleCrawled()
+    {
+        _selfCanvas.enabled = false;
+    }
+
     private void OnSnakeInitialized(Snake snake)
     {
         _snake = snake;
+
         _snake.StartMoving += OnSnakeMoving;
     }
 

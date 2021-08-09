@@ -12,16 +12,15 @@ public class MobileInput : BaseInput
 #if UNITY_EDITOR
 
 #else
-        if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+        if (Input.touchCount > 0)
         {
-            if (Input.touchCount > 0)
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
                 var firstTouch = Input.GetTouch(Input.touchCount - 1);
                 if (firstTouch.phase == TouchPhase.Began)
                     Touched?.Invoke();
                 else if (firstTouch.phase == TouchPhase.Ended)
                     Released?.Invoke();
-
             }
         }
 #endif

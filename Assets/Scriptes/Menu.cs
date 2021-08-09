@@ -26,7 +26,7 @@ public class Menu : MonoBehaviour
 
     public void LoadShop()
     {
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Shop_v2");
     }
 
     public void LoadLevel(string name)
@@ -64,5 +64,10 @@ public class Menu : MonoBehaviour
         currentLevelData.Save(new JsonSaveLoad());
 
         SceneManager.LoadScene(currentLevelData.CurrentLevel);
+    }
+
+    public void LoadHatCollection()
+    {
+        SceneManager.LoadScene("HatCollection");
     }
 }
