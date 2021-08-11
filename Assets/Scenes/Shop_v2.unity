@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 275177775}
   - component: {fileID: 275177774}
   - component: {fileID: 275177776}
+  - component: {fileID: 275177777}
   m_Layer: 5
   m_Name: UnlockButton
   m_TagString: Untagged
@@ -379,6 +380,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!95 &275177777
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275177772}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 028658ae974149946919aa1ebd06b8e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &353731209
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +923,7 @@ GameObject:
   - component: {fileID: 646727670}
   - component: {fileID: 646727671}
   - component: {fileID: 646727673}
+  - component: {fileID: 646727674}
   m_Layer: 5
   m_Name: GemCountBG
   m_TagString: Untagged
@@ -992,6 +1013,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!95 &646727674
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646727668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35f6e04dfe3068445a6b5ae81c98c666, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &707205035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1790,6 +1830,8 @@ MonoBehaviour:
     type: 3}
   _snakeName: {fileID: 402269887}
   _unlockButton: {fileID: 275177776}
+  _unlockButtonAnimation: {fileID: 275177777}
+  _balanceAnimation: {fileID: 0}
 --- !u!114 &1228036526
 MonoBehaviour:
   m_ObjectHideFlags: 0
