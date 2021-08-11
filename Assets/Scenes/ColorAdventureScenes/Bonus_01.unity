@@ -640,6 +640,16 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5841767382506564321, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1856,6 +1866,8 @@ MonoBehaviour:
   _rightPole: {fileID: 95750471}
   _bottomSpawnOffset: 23.94
   _topSpawnOffset: 21.3
+  _onlyForward: 0
+  _diamondOffset: 3.85
   _leftHideInfo:
   - _fromIndex: 1
     _toIndex: 1

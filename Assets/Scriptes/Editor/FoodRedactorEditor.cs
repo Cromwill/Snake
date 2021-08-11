@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using SplineMesh;
+using System.Text;
 
 [CustomEditor(typeof(FoodSceneRedactor))]
 public class FoodRedactorEditor : Editor
@@ -16,6 +17,7 @@ public class FoodRedactorEditor : Editor
 
     private FoodSceneRedactor _foodRedactor;
     private EditType _editType;
+    private Vector3 _startDragPosition;
 
     private void Awake()
     {
@@ -33,7 +35,18 @@ public class FoodRedactorEditor : Editor
         {
             case EventType.MouseDown:
                 GUIUtility.hotControl = controlID;
-                Raycast();
+                Raycast(true);
+                e.Use();
+                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+                break;
+            case EventType.MouseUp:
+                GUIUtility.hotControl = controlID;
+                _startDragPosition = Vector3.one * float.MaxValue;
+                e.Use();
+                break;
+            case EventType.MouseDrag:
+                GUIUtility.hotControl = controlID;
+                Raycast(false);
                 e.Use();
                 EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
                 break;
@@ -52,9 +65,10 @@ public class FoodRedactorEditor : Editor
         }
     }
 
-    private void Raycast()
+    private void Raycast(bool startDrag = false)
     {
         Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
         {
@@ -62,6 +76,10 @@ public class FoodRedactorEditor : Editor
                 TryAdd(hitInfo);
             else if (_editType == EditType.Remove)
                 TryDelete(hitInfo);
+
+            var splineSample = _foodRedactor.GetProjectPosition(hitInfo.point);
+            if (startDrag)
+                _startDragPosition = splineSample.location;
         }
     }
 
@@ -70,11 +88,15 @@ public class FoodRedactorEditor : Editor
         var splineSample = _foodRedactor.GetProjectPosition(hitInfo.point);
         var worldPosition = splineSample.location;
 
+        if (Vector3.Distance(worldPosition, _startDragPosition) < _foodRedactor.MinSpawnDistance)
+            return;
+
+        _startDragPosition = worldPosition;
+
         if (_foodRedactor.FoodContainer != null)
             worldPosition = _foodRedactor.FoodContainer.InverseTransformPoint(splineSample.location);
 
         _foodRedactor.Template.transform.position = worldPosition;
-        Debug.Log(splineSample.timeInCurve);
         PrefabUtility.InstantiatePrefab(_foodRedactor.Template, _foodRedactor.FoodContainer);
     }
 
@@ -82,5 +104,16 @@ public class FoodRedactorEditor : Editor
     {
         if (hitInfo.collider.TryGetComponent(out Food food))
             DestroyImmediate(food.gameObject);
+    }
+
+    public override void OnInspectorGUI()
+    {
+        var infoText = new StringBuilder();
+        infoText.Append("shift + ËÊÌ = add food\n");
+        infoText.Append("ctrl + ËÊÌ = remove food\n");
+        infoText.Append("Mouse dragging supported");
+        EditorGUILayout.HelpBox(infoText.ToString(), MessageType.Info, true);
+
+        base.OnInspectorGUI();
     }
 }
