@@ -97,6 +97,8 @@ public class FoodRedactorEditor : Editor
             worldPosition = _foodRedactor.FoodContainer.InverseTransformPoint(splineSample.location);
 
         _foodRedactor.Template.transform.position = worldPosition;
+        _foodRedactor.Template.transform.rotation = splineSample.Rotation;
+
         PrefabUtility.InstantiatePrefab(_foodRedactor.Template, _foodRedactor.FoodContainer);
     }
 
