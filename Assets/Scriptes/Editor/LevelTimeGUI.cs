@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System.Text;
+using System.Globalization;
+using UnityEditor.SceneManagement;
 
 public class LevelTimeGUI : EditorWindow
 {
@@ -13,7 +16,9 @@ public class LevelTimeGUI : EditorWindow
     private static GUIStyle _normalStyle;
     private static GUIStyle _errorStyle;
 
-    [MenuItem("Window/Level Time GUI/Save time #s")]
+    public static string SavePath => Directory.GetCurrentDirectory() + "\\Assets\\LevelsTime.json";
+
+    [MenuItem("Window/Level Time GUI/Save time in current scene #s")]
     public static void SaveTimeToFile()
     {
         if (_track == null)
@@ -22,11 +27,11 @@ public class LevelTimeGUI : EditorWindow
 
         if (_track == null)
         {
-            Debug.LogError("Save error: Can't find track");
+            Debug.LogError("Save error: Can't find track on level " + EditorSceneManager.GetActiveScene().name);
             return;
         }
 
-        var filePath = Directory.GetCurrentDirectory() + "\\Assets\\LevelsTime.json";
+        var filePath = SavePath;
         var levelList = new LevelTimeList();
 
         if (File.Exists(filePath))
@@ -42,7 +47,7 @@ public class LevelTimeGUI : EditorWindow
         Debug.Log($"{currentSceneName} level time saved to {filePath}");
     }
 
-    [MenuItem("Window/Level Time GUI/Enable")]
+    [MenuItem("Window/Level Time GUI/Enable UI")]
     public static void Enable()
     {
         SceneView.onSceneGUIDelegate += OnScene;
@@ -57,11 +62,51 @@ public class LevelTimeGUI : EditorWindow
         _errorStyle.normal.textColor = Color.red;
     }
 
-    [MenuItem("Window/Level Time GUI/Disable")]
+    [MenuItem("Window/Level Time GUI/Disable UI")]
     public static void Disable()
     {
         SceneView.onSceneGUIDelegate -= OnScene;
         Debug.Log("Level Time GUI : Disabled");
+    }
+
+    [MenuItem("Window/Level Time GUI/Generate diagramm")]
+    public static void CreateDiagramm()
+    {
+        if (File.Exists(SavePath) == false)
+        {
+            Debug.LogError("Cant find file: " + SavePath);
+            return;
+        }
+
+        var levelList = LevelTimeList.Load(SavePath);
+
+
+        var diamgrammData = new StringBuilder();
+        foreach (var level in levelList.Levels)
+        {
+            if (diamgrammData.Length != 0)
+                diamgrammData.Append(";");
+
+            diamgrammData.Append(level.LevelName + "," + level.Time.ToString("0.0", CultureInfo.InvariantCulture));
+        }
+
+        var url = $"http://yequalx.com/ru/chart/line/level,time;{diamgrammData}#w:1000;h:400;c:4285F4";
+        Application.OpenURL(url);
+    }
+
+    [MenuItem("Window/Level Time GUI/Refresh All")]
+    public static void Test()
+    {
+        var currentScene = EditorSceneManager.GetActiveScene().path;
+
+        var scenes = EditorBuildSettings.scenes;
+        foreach (var scene in scenes)
+        {
+            EditorSceneManager.OpenScene(scene.path);
+            SaveTimeToFile();
+        }
+
+        EditorSceneManager.OpenScene(currentScene);
     }
 
     private static void OnScene(SceneView sceneview)
