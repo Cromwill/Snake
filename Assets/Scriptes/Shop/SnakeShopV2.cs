@@ -16,6 +16,8 @@ public class SnakeShopV2 : MonoBehaviour
     [SerializeField] private ParticleSystem _unlockEffect;
     [SerializeField] private TMP_Text _snakeName;
     [SerializeField] private Button _unlockButton;
+    [SerializeField] private Animator _unlockButtonAnimation;
+    [SerializeField] private Animator _balanceAnimation;
 
     private List<SnakeShopPresenterV2> _presenters;
     private SnakeShopPresenterV2 _selectedPresenter;
@@ -96,6 +98,10 @@ public class SnakeShopV2 : MonoBehaviour
             snakeInventory.SelectSnake(presenter.Data); 
             SelectItem(presenter);
         }
+        else
+        {
+            _unlockButtonAnimation.SetTrigger("Scale");
+        }
     }
 
     private void SelectItem(SnakeShopPresenterV2 presenter)
@@ -126,7 +132,10 @@ public class SnakeShopV2 : MonoBehaviour
         gemBalance.Load(new JsonSaveLoad());
 
         if (gemBalance.Balance < ItemCost)
+        {
+            _balanceAnimation.SetTrigger("Scale");
             return;
+        }
         
         SnakeInventory snakeInventory = new SnakeInventory(_dataBase);
         snakeInventory.Load(new JsonSaveLoad());

@@ -9,7 +9,6 @@ public class Track : MonoBehaviour
     [SerializeField] private Spline _spline;
 
     public float DistanceLength => _spline.Length;
-    public float PlayerDistanceTraveleds { get; private set; }
 
     public Vector3 GetPositionByDistance(float length)
     {

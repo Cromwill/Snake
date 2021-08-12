@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 044bdfe6894d8b74397d9f6bcdd51425, type: 2}
+  - {fileID: 2100000, guid: 823affcd49aeda6418bf82fc66daea1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -638,6 +638,16 @@ PrefabInstance:
     - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5841767382506564321, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
@@ -1856,6 +1866,8 @@ MonoBehaviour:
   _rightPole: {fileID: 95750471}
   _bottomSpawnOffset: 23.94
   _topSpawnOffset: 21.3
+  _onlyForward: 0
+  _diamondOffset: 3.85
   _leftHideInfo:
   - _fromIndex: 1
     _toIndex: 1
@@ -1927,7 +1939,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 044bdfe6894d8b74397d9f6bcdd51425, type: 2}
+  - {fileID: 2100000, guid: 823affcd49aeda6418bf82fc66daea1c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -51,9 +51,9 @@ public class BonusFinish : MonoBehaviour
         DistanceLength = _poleScale.y * 3f;
 
         if (_leftPole)
-            _leftPole.Init(_angleDelta, _radiusScale);
+            _leftPole.Init(_angleDelta, _radiusScale, DistanceLength);
         if (_rightPole)
-            _rightPole.Init(_angleDelta, _radiusScale);
+            _rightPole.Init(_angleDelta, _radiusScale, DistanceLength);
 
         if (_poleMaterial)
             _poleMaterial.SetFloat("_TopLine", _poleScale.y * 2f);
@@ -76,8 +76,8 @@ public class BonusFinish : MonoBehaviour
 
         DistanceLength = _poleScale.y * 3f;
 
-        _leftPole.Init(_angleDelta, _radiusScale);
-        _rightPole.Init(_angleDelta, _radiusScale);
+        _leftPole.Init(_angleDelta, _radiusScale, DistanceLength);
+        _rightPole.Init(_angleDelta, _radiusScale, DistanceLength);
 
 
         _firstPole = _rightPole;

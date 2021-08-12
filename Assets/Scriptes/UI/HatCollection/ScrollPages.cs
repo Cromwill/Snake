@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(ScrollRect))]
-public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class ScrollPages : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private RectTransform _content;
     [SerializeField] private float _lerpSpeed = 5f;
@@ -53,17 +53,33 @@ public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         _content.anchoredPosition = Vector2.Lerp(_content.anchoredPosition, nextContentPosition, _lerpSpeed * Time.deltaTime);
     }
 
-    private void OnScrollValueChanged(Vector2 value)
-    {
+    private void OnScrollValueChanged(Vector2 value) { }
 
+    public void ForcePageScroll(int page)
+    {
+        var pageCount = _content.childCount;
+
+        if (pageCount > 1)
+        {
+            var controlPoint = 1f / (pageCount - 1);
+
+            if (page >= pageCount)
+                return;
+
+            _currentPage = page;
+
+            _targetContentPosition = -1 * controlPoint * _currentPage * _content.sizeDelta.x;
+
+            Scrolled?.Invoke(_currentPage);
+        }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
         _pointerDown = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnEndDrag(PointerEventData eventData)
     {
         var pageCount = _content.childCount;
 
@@ -83,24 +99,5 @@ public class ScrollPages : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
         _pointerDown = false;
-    }
-
-    public void ForcePageScroll(int page)
-    {
-        var pageCount = _content.childCount;
-
-        if (pageCount > 1)
-        {
-            var controlPoint = 1f / (pageCount - 1);
-
-            if (page >= pageCount)
-                return;
-
-            _currentPage = page;
-
-            _targetContentPosition = -1 * controlPoint * _currentPage * _content.sizeDelta.x;
-
-            Scrolled?.Invoke(_currentPage);
-        }
     }
 }
