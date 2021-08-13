@@ -14,7 +14,7 @@ public class Pole : MonoBehaviour
 
     public event UnityAction<int> SnakeCrawled;
 
-    public float DistanceLength { get; private set; }
+    public float DistanceLength => transform.lossyScale.y * _angleDelta / 2f;
 
     private List<PoleBlock> _blocks;
     private SnakeBoneMovement _snakeBoneMovement;
@@ -25,10 +25,15 @@ public class Pole : MonoBehaviour
         if (_angleDelta <= 0)
             _angleDelta = 1f;
     }
+    
+    private void Awake()
+    {
+        if (TryGetComponent(out MeshRenderer meshRenderer))
+            meshRenderer.enabled = false;
+    }
 
     private void Start()
     {
-        DistanceLength = transform.lossyScale.y * _angleDelta / 2f;
         SpawnBlocks();
     }
 

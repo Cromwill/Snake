@@ -8,8 +8,8 @@ namespace SplineMesh {
     public class SplineEditor : Editor {
 
         private const int QUAD_SIZE = 12;
-        private static Color CURVE_COLOR = new Color(0.8f, 0.8f, 0.8f);
-        private static Color CURVE_BUTTON_COLOR = new Color(0.8f, 0.8f, 0.8f);
+        private static Color CURVE_COLOR = new Color(0.5f, 0.0f, 0.5f);
+        private static Color CURVE_BUTTON_COLOR = new Color(0.9f, 0.0f, 0.9f);
         private static Color DIRECTION_COLOR = Color.red;
         private static Color DIRECTION_BUTTON_COLOR = Color.red;
         private static Color UP_BUTTON_COLOR = Color.green;

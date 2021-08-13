@@ -90,13 +90,16 @@ public class LevelTimeGUI : EditorWindow
             diamgrammData.Append(level.LevelName + "," + level.Time.ToString("0.0", CultureInfo.InvariantCulture));
         }
 
-        var url = $"http://yequalx.com/ru/chart/line/level,time;{diamgrammData}#w:1000;h:400;c:4285F4";
+        var url = $"http://yequalx.com/ru/chart/column/level,time;{diamgrammData}#w:1000;h:400;c:4285F4";
         Application.OpenURL(url);
     }
 
     [MenuItem("Window/Level Time GUI/Refresh All")]
-    public static void Test()
+    public static void RefreshAll()
     {
+        if (File.Exists(SavePath))
+            File.Delete(SavePath);
+
         var currentScene = EditorSceneManager.GetActiveScene().path;
 
         var scenes = EditorBuildSettings.scenes;
@@ -137,7 +140,7 @@ public class LevelTimeGUI : EditorWindow
     private static float GetTime()
     {
         var snakeSpeed = 20f;
-        var obstacleWaitingTime = 3f;
+        var obstacleWaitingTime = 1.5f;
         var levelCompletedTime = _track.DistanceLength / snakeSpeed + obstacleWaitingTime * _obstacles.Length;
 
         return levelCompletedTime;

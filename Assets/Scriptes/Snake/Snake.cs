@@ -9,7 +9,6 @@ using UnityEngine;
 public class Snake : MonoBehaviour, IMoveable
 {
     [SerializeField] private float _maxSpeedTime;
-    [SerializeField] private float _distanceBetweenSegments = 1f;
     [SerializeField] private Animator _armatureAnimator;
 
     public event Action StartMoving;
@@ -21,6 +20,7 @@ public class Snake : MonoBehaviour, IMoveable
     private Track _track;
     private FinishPath _finish;
     private BonusFinish _bonusFinish;
+    private float _distanceBetweenSegments = 1.5f;
     private float _distanceCovered;
     private float _finishDistanceCovered;
     private float _bonusPoleDistanceCovered;

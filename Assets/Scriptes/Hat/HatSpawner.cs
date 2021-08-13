@@ -9,11 +9,14 @@ public class HatSpawner : MonoBehaviour
     [SerializeField] private HatDataBase _dataBase;
     [Tooltip("Если true - спавнится новая шляпка (которой нет в коллекции")]
     [SerializeField] private bool _isNewHat;
+    [SerializeField] private GameObject _editorPreview;
 
     public event UnityAction<SnakeHat, HatData> Spawned;
 
     private void Start()
     {
+        _editorPreview?.SetActive(false);
+
         HatCollection collection = new HatCollection(_dataBase);
         collection.Load(new JsonSaveLoad());
 

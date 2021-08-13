@@ -42,7 +42,7 @@ public class FoodRedactorEditor : Editor
             case EventType.MouseUp:
                 GUIUtility.hotControl = controlID;
                 _startDragPosition = Vector3.one * float.MaxValue;
-                e.Use();
+                //e.Use();
                 break;
             case EventType.MouseDrag:
                 GUIUtility.hotControl = controlID;
@@ -97,7 +97,7 @@ public class FoodRedactorEditor : Editor
             worldPosition = _foodRedactor.FoodContainer.InverseTransformPoint(splineSample.location);
 
         _foodRedactor.Template.transform.position = worldPosition;
-        _foodRedactor.Template.transform.rotation = splineSample.Rotation;
+        _foodRedactor.Template.transform.rotation = splineSample.Rotation * Quaternion.Euler(0, _foodRedactor.Angle, 0);
 
         PrefabUtility.InstantiatePrefab(_foodRedactor.Template, _foodRedactor.FoodContainer);
     }
@@ -117,5 +117,29 @@ public class FoodRedactorEditor : Editor
         EditorGUILayout.HelpBox(infoText.ToString(), MessageType.Info, true);
 
         base.OnInspectorGUI();
+
+        if (GUILayout.Button("Update All Food"))
+        {
+            var allFood = FindObjectsOfType<Food>();
+
+            for (int i = 0; i < allFood.Length; i++)
+            {
+                var worldPosition = allFood[i].transform.position;
+                if (_foodRedactor.FoodContainer != null)
+                    worldPosition = _foodRedactor.FoodContainer.InverseTransformPoint(worldPosition);
+
+                _foodRedactor.Template.transform.position = worldPosition;
+                _foodRedactor.Template.transform.rotation = allFood[i].transform.rotation;
+
+                PrefabUtility.InstantiatePrefab(_foodRedactor.Template, _foodRedactor.FoodContainer);
+
+                if (PrefabUtility.IsPartOfPrefabInstance(allFood[i].gameObject))
+                    PrefabUtility.UnpackPrefabInstance(allFood[i].gameObject,
+                          PrefabUnpackMode.Completely,
+                          InteractionMode.AutomatedAction);
+
+                DestroyImmediate(allFood[i].gameObject);
+            }
+        }
     }
 }
