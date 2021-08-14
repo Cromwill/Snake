@@ -22,7 +22,7 @@ public class FinishPath : MonoBehaviour
 
     public float GetParameterByDistance(float distance)
     {
-        if (distance < _line.DistanceLength)
+        if (distance <= _line.DistanceLength)
             return distance / _line.DistanceLength;
         else
             return 1 + (distance - _line.DistanceLength) / _pole.DistanceLength;

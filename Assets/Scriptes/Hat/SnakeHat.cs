@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Animator))]
 public class SnakeHat : MonoBehaviour
 {
     private Collider _collider;
@@ -18,7 +17,7 @@ public class SnakeHat : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<Collider>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponentInChildren<Animator>();
         _finishTrigger = FindObjectOfType<FinishTrigger>();
     }
 

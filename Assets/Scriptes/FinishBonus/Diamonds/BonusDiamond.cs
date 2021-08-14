@@ -8,7 +8,7 @@ public class BonusDiamond : MonoBehaviour
     [SerializeField] private ParticleSystem _idleEffect;
     [SerializeField] private ParticleSystem _collectEffect;
 
-    public int Cost => 10;
+    public int Cost => 2;
 
     public event UnityAction<BonusDiamond> Collected;
 

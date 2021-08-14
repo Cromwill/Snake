@@ -18,9 +18,9 @@ public class BonusDiamondSpawner : MonoBehaviour
     [SerializeField] private float _topSpawnOffset;
     [SerializeField] private bool _onlyForward;
     [SerializeField] private float _diamondOffset = 5f;
-    [Header("Left pole hide positions")]
-    [SerializeField] private List<HideInfo> _leftHideInfo;
-    [SerializeField] private List<HideInfo> _rightHideInfo;
+    [Header("Hide positions")]
+    [SerializeField] private bool _reverce;
+    [SerializeField] private List<HideInfo> _hideInfo;
 
     private BonusDiamondCollector _diamondCollector;
 
@@ -29,6 +29,10 @@ public class BonusDiamondSpawner : MonoBehaviour
     {
         if (_diamondOffset < 1f)
             _diamondOffset = 1f;
+
+        for (int i = 0; i < _hideInfo.Count; i++)
+            if (_hideInfo[i].ToIndex < _hideInfo[i].Fromindex)
+                _hideInfo[i] = new HideInfo(_hideInfo[i].Fromindex, _hideInfo[i].Fromindex);
     }
 
     private void OnDrawGizmos()
@@ -38,12 +42,12 @@ public class BonusDiamondSpawner : MonoBehaviour
             var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
             var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
 
-            DrawDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _leftHideInfo);
-            DrawDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _rightHideInfo);
+            DrawDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo);
+            DrawDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, true);
         }
     }
 
-    private void DrawDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo)
+    private void DrawDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
     {
         if (pole == null)
             return;
@@ -57,6 +61,8 @@ public class BonusDiamondSpawner : MonoBehaviour
         for (int i = 0; i < allPositions.Count; i++)
         {
             var isHide = hideInfo.Any(info => i >= info.Fromindex && i <= info.ToIndex);
+            if (reverce)
+                isHide = !isHide;
 
             if (isHide)
                 continue;
@@ -77,13 +83,13 @@ public class BonusDiamondSpawner : MonoBehaviour
         var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
         var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
 
-        var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _leftHideInfo);
-        var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _rightHideInfo);
+        var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo);
+        var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, true);
 
         _diamondCollector.Init(leftDiamods.Concat(rightDiamods));
     }
 
-    private IEnumerable<BonusDiamond> SpawnDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo)
+    private IEnumerable<BonusDiamond> SpawnDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
     {
         var spawnedDiamonds = new List<BonusDiamond>();
 
@@ -96,6 +102,8 @@ public class BonusDiamondSpawner : MonoBehaviour
         for (int i = 0; i < allPositions.Count; i++)
         {
             var isHide = hideInfo.Any(info => i >= info.Fromindex && i <= info.ToIndex);
+            if (reverce)
+                isHide = !isHide;
 
             if (isHide)
                 continue;
@@ -116,5 +124,11 @@ public class BonusDiamondSpawner : MonoBehaviour
 
         public int Fromindex => _fromIndex;
         public int ToIndex => _toIndex;
+
+        public HideInfo(int fromIndex, int toIndex)
+        {
+            _fromIndex = fromIndex;
+            _toIndex = toIndex;
+        }
     }
 }

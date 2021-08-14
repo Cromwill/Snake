@@ -124,7 +124,7 @@ public class SnakeBoneMovement : MonoBehaviour
 
         if (headDistance == _finishPath.DistanceLength)
             Full—rawled?.Invoke();
-        else if (boneIndex == _snakeSkeleton.ActiveBones.Count && _finishPath.GetParameterByDistance(distance) >= 1f)
+        else if (boneIndex == _snakeSkeleton.ActiveBones.Count && _finishPath.GetParameterByDistance(distance) > 1f)
             Partially—rawled?.Invoke(headDistance);
     }
 
