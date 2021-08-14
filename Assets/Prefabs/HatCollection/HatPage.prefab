@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3308770053870033979}
   - component: {fileID: 3308770053870033924}
   m_Layer: 5
-  m_Name: Page
+  m_Name: HatPage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,8 +57,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 230, y: 230}
-  m_Spacing: {x: 100, y: 100}
+  m_CellSize: {x: 250, y: 250}
+  m_Spacing: {x: 70, y: 70}
   m_Constraint: 1
   m_ConstraintCount: 3
 --- !u!114 &3308770053870033924
@@ -73,3 +73,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe0fa6d231fd33c4aa9f421f9d14f370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _template: {fileID: 7323057064217498933, guid: 044c14bb76570fb49be0b39cd433ef7b,
+    type: 3}

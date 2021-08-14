@@ -31,7 +31,7 @@ public class HatPreviewRenderList : MonoBehaviour
         {
             var instPage = Instantiate(_pageTemplate, transform);
 
-            var renderData = new List<Sprite>(_imagePerPage);
+            var renderData = new List<HatData>(_imagePerPage);
 
             for (int i = 0; i < _imagePerPage; i++)
             {
@@ -40,9 +40,9 @@ public class HatPreviewRenderList : MonoBehaviour
                     break;
 
                 if (hatNumber - 1 < collectedHats.Count)
-                    renderData.Add(collectedHats[i].HatPreview);
+                    renderData.Add(collectedHats[hatNumber - 1]);
                 else
-                    renderData.Add(_dataBase.HatPlaceholder);
+                    renderData.Add(null);
             }
 
             instPage.Render(renderData);

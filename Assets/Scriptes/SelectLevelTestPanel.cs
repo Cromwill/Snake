@@ -69,4 +69,13 @@ public class SelectLevelTestPanel : MonoBehaviour
         GemBalance gems = new GemBalance();
         gems.Save(new JsonSaveLoad());
     }
+
+    public void AddAllHatsInCollection()
+    {
+        HatCollection hatCollection = new HatCollection(_hatDataBase);
+        foreach (var hat in _hatDataBase.Data)
+            hatCollection.Add(hat);
+
+        hatCollection.Save(new JsonSaveLoad());
+    }
 }

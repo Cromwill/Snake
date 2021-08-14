@@ -75,6 +75,10 @@ public class HatDataBaseEditor : Editor
             _dataBase.Add(new HatData());
         if (GUILayout.Button(new GUIContent("-", "Удалить"), GUILayout.Width(30), GUILayout.Height(30)))
             _dataBase.RemoveAt(_currentRenderIndex);
+
+        if (_currentRenderIndex >= _dataBase.Data.Count())
+            _currentRenderIndex = _dataBase.Data.Count() - 1;
+
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 

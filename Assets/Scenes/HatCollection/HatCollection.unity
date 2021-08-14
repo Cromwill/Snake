@@ -200,7 +200,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -330,7 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b431410b5caf9c845b3e2d1449824b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hatRenderList: {fileID: 733925276}
   _scrollPages: {fileID: 1956110874}
   _template: {fileID: 5282725459841286653, guid: 00460b7f12192ad4083446893a1913a3,
     type: 3}
@@ -849,7 +848,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.44150943, g: 0.460587, b: 0.49056602, a: 0}
+  m_BackGroundColor: {r: 0.5294118, g: 0.65882355, b: 0.3137255, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1021,8 +1020,8 @@ RectTransform:
   m_Father: {fileID: 262197319}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.23050001}
-  m_AnchorMax: {x: 1, y: 0.7665417}
+  m_AnchorMin: {x: 0, y: 0.18}
+  m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
