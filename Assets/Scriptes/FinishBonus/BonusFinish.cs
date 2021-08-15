@@ -135,8 +135,8 @@ public class BonusFinish : MonoBehaviour
 
     private void OnSnakeCrawled()
     {
-        var topPosition = _currentPole.transform.position + _currentPole.transform.up * _currentPole.transform.lossyScale.y;
-        _cupObject.transform.position = topPosition;
+        //var topPosition = _currentPole.transform.position + _currentPole.transform.up * _currentPole.transform.lossyScale.y;
+        //_cupObject.transform.position = topPosition;
         _cupObject.SetActive(true);
 
         Finished?.Invoke();

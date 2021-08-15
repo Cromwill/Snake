@@ -6,6 +6,7 @@ public class BonusLevelCameraTarget : MonoBehaviour
 {
     [SerializeField] private SnakeInitializer _snakeInitializer;
     [SerializeField] private BonusFinish _bonusFinish;
+    [SerializeField] private float _yPosition = 5f;
 
     private Snake _followingSnake;
 
@@ -27,7 +28,7 @@ public class BonusLevelCameraTarget : MonoBehaviour
 
     private void Update()
     {
-        var nextPosition = new Vector3(transform.position.x, _followingSnake.HeadTransform.position.y, transform.position.z);
+        var nextPosition = new Vector3(_bonusFinish.transform.position.x, _yPosition, _followingSnake.HeadTransform.position.z);
         transform.position = Vector3.Lerp(transform.position, nextPosition, 3f * Time.deltaTime);
     }
 }
