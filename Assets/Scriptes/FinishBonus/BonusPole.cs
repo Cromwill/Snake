@@ -34,7 +34,7 @@ public class BonusPole : MonoBehaviour
     {
         float deltaRad = 2 * Mathf.PI * t * _angleDelta;
 
-        var posHeight = transform.position + Vector3.down * transform.lossyScale.y + Vector3.up * 2 * transform.lossyScale.y * t;
+        var posHeight = transform.position + -transform.up * transform.lossyScale.y + transform.up * 2 * transform.lossyScale.y * t;
 
         posHeight += transform.forward * Mathf.Cos(deltaRad) * _radiusScale * transform.lossyScale.z / 2f;
         posHeight += transform.right * Mathf.Sin(deltaRad) * _radiusScale * transform.lossyScale.x / 2f;
