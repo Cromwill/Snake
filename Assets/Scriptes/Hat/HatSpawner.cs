@@ -39,6 +39,8 @@ public class HatSpawner : MonoBehaviour
 
         if (dataIndex < _dataBase.Data.Count() - 1)
             dataIndex++;
+        else
+            dataIndex = 0;
 
         return dataBase[dataIndex];
     }

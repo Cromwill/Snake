@@ -98,10 +98,7 @@ public class HatDataBaseEditor : Editor
         var sprite = element.FindPropertyRelative("_hatPreview").objectReferenceValue as Sprite;
 
         if (sprite)
-        {
-            GUILayout.Space(500);
-            EditorGUI.DrawPreviewTexture(new Rect(Screen.width / 2f - 200, 300, 200, 200), sprite.texture);
-        }
+            GUILayout.Label(sprite.texture, GUILayout.Width(150), GUILayout.Height(150));
     }
 
     private List<int> GetFailedIndexes(SerializedProperty array)
