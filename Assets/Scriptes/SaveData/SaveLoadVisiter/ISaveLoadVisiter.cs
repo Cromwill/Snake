@@ -11,4 +11,7 @@
 
     void Save(HatCollection hatCollection);
     HatCollection Load(HatCollection hatCollection);
+
+    void Save(SettingData setting);
+    SettingData Load(SettingData setting);
 }

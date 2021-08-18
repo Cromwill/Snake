@@ -30,7 +30,7 @@ public class CupShower : MonoBehaviour
     {
         if (_snakeBoneMovement)
             _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
-    }
+    } 
 
     private void OnSnakeInitizlised(Snake snake)
     {
@@ -40,6 +40,7 @@ public class CupShower : MonoBehaviour
 
     private void OnPlayerFullCrawled()
     {
+        Debug.Log("OnPlayerFullCrawled");
         _cupGroup.SetActive(true);
     }
 }
