@@ -355,6 +355,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initializer: {fileID: 0}
+  _inputSelector: {fileID: 0}
+  _pickObject: {fileID: 8300000, guid: 6662934ba34f3c343ad424add2c75d87, type: 3}
+  _obstacleFounded: {fileID: 8300000, guid: 4827e9039c863d341aec2264c9374db6, type: 3}
+  _moveAudioIndex: 1
+  _maxSoundVolume: 0.8
+  _maxSoundPitch: 1
+  _volumeAddingSpeed: 0.25
+  _pitchAddingSpeed: 0.25
 --- !u!1001 &1812080136259919491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -635,6 +643,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1812080135860539268}
     m_Modifications:
+    - target: {fileID: 1263916856962496989, guid: 224e011496c720241a6fb2cfa4dd594a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 509.1169
+      objectReference: {fileID: 0}
     - target: {fileID: 4626829727406062232, guid: 224e011496c720241a6fb2cfa4dd594a,
         type: 3}
       propertyPath: m_Name

@@ -18,6 +18,11 @@ public abstract class BaseInput : MonoBehaviour
 
     public void Init(IMoveable moveableObject) => _moveableObject = moveableObject;
 
+    public void TouchedAddListener(UnityAction action) => Touched += action;
+    public void ReleasedAddListener(UnityAction action) => Released += action;
+    public void TouchedRemoveListener(UnityAction action) => Touched -= action;
+    public void ReleasedRemoveListener(UnityAction action) => Released -= action;
+
     private void OnTouched()
     {
         _moveableObject?.StartMove();
@@ -30,6 +35,7 @@ public abstract class BaseInput : MonoBehaviour
 
     private void OnDisable()
     {
+        
         Touched -= OnTouched;
         Released -= OnReleased;
     }
