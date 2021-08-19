@@ -7,8 +7,12 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private bool _isShop;
 
+    private AdSettings _adSettings;
+
     private void Awake()
     {
+        _adSettings = Singleton<AdSettings>.Instance;
+
         if (_isShop)
             return;
 
@@ -17,6 +21,29 @@ public class Menu : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex != currentLevelData.CurrentLevel)
             SceneManager.LoadScene(currentLevelData.CurrentLevel);
+    }
+
+    private void OnEnable()
+    {
+        _adSettings.InterstitialShowed += LoadNextLevelAfterAd;
+        _adSettings.InterstitialShowTryed += LoadNextLevelAfterAd;
+    }
+
+    private void OnDisable()
+    {
+        _adSettings.InterstitialShowed -= LoadNextLevelAfterAd;
+        _adSettings.InterstitialShowTryed -= LoadNextLevelAfterAd;
+    }
+
+    private void LoadNextLevelAfterAd()
+    {
+        var currentLevelData = new CurrentLevelData();
+        currentLevelData.Load(new JsonSaveLoad());
+
+        currentLevelData.IncreaseLevel();
+        currentLevelData.Save(new JsonSaveLoad());
+
+        SceneManager.LoadScene(currentLevelData.CurrentLevel);
     }
 
     public void ReloadLevel()
@@ -57,13 +84,7 @@ public class Menu : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        var currentLevelData = new CurrentLevelData();
-        currentLevelData.Load(new JsonSaveLoad());
-
-        currentLevelData.IncreaseLevel();
-        currentLevelData.Save(new JsonSaveLoad());
-
-        SceneManager.LoadScene(currentLevelData.CurrentLevel);
+        _adSettings.ShowInterstitial();
     }
 
     public void LoadHatCollection()
