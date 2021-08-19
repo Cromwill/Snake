@@ -50,7 +50,7 @@ public class LevelTimeGUI : EditorWindow
     [MenuItem("Window/Level Time GUI/Enable UI")]
     public static void Enable()
     {
-        SceneView.onSceneGUIDelegate += OnScene;
+        SceneView.onSceneGUIDelegate = OnScene;
         Debug.Log("Level Time GUI : Enabled");
 
         _normalStyle = new GUIStyle();

@@ -37,13 +37,11 @@ public class Setting : MonoBehaviour
 
     public void EnableSound(bool isEnable)
     {
-        Debug.Log("Toggle use - " + isEnable);
         _data = new SettingData(isEnable, _data.IsVibrationEnable);
     }
 
     public void EnableVibratin(bool isEnable)
     {
-        Debug.Log("Toggle use - " + isEnable);
         _data = new SettingData(_data.IsSoundEnable, isEnable);
     }
 

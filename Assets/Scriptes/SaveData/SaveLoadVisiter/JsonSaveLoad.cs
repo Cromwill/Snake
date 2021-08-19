@@ -81,13 +81,14 @@ public class JsonSaveLoad : ISaveLoadVisiter
         if (PlayerPrefs.HasKey(HatCollectionKey))
         {
             string saveJson = PlayerPrefs.GetString(HatCollectionKey);
-            Debug.Log(saveJson);
             return JsonUtility.FromJson<HatCollection>(saveJson);
         }
 
         return hatCollection;
     }
     #endregion
+
+    #region Setting
     public void Save(SettingData setting)
     {
         string saveJson = JsonUtility.ToJson(setting);
@@ -100,13 +101,11 @@ public class JsonSaveLoad : ISaveLoadVisiter
         if (PlayerPrefs.HasKey(SettingKey))
         {
             string saveJson = PlayerPrefs.GetString(SettingKey);
-            Debug.Log(saveJson);
             return JsonUtility.FromJson<SettingData>(saveJson);
         }
 
         return new SettingData(true, true);
     }
-    #region Setting
 
     #endregion
 }
