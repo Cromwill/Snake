@@ -3,9 +3,6 @@ using MoreMountains.NiceVibrations;
 
 public class HapticsHelper : MonoBehaviour
 {
-    [SerializeField] private SnakeInitializer _initializer;
-    [SerializeField] private InputSelector _inputSelector;
-
     [Header("Audio clips")]
     [SerializeField] private AudioClip _pickObject;
     [SerializeField] private AudioClip _obstacleFounded;
@@ -21,6 +18,8 @@ public class HapticsHelper : MonoBehaviour
     private AudioSource _snakeAudioSource;
     private FinishTrigger _finishTrigger;
     private Setting _setting;
+    private SnakeInitializer _initializer;
+    private InputSelector _inputSelector;
 
     private float _defoultSoundVolume;
     private float _defoultSoundPitch;
@@ -29,17 +28,10 @@ public class HapticsHelper : MonoBehaviour
     {
         _initializer = FindObjectOfType<SnakeInitializer>();
         _initializer.Initialized += OnSnakeInitializer;
-        _setting = GetComponent<Setting>();
+        _setting = FindObjectOfType<Setting>();
 
         if (_inputSelector == null)
             _inputSelector = FindObjectOfType<InputSelector>();
-
-        //if (_finishTrigger == null)
-        //{
-        //    _finishTrigger = FindObjectOfType<FinishTrigger>();
-        //    if (_finishTrigger != null)
-        //        _finishTrigger.PlayerFinished += OnPlayerFinished;
-        //}
     }
 
     private void OnDisable()
