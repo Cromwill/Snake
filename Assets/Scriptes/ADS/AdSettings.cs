@@ -100,7 +100,8 @@ public class AdSettings : Singleton
             string adUnitId = "unexpected_platform";
 #endif
 
-        _bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+        AdSize bannerSize = new AdSize(320, 50);
+        _bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 
         _bannerView.OnAdLoaded += this.HandleOnBannerLoaded;
         _bannerView.OnAdFailedToLoad += this.HandleOnBannerFailedToLoad;
