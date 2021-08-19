@@ -11,6 +11,7 @@ public class SnakeHat : MonoBehaviour
     private FinishTrigger _finishTrigger;
     private Snake _snake;
     private Vector3 _startPosition;
+    private HatSound _sound;
 
     public bool OnSnake { get; private set; }
 
@@ -19,6 +20,7 @@ public class SnakeHat : MonoBehaviour
         _collider = GetComponent<Collider>();
         _animator = GetComponentInChildren<Animator>();
         _finishTrigger = FindObjectOfType<FinishTrigger>();
+        _sound = GetComponent<HatSound>();
     }
 
     private void OnEnable()
@@ -56,6 +58,7 @@ public class SnakeHat : MonoBehaviour
             _animator.SetBool("Hooked", true);
 
             OnSnake = true;
+            _sound.PlayHatPickedSound();
         }
     }
 
@@ -99,5 +102,6 @@ public class SnakeHat : MonoBehaviour
 
         _animator.SetBool("Hooked", false);
         OnSnake = false;
+        _sound.PlayHatLosedSound();
     }
 }
