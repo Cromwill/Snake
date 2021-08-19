@@ -25,6 +25,12 @@ public class RewardedButtonActivator : MonoBehaviour
 
     private void OnRewardedLoaded()
     {
+        StartCoroutine(ActivateButton());
+    }
+
+    private IEnumerator ActivateButton()
+    {
+        yield return new WaitForSeconds(1f);
         _button.SetActive(true);
     }
 }

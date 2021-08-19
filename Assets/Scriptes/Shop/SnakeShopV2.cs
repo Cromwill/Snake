@@ -21,6 +21,7 @@ public class SnakeShopV2 : MonoBehaviour
 
     private List<SnakeShopPresenterV2> _presenters;
     private SnakeShopPresenterV2 _selectedPresenter;
+    private Canvas _parentCanvas;
     private GameObject _previewModel;
     private int _itemPerPage = 6;
 
@@ -33,13 +34,18 @@ public class SnakeShopV2 : MonoBehaviour
         _unlockButton.onClick.AddListener(OnUnlockButtonClicked);
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         _unlockButton.onClick.RemoveListener(OnUnlockButtonClicked);
     }
 
     private void Start()
     {
+        _parentCanvas = GetComponentInParent<Canvas>();
+        var pageTransform = _pageTemplate.transform as RectTransform;
+        var canvasTransform = _parentCanvas.transform as RectTransform;
+        pageTransform.sizeDelta = new Vector2(canvasTransform.sizeDelta.x, pageTransform.sizeDelta.y);
+
         var snakeInventory = new SnakeInventory(_dataBase);
         snakeInventory.Load(new JsonSaveLoad());
 
@@ -95,7 +101,7 @@ public class SnakeShopV2 : MonoBehaviour
 
         if (snakeInventory.Contains(presenter.Data))
         {
-            snakeInventory.SelectSnake(presenter.Data); 
+            snakeInventory.SelectSnake(presenter.Data);
             SelectItem(presenter);
         }
         else
@@ -136,7 +142,7 @@ public class SnakeShopV2 : MonoBehaviour
             _balanceAnimation.SetTrigger("Scale");
             return;
         }
-        
+
         SnakeInventory snakeInventory = new SnakeInventory(_dataBase);
         snakeInventory.Load(new JsonSaveLoad());
         var unlockedSnake = UnlockRandomSnake();
