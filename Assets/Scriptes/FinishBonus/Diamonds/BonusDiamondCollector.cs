@@ -5,6 +5,7 @@ using UnityEngine;
 public class BonusDiamondCollector : MonoBehaviour
 {
     [SerializeField] private BonusDiamondCollectedPresenter _collectedPresenter;
+    [SerializeField] private BonusHapticHelper _hapticHelper;
 
     public int CollectedDiamondCost { get; private set; }
 
@@ -16,12 +17,16 @@ public class BonusDiamondCollector : MonoBehaviour
         CollectedDiamondCost = 0;
 
         foreach (var diamond in diamonds)
+        {
             diamond.Collected += OnDiamondCollected;
+            diamond.Collected += _hapticHelper.OnDiamondCollected;
+        }
     }
 
     private void OnDiamondCollected(BonusDiamond diamond)
     {
         diamond.Collected -= OnDiamondCollected;
+        diamond.Collected -= _hapticHelper.OnDiamondCollected;
 
         CollectedDiamondCost += diamond.Cost;
         _allDiamonds.Remove(diamond);
