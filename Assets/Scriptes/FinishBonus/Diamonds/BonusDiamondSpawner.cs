@@ -42,8 +42,8 @@ public class BonusDiamondSpawner : MonoBehaviour
             var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
             var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
 
-            DrawDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo);
-            DrawDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, true);
+            DrawDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
+            DrawDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
         }
     }
 
@@ -83,8 +83,8 @@ public class BonusDiamondSpawner : MonoBehaviour
         var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
         var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
 
-        var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo);
-        var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, true);
+        var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
+        var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
 
         _diamondCollector.Init(leftDiamods.Concat(rightDiamods));
     }
