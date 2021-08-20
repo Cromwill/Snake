@@ -40,7 +40,6 @@ public class CupShower : MonoBehaviour
 
     private void OnPlayerFullCrawled()
     {
-        Debug.Log("OnPlayerFullCrawled");
         _cupGroup.SetActive(true);
     }
 }

@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class CurrentLevelData : ISavedObject
 {
-    private const int LevelCount = 45;
+    private const int LevelCount = 54;
 
     [SerializeField] private int _currentLevel;
 
