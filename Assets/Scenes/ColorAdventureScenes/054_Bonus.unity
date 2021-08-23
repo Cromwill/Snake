@@ -905,7 +905,7 @@ PrefabInstance:
     - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 509.1169
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231588443435154589, guid: f8ccc87a5e78c9a4087f5f66a9db959b,
         type: 3}
@@ -4201,7 +4201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _collectedPresenter: {fileID: 392470060}
-  _hapticHelper: {fileID: 0}
+  _hapticHelper: {fileID: 2040032808}
 --- !u!1001 &1400066096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5852,6 +5852,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b131911da45b60f4a8b8066f0fb1622b, type: 3}
+--- !u!114 &2040032808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2086047623, guid: b131911da45b60f4a8b8066f0fb1622b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2040032807}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf107db9c788e145863b3666ae89d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2042835364
 PrefabInstance:
   m_ObjectHideFlags: 0
