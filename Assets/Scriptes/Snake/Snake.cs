@@ -58,14 +58,14 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void OnEnable()
     {
-        _snakeBoneMovement.PartiallyСrawled += OnPartiallyCrawled;
-        _snakeBoneMovement.FullСrawled += OnFullCrawled;
+        _snakeBoneMovement.PartiallyCrawled += OnPartiallyCrawled;
+        _snakeBoneMovement.FullCrawled += OnFullCrawled;
     }
 
     private void OnDisable()
     {
-        _snakeBoneMovement.PartiallyСrawled -= OnPartiallyCrawled;
-        _snakeBoneMovement.FullСrawled -= OnFullCrawled;
+        _snakeBoneMovement.PartiallyCrawled -= OnPartiallyCrawled;
+        _snakeBoneMovement.FullCrawled -= OnFullCrawled;
     }
 
     private void OnFullCrawled()

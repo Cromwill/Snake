@@ -60,8 +60,8 @@ public class HapticsHelper : MonoBehaviour
         _snakeAudioSource = snake.GetComponent<AudioSource>();
         _snakeAudioSource.clip = _pickObject;
         var boneMovement = snake.GetComponent<SnakeBoneMovement>();
-        boneMovement.FullСrawled += OnPlayerFinished;
-        boneMovement.PartiallyСrawled += OnPlayerFinished;
+        boneMovement.FullCrawled += OnPlayerFinished;
+        boneMovement.PartiallyCrawled += OnPlayerFinished;
         _defoultSoundPitch = _snakeAudioSource.pitch;
         _defoultSoundVolume = _snakeAudioSource.volume;
 

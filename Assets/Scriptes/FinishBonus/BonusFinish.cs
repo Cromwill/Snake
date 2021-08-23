@@ -66,7 +66,7 @@ public class BonusFinish : MonoBehaviour
     private void OnDisable()
     {
         if (_snakeBoneMovement)
-            _snakeBoneMovement.BonusPole—rawled -= OnSnakeCrawled;
+            _snakeBoneMovement.BonusPoleCrawled -= OnSnakeCrawled;
     }
 
 
@@ -87,7 +87,7 @@ public class BonusFinish : MonoBehaviour
     public void Init(SnakeBoneMovement snakeBoneMovement)
     {
         _snakeBoneMovement = snakeBoneMovement;
-        _snakeBoneMovement.BonusPole—rawled += OnSnakeCrawled;
+        _snakeBoneMovement.BonusPoleCrawled += OnSnakeCrawled;
     }
 
     public Vector3 GetPositionByDistance(float distance)

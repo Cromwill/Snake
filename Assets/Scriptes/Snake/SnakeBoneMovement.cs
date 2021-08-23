@@ -12,9 +12,9 @@ public class SnakeBoneMovement : MonoBehaviour
 
     public Vector3 CameraTargetPosition => _cameraTarget.position;
 
-    public event UnityAction<float> Partially—rawled;
-    public event UnityAction Full—rawled;
-    public event UnityAction BonusPole—rawled;
+    public event UnityAction<float> PartiallyCrawled;
+    public event UnityAction FullCrawled;
+    public event UnityAction BonusPoleCrawled;
 
     private SnakeSkeleton _snakeSkeleton;
     private Track _track;
@@ -123,9 +123,9 @@ public class SnakeBoneMovement : MonoBehaviour
         }
 
         if (headDistance == _finishPath.DistanceLength)
-            Full—rawled?.Invoke();
+            FullCrawled?.Invoke();
         else if (boneIndex == _snakeSkeleton.ActiveBones.Count && _finishPath.GetParameterByDistance(distance) > 1f)
-            Partially—rawled?.Invoke(headDistance);
+            PartiallyCrawled?.Invoke(headDistance);
     }
 
     public void MoveBonusFinish(float headDistance, float boneDistance)
@@ -157,7 +157,7 @@ public class SnakeBoneMovement : MonoBehaviour
         }
 
         if (headDistance == _bonusFinish.DistanceLength)
-            BonusPole—rawled?.Invoke();
+            BonusPoleCrawled?.Invoke();
     }
 
     private void MoveBoneOnTrack(int boneIndex, float boneDistance)

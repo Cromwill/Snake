@@ -29,13 +29,13 @@ public class CupShower : MonoBehaviour
     private void OnDisable()
     {
         if (_snakeBoneMovement)
-            _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+            _snakeBoneMovement.FullCrawled -= OnPlayerFullCrawled;
     } 
 
     private void OnSnakeInitizlised(Snake snake)
     {
         _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
-        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
+        _snakeBoneMovement.FullCrawled += OnPlayerFullCrawled;
     }
 
     private void OnPlayerFullCrawled()
