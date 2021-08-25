@@ -12,6 +12,8 @@ public class Menu : MonoBehaviour
     private void Awake()
     {
         _adSettings = Singleton<AdSettings>.Instance;
+        _adSettings.RequestRewarded();
+        _adSettings.ShowBanner();
 
         if (_isShop)
             return;
@@ -21,6 +23,7 @@ public class Menu : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex != currentLevelData.CurrentLevel)
             SceneManager.LoadScene(currentLevelData.CurrentLevel);
+
     }
 
     private void OnEnable()

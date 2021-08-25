@@ -63,6 +63,11 @@ public class BonusFinish : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        DistanceLength = _poleScale.y * 3f;
+    }
+
     private void OnDisable()
     {
         if (_snakeBoneMovement)
@@ -73,8 +78,6 @@ public class BonusFinish : MonoBehaviour
     private void Start()
     {
         _jumps = new Stack<JumpInfo>();
-
-        DistanceLength = _poleScale.y * 3f;
 
         _leftPole.Init(_angleDelta, _radiusScale, DistanceLength);
         _rightPole.Init(_angleDelta, _radiusScale, DistanceLength);

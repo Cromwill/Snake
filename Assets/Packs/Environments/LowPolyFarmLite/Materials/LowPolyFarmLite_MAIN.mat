@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LowPolyFarmLite_MAIN
-  m_Shader: {fileID: 4800000, guid: 42f746eaacbc2a24d9618184e5392aa2, type: 3}
+  m_Shader: {fileID: 4800000, guid: ccfc7d68845db8341944b3091b59be55, type: 3}
   m_ShaderKeywords: _NORMALMAP_TANGENT_SPACE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -228,8 +228,8 @@ Material:
     - _PPDPrimitiveWidth: 1
     - _Parallax: 0.02
     - _PreRefractionPass: 0
-    - _RampSmooth: 0.1
-    - _RampThreshold: 0.5
+    - _RampSmooth: 0.512
+    - _RampThreshold: 0.364
     - _ReceivesSSR: 1
     - _RefractionModel: 0
     - _SSRefractionProjectionModel: 0
@@ -274,7 +274,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 0.785, g: 0.785, b: 0.785, a: 1}
+    - _HColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _SColor: {r: 0.195, g: 0.195, b: 0.195, a: 1}

@@ -82,11 +82,14 @@ public class BonusDiamondSpawner : MonoBehaviour
     {
         var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
         var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
-
+        Debug.Log("MyDebug: " + startSpawnParameter + " " + endSpawnParameter);
         var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
+        Debug.Log("MyDebug: stawn left");
         var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
+        Debug.Log("MyDebug: stawn right");
 
         _diamondCollector.Init(leftDiamods.Concat(rightDiamods));
+        Debug.Log("MyDebug: init");
     }
 
     private IEnumerable<BonusDiamond> SpawnDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
@@ -98,6 +101,7 @@ public class BonusDiamondSpawner : MonoBehaviour
             allPositions = pole.GetAllForwardPositions(startSpawnParameter, endSpawnParameter).ToList();
         else
             allPositions = pole.GetAllPosition(_diamondOffset, startSpawnParameter, endSpawnParameter).ToList();
+        Debug.Log("MyDebug: all pos");
 
         for (int i = 0; i < allPositions.Count; i++)
         {
@@ -108,8 +112,10 @@ public class BonusDiamondSpawner : MonoBehaviour
             if (isHide)
                 continue;
 
+            Debug.Log("MyDebug: before inst");
             var inst = Instantiate(_diamondTemplate, allPositions[i], _diamondTemplate.transform.rotation, transform);
             spawnedDiamonds.Add(inst);
+            Debug.Log("MyDebug: after inst");
         }
 
         return spawnedDiamonds;

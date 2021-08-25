@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AdSettings : Singleton
+public class AdSettings : Singleton<AdSettings>
 {
     private const int InterstitialDelay = 40;
 
@@ -20,18 +20,16 @@ public class AdSettings : Singleton
     private void Start()
     {
         _lastInterstitialShow = DateTime.MinValue;
-
         MobileAds.Initialize(initStatus => { });
-
-        RequestInterstitial();
-        RequestRewarded();
-        RequestBanner();
     }
 
     public void ShowInterstitial()
     {
-        var delayed = (DateTime.Now - _lastInterstitialShow).Seconds > InterstitialDelay;
+        RequestInterstitial();
+        var dateDiff = DateTime.Now.Subtract(_lastInterstitialShow);
+        var delayed = dateDiff.TotalSeconds > InterstitialDelay;
 
+        Debug.Log(_lastInterstitialShow + "<>" + _interstitialAd.IsLoaded() + "<>" + dateDiff.TotalSeconds);
         if (_interstitialAd.IsLoaded() && delayed)
             _interstitialAd.Show();
         else
@@ -44,7 +42,13 @@ public class AdSettings : Singleton
             _rewardedAd.Show();
     }
 
-    private void RequestInterstitial()
+    public void ShowBanner()
+    {
+        RequestBanner();
+        _bannerView.Show();
+    }
+
+    public void RequestInterstitial()
     {
 #if UNITY_ANDROID
         string adUnitId = "ca-app-pub-3940256099942544/1033173712";
@@ -53,6 +57,8 @@ public class AdSettings : Singleton
 #else
         string adUnitId = "unexpected_platform";
 #endif
+        if (_interstitialAd != null)
+            _interstitialAd.Destroy();
 
         _interstitialAd = new InterstitialAd(adUnitId);
 
@@ -66,7 +72,7 @@ public class AdSettings : Singleton
         _interstitialAd.LoadAd(request);
     }
 
-    private void RequestRewarded()
+    public void RequestRewarded()
     {
         string adUnitId;
 #if UNITY_ANDROID
@@ -76,6 +82,9 @@ public class AdSettings : Singleton
 #else
             adUnitId = "unexpected_platform";
 #endif
+
+        if (_rewardedAd != null)
+            _rewardedAd.Destroy();
 
         _rewardedAd = new RewardedAd(adUnitId);
 
@@ -100,7 +109,9 @@ public class AdSettings : Singleton
             string adUnitId = "unexpected_platform";
 #endif
 
-        AdSize bannerSize = new AdSize(320, 50);
+        if (_bannerView != null)
+            _bannerView.Destroy();
+
         _bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 
         _bannerView.OnAdLoaded += this.HandleOnBannerLoaded;
@@ -186,23 +197,22 @@ public class AdSettings : Singleton
     #region BannerCallbacks
     public void HandleOnBannerLoaded(object sender, EventArgs args)
     {
-        _bannerView.Show();
-        Debug.Log("HandleAdLoaded event received");
+        Debug.Log("HandleOnBannerLoaded event received");
     }
 
     public void HandleOnBannerFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        Debug.Log("HandleFailedToReceiveAd event received with message: " + args.LoadAdError.GetMessage());
+        Debug.Log("HandleOnBannerFailedToLoad event received with message: " + args.LoadAdError.GetMessage());
     }
 
     public void HandleOnBannerOpened(object sender, EventArgs args)
     {
-        Debug.Log("HandleAdOpened event received");
+        Debug.Log("HandleOnBannerOpened event received");
     }
 
     public void HandleOnBannerClosed(object sender, EventArgs args)
     {
-        Debug.Log("HandleAdClosed event received");
-    } 
+        Debug.Log("HandleOnBannerClosed event received");
+    }
     #endregion
 }
