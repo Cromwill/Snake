@@ -25,7 +25,7 @@ public class SnakeShopV2 : MonoBehaviour
     private GameObject _previewModel;
     private int _itemPerPage = 6;
 
-    public int ItemCost => 100;
+    public int ItemCost => 4000;
 
     public event UnityAction<int> Initialized;
 

@@ -26,7 +26,7 @@ public class Snake : MonoBehaviour, IMoveable
     private float _bonusPoleDistanceCovered;
     private float _currentSpeed;
     private float _targetSpeed;
-    private float _speedRate;
+    private float _speedRate = 1f;
     private bool _isMoving = false;
     private bool _moveStarted = false;
     private float _acceleration;
@@ -78,7 +78,7 @@ public class Snake : MonoBehaviour, IMoveable
         enabled = false;
     }
 
-    public void Init(Track track, FinishPath finish, BonusFinish bonusFinish)
+    public void Init(Track track, FinishPath finish, BonusFinish bonusFinish, float speedRate = 1f)
     {
         _track = track;
         _finish = finish;
@@ -95,7 +95,6 @@ public class Snake : MonoBehaviour, IMoveable
     private void Start()
     {
         _currentSpeed = 0;
-        _speedRate = 1f;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, _bonusFinish);
         _boneStretching.Init(_snakeSkeleton.Bones.Count(), _distanceBetweenSegments, _maxSpeedTime);
 
@@ -135,7 +134,7 @@ public class Snake : MonoBehaviour, IMoveable
     private void FinishMove()
     {
         _currentSpeed = 0;
-        _finishDistanceCovered = Mathf.MoveTowards(_finishDistanceCovered, _finish.DistanceLength, _maxSpeedTime * Time.deltaTime);
+        _finishDistanceCovered = Mathf.MoveTowards(_finishDistanceCovered, _finish.DistanceLength, _maxSpeedTime * _speedRate * Time.deltaTime);
 
         _snakeBoneMovement.MoveFinish(_finishDistanceCovered, _distanceBetweenSegments);
     }
@@ -149,7 +148,7 @@ public class Snake : MonoBehaviour, IMoveable
             _snakeSkeleton.AddBoneInTail();
 
         if (_moveStarted)
-            _bonusPoleDistanceCovered = Mathf.MoveTowards(_bonusPoleDistanceCovered, _bonusFinish.DistanceLength, _maxSpeedTime * Time.deltaTime);
+            _bonusPoleDistanceCovered = Mathf.MoveTowards(_bonusPoleDistanceCovered, _bonusFinish.DistanceLength, _maxSpeedTime * _speedRate * Time.deltaTime);
 
         _snakeBoneMovement.MoveBonusFinish(_bonusPoleDistanceCovered, _distanceBetweenSegments);
     }

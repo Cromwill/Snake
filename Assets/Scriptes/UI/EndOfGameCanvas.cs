@@ -13,6 +13,7 @@ public class EndOfGameCanvas : MonoBehaviour
     [SerializeField] private GameObject _hatBonus;
     [SerializeField] private GameObject _achievementObject;
     [SerializeField] private Image _hatPreview;
+    [SerializeField] private Image _hatBonusPreview;
     [SerializeField] private MultiplyGemRewardButton _multiplyRewardButton;
 
     private Canvas _selfCanvas;
@@ -71,6 +72,7 @@ public class EndOfGameCanvas : MonoBehaviour
 
         if (_hat != null && _hat.OnSnake)
         {
+            _hatBonusPreview.sprite = _hatData.HatPreview;
             _hatBonus.SetActive(true);
             _eargedGems.PlayFromToAnimation(_earnedGems, _earnedGems + 100);
             _earnedGems += 100;

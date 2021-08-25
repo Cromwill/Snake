@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class ShopRewardedButton : MonoBehaviour
 {
-    private const int RewardedValue = 500;
+    private const int RewardedValue = 1000;
 
     private Button _button;
     private AdSettings _adSettings;
