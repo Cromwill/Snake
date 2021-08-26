@@ -25,7 +25,7 @@ public class Menu : MonoBehaviour
 
     private void Start()
     {
-        _adSettings.ShowBanner();
+        //_adSettings.ShowBanner();
     }
 
     private void OnEnable()

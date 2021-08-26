@@ -4,8 +4,9 @@ using UnityEngine.Events;
 
 public class AdSettings : Singleton<AdSettings>
 {
-    private string AppLovinSdkKey = "R5ZeDg0t8rV5BQ4h_72SUwzDKUOipd1Ju_H3yph9eKZV6NZBDqI_rLKZmyFWiyFWdOn4ITSHwMdob2TtWHuzio";
-    private string _adUnitId = "YOUR_AD_UNIT_ID";
+    private const string AppLovinSdkKey = "R5ZeDg0t8rV5BQ4h_72SUwzDKUOipd1Ju_H3yph9eKZV6NZBDqI_rLKZmyFWiyFWdOn4ITSHwMdob2TtWHuzio";
+    private const string InterstitialAdId = "071b3528f77ae7f4";
+    private const string RewardedAdId = "cfaea1bc2df062fb";
     private int retryAttempt;
 
     private const int InterstitialDelay = 40;
@@ -23,10 +24,9 @@ public class AdSettings : Singleton<AdSettings>
         MaxSdk.SetSdkKey(AppLovinSdkKey);
         MaxSdk.InitializeSdk();
 
-        _adUnitId = AppLovinSdkKey;
         _lastInterstitialShow = DateTime.MinValue;
 
-        InitializeBannerAds();
+        //InitializeBannerAds();
         InitializeInterstitialAds();
         //InitializeRewardedAds();
 
@@ -38,21 +38,21 @@ public class AdSettings : Singleton<AdSettings>
         var dateDiff = DateTime.Now.Subtract(_lastInterstitialShow);
         var delayed = dateDiff.TotalSeconds > InterstitialDelay;
 
-        if (MaxSdk.IsInterstitialReady(_adUnitId) && delayed)
-            MaxSdk.ShowInterstitial(_adUnitId);
+        if (MaxSdk.IsInterstitialReady(InterstitialAdId) && delayed)
+            MaxSdk.ShowInterstitial(InterstitialAdId);
         else
             InterstitialShowTryed?.Invoke();
     }
 
     public void ShowRewarded()
     {
-        if (MaxSdk.IsRewardedAdReady(_adUnitId))
-            MaxSdk.ShowRewardedAd(_adUnitId);
+        if (MaxSdk.IsRewardedAdReady(RewardedAdId))
+            MaxSdk.ShowRewardedAd(RewardedAdId);
     }
 
     public void ShowBanner()
     {
-        MaxSdk.ShowBanner(_adUnitId);
+        //MaxSdk.ShowBanner(_adUnitId);
     }
 
     public void InitializeInterstitialAds()
@@ -89,17 +89,17 @@ public class AdSettings : Singleton<AdSettings>
     {
         // Banners are automatically sized to 320×50 on phones and 728×90 on tablets
         // You may call the utility method MaxSdkUtils.isTablet() to help with view sizing adjustments
-        MaxSdk.CreateBanner(_adUnitId, MaxSdkBase.BannerPosition.BottomCenter);
+        //MaxSdk.CreateBanner(_adUnitId, MaxSdkBase.BannerPosition.BottomCenter);
 
         // Set background or background color for banners to be fully functional
-        MaxSdk.SetBannerBackgroundColor(_adUnitId, Color.white);
+        //MaxSdk.SetBannerBackgroundColor(_adUnitId, Color.white);
     }
 
     #region InterstitialCallbacks
 
     private void LoadInterstitial()
     {
-        MaxSdk.LoadInterstitial(_adUnitId);
+        MaxSdk.LoadInterstitial(InterstitialAdId);
     }
 
     private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
@@ -149,7 +149,7 @@ public class AdSettings : Singleton<AdSettings>
 
     private void LoadRewardedAd()
     {
-        MaxSdk.LoadRewardedAd(_adUnitId);
+        MaxSdk.LoadRewardedAd(RewardedAdId);
     }
 
     private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
