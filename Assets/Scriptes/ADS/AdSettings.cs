@@ -1,15 +1,15 @@
-using GoogleMobileAds.Api;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class AdSettings : Singleton<AdSettings>
 {
+    [SerializeField] private string _appLovinSdkKey;
+    private string _adUnitId = "YOUR_AD_UNIT_ID";
+    private int retryAttempt;
+
     private const int InterstitialDelay = 40;
 
-    private InterstitialAd _interstitialAd;
-    private RewardedAd _rewardedAd;
-    private BannerView _bannerView;
     private DateTime _lastInterstitialShow;
 
     public event UnityAction InterstitialShowed;
@@ -19,200 +19,191 @@ public class AdSettings : Singleton<AdSettings>
 
     private void Start()
     {
+        _adUnitId = _appLovinSdkKey;
         _lastInterstitialShow = DateTime.MinValue;
-        MobileAds.Initialize(initStatus => { });
+
+        InitializeBannerAds();
+        InitializeInterstitialAds();
+        InitializeRewardedAds();
+
+        MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => { };
+
+        MaxSdk.SetSdkKey(_appLovinSdkKey);
+        //MaxSdk.SetUserId("USER_ID");
+        MaxSdk.InitializeSdk();
     }
 
     public void ShowInterstitial()
     {
-        RequestInterstitial();
         var dateDiff = DateTime.Now.Subtract(_lastInterstitialShow);
         var delayed = dateDiff.TotalSeconds > InterstitialDelay;
 
-        Debug.Log(_lastInterstitialShow + "<>" + _interstitialAd.IsLoaded() + "<>" + dateDiff.TotalSeconds);
-        if (_interstitialAd.IsLoaded() && delayed)
-            _interstitialAd.Show();
+        if (MaxSdk.IsInterstitialReady(_adUnitId) && delayed)
+            MaxSdk.ShowInterstitial(_adUnitId);
         else
             InterstitialShowTryed?.Invoke();
     }
 
     public void ShowRewarded()
     {
-        if (_rewardedAd.IsLoaded())
-            _rewardedAd.Show();
+        if (MaxSdk.IsRewardedAdReady(_adUnitId))
+            MaxSdk.ShowRewardedAd(_adUnitId);
     }
 
     public void ShowBanner()
     {
-        RequestBanner();
-        _bannerView.Show();
+        MaxSdk.ShowBanner(_adUnitId);
     }
 
-    public void RequestInterstitial()
+    public void InitializeInterstitialAds()
     {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-        if (_interstitialAd != null)
-            _interstitialAd.Destroy();
+        // Attach callback
+        MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialLoadedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialLoadFailedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayedEvent += OnInterstitialDisplayedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdClickedEvent += OnInterstitialClickedEvent;
+        MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
+        MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnInterstitialAdFailedToDisplayEvent;
 
-        _interstitialAd = new InterstitialAd(adUnitId);
-
-        _interstitialAd.OnAdLoaded += HandleOnAdLoaded;
-        _interstitialAd.OnAdFailedToLoad += HandleOnAdFailedToLoad;
-        _interstitialAd.OnAdOpening += HandleOnAdOpened;
-        _interstitialAd.OnAdClosed += HandleOnAdClosed;
-        _interstitialAd.OnAdFailedToShow += HandleOnAdFailedToShow;
-
-        AdRequest request = new AdRequest.Builder().Build();
-        _interstitialAd.LoadAd(request);
+        // Load the first interstitial
+        LoadInterstitial();
     }
 
-    public void RequestRewarded()
+    public void InitializeRewardedAds()
     {
-        string adUnitId;
-#if UNITY_ANDROID
-        adUnitId = "ca-app-pub-3940256099942544/5224354917";
-#elif UNITY_IPHONE
-            adUnitId = "ca-app-pub-3940256099942544/1712485313";
-#else
-            adUnitId = "unexpected_platform";
-#endif
+        // Attach callback
+        MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnRewardedAdLoadFailedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnRewardedAdDisplayedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdClickedEvent += OnRewardedAdClickedEvent;
+        MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnRewardedAdRevenuePaidEvent;
+        MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnRewardedAdHiddenEvent;
+        MaxSdkCallbacks.Rewarded.OnAdDisplayFailedEvent += OnRewardedAdFailedToDisplayEvent;
+        MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnRewardedAdReceivedRewardEvent;
 
-        if (_rewardedAd != null)
-            _rewardedAd.Destroy();
-
-        _rewardedAd = new RewardedAd(adUnitId);
-
-        _rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
-        _rewardedAd.OnAdFailedToLoad += HandleRewardedAdFailedToLoad;
-        _rewardedAd.OnAdOpening += HandleRewardedAdOpening;
-        _rewardedAd.OnAdFailedToShow += HandleRewardedAdFailedToShow;
-        _rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
-        _rewardedAd.OnAdClosed += HandleRewardedAdClosed;
-
-        AdRequest request = new AdRequest.Builder().Build();
-        _rewardedAd.LoadAd(request);
+        // Load the first rewarded ad
+        LoadRewardedAd();
     }
 
-    private void RequestBanner()
+    private void InitializeBannerAds()
     {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-3940256099942544/2934735716";
-#else
-            string adUnitId = "unexpected_platform";
-#endif
+        // Banners are automatically sized to 320×50 on phones and 728×90 on tablets
+        // You may call the utility method MaxSdkUtils.isTablet() to help with view sizing adjustments
+        MaxSdk.CreateBanner(_adUnitId, MaxSdkBase.BannerPosition.BottomCenter);
 
-        if (_bannerView != null)
-            _bannerView.Destroy();
-
-        _bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
-
-        _bannerView.OnAdLoaded += this.HandleOnBannerLoaded;
-        _bannerView.OnAdFailedToLoad += this.HandleOnBannerFailedToLoad;
-        _bannerView.OnAdOpening += this.HandleOnBannerOpened;
-        _bannerView.OnAdClosed += this.HandleOnBannerClosed;
-
-        AdRequest request = new AdRequest.Builder().Build();
-        _bannerView.LoadAd(request);
+        // Set background or background color for banners to be fully functional
+        MaxSdk.SetBannerBackgroundColor(_adUnitId, Color.white);
     }
 
     #region InterstitialCallbacks
-    public void HandleOnAdLoaded(object sender, EventArgs args)
+
+    private void LoadInterstitial()
     {
-        Debug.Log("HandleAdLoaded event received");
+        MaxSdk.LoadInterstitial(_adUnitId);
     }
 
-    public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    private void OnInterstitialLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("HandleFailedToReceiveAd event received with message: "
-                            + args.LoadAdError.GetMessage());
+        // Interstitial ad is ready for you to show. MaxSdk.IsInterstitialReady(adUnitId) now returns 'true'
+
+        // Reset retry attempt
+        retryAttempt = 0;
     }
 
-    public void HandleOnAdOpened(object sender, EventArgs args)
+    private void OnInterstitialLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        Debug.Log("HandleAdOpened event received");
+        // Interstitial ad failed to load 
+        // AppLovin recommends that you retry with exponentially higher delays, up to a maximum delay (in this case 64 seconds)
+
+        retryAttempt++;
+        double retryDelay = Math.Pow(2, Math.Min(6, retryAttempt));
+
+        Invoke("LoadInterstitial", (float)retryDelay);
     }
 
-    public void HandleOnAdClosed(object sender, EventArgs args)
+    private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) 
     {
         _lastInterstitialShow = DateTime.Now;
         InterstitialShowed?.Invoke();
-        RequestInterstitial();
-        Debug.Log("HandleAdClosed event received");
+        LoadInterstitial();
     }
 
-    public void HandleOnAdFailedToShow(object sender, EventArgs args)
+    private void OnInterstitialAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
     {
+        // Interstitial ad failed to display. AppLovin recommends that you load the next ad.
+        LoadInterstitial();
+    }
+
+    private void OnInterstitialClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) { }
+
+    private void OnInterstitialHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // Interstitial ad is hidden. Pre-load the next ad.
         InterstitialShowTryed?.Invoke();
-        Debug.Log("HandleAdLeavingApplication event received");
+        LoadInterstitial();
     }
     #endregion
 
     #region RewardedCallback
-    public void HandleRewardedAdLoaded(object sender, EventArgs args)
+
+    private void LoadRewardedAd()
     {
+        MaxSdk.LoadRewardedAd(_adUnitId);
+    }
+
+    private void OnRewardedAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // Rewarded ad is ready for you to show. MaxSdk.IsRewardedAdReady(adUnitId) now returns 'true'.
+        // Reset retry attempt
         RewardedLoaded?.Invoke();
-        Debug.Log("HandleRewardedAdLoaded event received");
+        retryAttempt = 0;
     }
 
-    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    private void OnRewardedAdLoadFailedEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo)
     {
-        Debug.Log("HandleRewardedAdFailedToLoad event received with message: " + args.LoadAdError.GetMessage());
+        // Rewarded ad failed to load 
+        // AppLovin recommends that you retry with exponentially higher delays, up to a maximum delay (in this case 64 seconds).
+
+        retryAttempt++;
+        double retryDelay = Math.Pow(2, Math.Min(6, retryAttempt));
+
+        Invoke("LoadRewardedAd", (float)retryDelay);
     }
 
-    public void HandleRewardedAdOpening(object sender, EventArgs args)
-    {
-        Debug.Log("HandleRewardedAdOpening event received");
-    }
-
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
-    {
-        Debug.Log("HandleRewardedAdFailedToShow event received with message: " + args.AdError.GetMessage());
-    }
-
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) 
     {
         _lastInterstitialShow = DateTime.Now;
-        RequestRewarded();
         Debug.Log("HandleRewardedAdClosed event received");
     }
 
-    public void HandleUserEarnedReward(object sender, Reward args)
+    private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)
     {
-        string type = args.Type;
-        double amount = args.Amount;
+        // Rewarded ad failed to display. AppLovin recommends that you load the next ad.
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdClickedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo) { }
+
+    private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+    {
+        // Rewarded ad is hidden. Pre-load the next ad
+        LoadRewardedAd();
+    }
+
+    private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward, MaxSdkBase.AdInfo adInfo)
+    {
+        // The rewarded ad displayed and the user should receive the reward.
+        string type = reward.Label;
+        double amount = adInfo.Revenue;
         Debug.Log("HandleRewardedAdRewarded event received for " + amount.ToString() + " " + type);
 
         UserEarnedReward?.Invoke();
     }
-    #endregion
 
-    #region BannerCallbacks
-    public void HandleOnBannerLoaded(object sender, EventArgs args)
+    private void OnRewardedAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
-        Debug.Log("HandleOnBannerLoaded event received");
+        // Ad revenue paid. Use this callback to track user revenue.
     }
 
-    public void HandleOnBannerFailedToLoad(object sender, AdFailedToLoadEventArgs args)
-    {
-        Debug.Log("HandleOnBannerFailedToLoad event received with message: " + args.LoadAdError.GetMessage());
-    }
-
-    public void HandleOnBannerOpened(object sender, EventArgs args)
-    {
-        Debug.Log("HandleOnBannerOpened event received");
-    }
-
-    public void HandleOnBannerClosed(object sender, EventArgs args)
-    {
-        Debug.Log("HandleOnBannerClosed event received");
-    }
     #endregion
 }
