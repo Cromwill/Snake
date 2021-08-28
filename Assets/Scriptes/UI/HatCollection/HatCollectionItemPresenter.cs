@@ -7,7 +7,6 @@ public class HatCollectionItemPresenter : MonoBehaviour
 {
     [SerializeField] private Image _border;
     [SerializeField] private Image _selfImage;
-    [SerializeField] private Image _focus;
     [SerializeField] private Sprite _unlockedBorder;
     [SerializeField] private Sprite _lockedBorder;
 
@@ -22,13 +21,11 @@ public class HatCollectionItemPresenter : MonoBehaviour
         _border.sprite = _unlockedBorder;
         _selfImage.enabled = true;
         _selfImage.sprite = data.HatPreview;
-        _focus.enabled = true;
     }
 
     public void RenderLocked()
     {
         _border.sprite = _lockedBorder;
         _selfImage.enabled = false;
-        _focus.enabled = false;
     }
 }
