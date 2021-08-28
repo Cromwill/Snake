@@ -18,7 +18,7 @@ public class AdSettings : Singleton<AdSettings>
     public event UnityAction RewardedLoaded;
     public event UnityAction UserEarnedReward;
 
-    private void Awake()
+    protected override void OnAwake()
     {
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => { };
         MaxSdk.SetSdkKey(AppLovinSdkKey);
@@ -26,11 +26,8 @@ public class AdSettings : Singleton<AdSettings>
 
         _lastInterstitialShow = DateTime.MinValue;
 
-        //InitializeBannerAds();
         InitializeInterstitialAds();
-        //InitializeRewardedAds();
-
-        //MaxSdk.SetUserId("USER_ID");
+        InitializeRewardedAds();
     }
 
     public void ShowInterstitial()
@@ -123,6 +120,9 @@ public class AdSettings : Singleton<AdSettings>
 
     private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
+        _lastInterstitialShow = DateTime.Now;
+        InterstitialShowed?.Invoke();
+        Debug.Log("OnInterstitialDisplayedEvent");
         LoadInterstitial();
     }
 
@@ -139,15 +139,13 @@ public class AdSettings : Singleton<AdSettings>
     {
         // Interstitial ad is hidden. Pre-load the next ad.
         _lastInterstitialShow = DateTime.Now;
-        InterstitialShowed?.Invoke();
-
         LoadInterstitial();
     }
     #endregion
 
     #region RewardedCallback
 
-    private void LoadRewardedAd()
+    public void LoadRewardedAd()
     {
         MaxSdk.LoadRewardedAd(RewardedAdId);
     }
@@ -174,7 +172,6 @@ public class AdSettings : Singleton<AdSettings>
     private void OnRewardedAdDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         _lastInterstitialShow = DateTime.Now;
-        Debug.Log("HandleRewardedAdClosed event received");
     }
 
     private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo, MaxSdkBase.AdInfo adInfo)

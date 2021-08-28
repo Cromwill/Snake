@@ -42,33 +42,13 @@ public class BonusDiamondSpawner : MonoBehaviour
             var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
             var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
 
-            DrawDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
-            DrawDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
-        }
-    }
-
-    private void DrawDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
-    {
-        if (pole == null)
-            return;
-
-        List<Vector3> allPositions;
-        if (_onlyForward)
-            allPositions = pole.GetAllForwardPositions(startSpawnParameter, endSpawnParameter).ToList();
-        else
-            allPositions = pole.GetAllPosition(_diamondOffset, startSpawnParameter, endSpawnParameter).ToList();
-
-        for (int i = 0; i < allPositions.Count; i++)
-        {
-            var isHide = hideInfo.Any(info => i >= info.Fromindex && i <= info.ToIndex);
-            if (reverce)
-                isHide = !isHide;
-
-            if (isHide)
-                continue;
+            var leftPolePositions = GetDiamondPositions(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
+            var rightPolePositions = GetDiamondPositions(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
+            var allPositions = leftPolePositions.Concat(rightPolePositions);
 
             Gizmos.color = Color.red;
-            Gizmos.DrawSphere(allPositions[i], 1f);
+            foreach (var position in allPositions)
+                Gizmos.DrawSphere(position, 1f);
         }
     }
 #endif
@@ -82,29 +62,47 @@ public class BonusDiamondSpawner : MonoBehaviour
     {
         var startSpawnParameter = _bottomSpawnOffset / _bonusFinish.DistanceLength;
         var endSpawnParameter = 1f - _topSpawnOffset / _bonusFinish.DistanceLength;
-        Debug.Log("MyDebug: " + startSpawnParameter + " " + endSpawnParameter);
-        var leftDiamods = SpawnDiamonds(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
-        Debug.Log("MyDebug: stawn left");
-        var rightDiamods = SpawnDiamonds(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
-        Debug.Log("MyDebug: stawn right");
 
-        _diamondCollector.Init(leftDiamods.Concat(rightDiamods));
-        Debug.Log("MyDebug: init");
+        var leftDiamodPositions = GetDiamondPositions(_leftPole, startSpawnParameter, endSpawnParameter, _hideInfo, _reverce);
+        var rightDiamodPositions = GetDiamondPositions(_rightPole, startSpawnParameter, endSpawnParameter, _hideInfo, !_reverce);
+        var allDiamondPositions = leftDiamodPositions.Concat(rightDiamodPositions);
+
+        var spawnedDiamonds = new List<BonusDiamond>();
+        foreach (var position in allDiamondPositions)
+        {
+            var inst = Instantiate(_diamondTemplate, position, _diamondTemplate.transform.rotation, transform);
+            spawnedDiamonds.Add(inst);
+        }
+
+        _diamondCollector.Init(spawnedDiamonds);
     }
 
-    private IEnumerable<BonusDiamond> SpawnDiamonds(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
+    private IEnumerable<Vector3> GetDiamondPositions(BonusPole pole, float startSpawnParameter, float endSpawnParameter, List<HideInfo> hideInfo, bool reverce = false)
     {
-        var spawnedDiamonds = new List<BonusDiamond>();
+        if (pole == null)
+            yield return default;
 
         List<Vector3> allPositions;
         if (_onlyForward)
             allPositions = pole.GetAllForwardPositions(startSpawnParameter, endSpawnParameter).ToList();
         else
             allPositions = pole.GetAllPosition(_diamondOffset, startSpawnParameter, endSpawnParameter).ToList();
-        Debug.Log("MyDebug: all pos");
+
+        var diamondSpaceCount = 2;
 
         for (int i = 0; i < allPositions.Count; i++)
         {
+            bool onBorder;
+            if (!reverce)
+                onBorder = hideInfo.Any(info => i <= info.Fromindex && i >= (info.Fromindex - diamondSpaceCount) ||
+                                                   i >= info.ToIndex && i <= (info.ToIndex + diamondSpaceCount));
+            else
+                onBorder = hideInfo.Any(info => i >= info.Fromindex && i <= (info.Fromindex + diamondSpaceCount) ||
+                                               i <= info.ToIndex && i >= (info.ToIndex - diamondSpaceCount));
+
+            if (onBorder)
+                continue;
+
             var isHide = hideInfo.Any(info => i >= info.Fromindex && i <= info.ToIndex);
             if (reverce)
                 isHide = !isHide;
@@ -112,15 +110,9 @@ public class BonusDiamondSpawner : MonoBehaviour
             if (isHide)
                 continue;
 
-            Debug.Log("MyDebug: before inst");
-            var inst = Instantiate(_diamondTemplate, allPositions[i], _diamondTemplate.transform.rotation, transform);
-            spawnedDiamonds.Add(inst);
-            Debug.Log("MyDebug: after inst");
+            yield return allPositions[i];
         }
-
-        return spawnedDiamonds;
     }
-
 
     [Serializable]
     public struct HideInfo

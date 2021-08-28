@@ -23,7 +23,7 @@ public class SnakeInitializer : MonoBehaviour
         inst.Init(_track, _finish, _bonusFinish);
 
         if (isBonusLevel)
-            inst.SetSpeedRate(2f);
+            inst.SetSpeedRate(1.5f);
 
         Initialized?.Invoke(inst);
     }

@@ -10,9 +10,11 @@ public class ScrollPages : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private RectTransform _content;
     [SerializeField] private float _lerpSpeed = 5f;
+    [Range(0.1f, 0.5f), SerializeField] private float _scrollStiffness = 0.1f;
 
     private ScrollRect _scrollRect;
     private float _targetContentPosition;
+    private float _startScrollPosition;
     private int _pageCount;
     private int _currentPage;
     private bool _pointerDown;
@@ -76,6 +78,7 @@ public class ScrollPages : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        _startScrollPosition = _scrollRect.horizontalNormalizedPosition;
         _pointerDown = true;
     }
 
@@ -90,9 +93,14 @@ public class ScrollPages : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             var scrollShift = _scrollRect.horizontalNormalizedPosition % (controlPoint);
             _currentPage = (int)(_scrollRect.horizontalNormalizedPosition / controlPoint);
 
-            if (scrollShift >= controlPoint / 2f)
+            var direction = (_startScrollPosition > _scrollRect.horizontalNormalizedPosition) ? Vector2.left : Vector2.right;
+
+            if (direction == Vector2.left && scrollShift <= (1 - _scrollStiffness) * controlPoint)
+                _currentPage--;
+            else if (direction == Vector2.right && scrollShift >= _scrollStiffness * controlPoint)
                 _currentPage++;
 
+            _currentPage = Mathf.Clamp(_currentPage, 0, pageCount - 1);
             _targetContentPosition = -1 * controlPoint * _currentPage * _content.sizeDelta.x;
 
             Scrolled?.Invoke(_currentPage);

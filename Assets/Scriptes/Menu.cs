@@ -10,7 +10,7 @@ public class Menu : MonoBehaviour
     private void Awake()
     {
         _adSettings = Singleton<AdSettings>.Instance;
-        _adSettings.InitializeRewardedAds();
+        _adSettings.LoadRewardedAd();
 
         if (_isShop)
             return;

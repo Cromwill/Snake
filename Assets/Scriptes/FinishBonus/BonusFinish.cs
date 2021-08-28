@@ -66,6 +66,10 @@ public class BonusFinish : MonoBehaviour
     private void Awake()
     {
         DistanceLength = _poleScale.y * 3f;
+
+        _leftPole.Init(_angleDelta, _radiusScale, DistanceLength);
+        _rightPole.Init(_angleDelta, _radiusScale, DistanceLength);
+        Debug.Log("MyDebug: BonusFinish Awake");
     }
 
     private void OnDisable()
@@ -78,10 +82,6 @@ public class BonusFinish : MonoBehaviour
     private void Start()
     {
         _jumps = new Stack<JumpInfo>();
-
-        _leftPole.Init(_angleDelta, _radiusScale, DistanceLength);
-        _rightPole.Init(_angleDelta, _radiusScale, DistanceLength);
-
 
         _firstPole = _rightPole;
         _currentPole = _firstPole;
