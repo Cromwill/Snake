@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Stage8
-  m_Shader: {fileID: 4800000, guid: 42f746eaacbc2a24d9618184e5392aa2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 92a98ae8ab837074ab7e4a0db4ebcf16, type: 3}
   m_ShaderKeywords: TCP2_DISABLE_WRAPPED_LIGHT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -86,8 +86,8 @@ Material:
     - _Parallax: 0.02
     - _RampSmooth: 0.2
     - _RampSmoothAdd: 0.63
-    - _RampSmoothing: 0.1
-    - _RampThreshold: 0.5
+    - _RampSmoothing: 1
+    - _RampThreshold: 1
     - _RimMax: 0.85
     - _RimMin: 0.6
     - _RimPower: 9.2
@@ -107,9 +107,9 @@ Material:
     - _ZWrite: 1
     - __dummy__: 0
     m_Colors:
-    - _Color: {r: 0.3344839, g: 0.20313276, b: 0.33962262, a: 1}
+    - _Color: {r: 0.745283, g: 0.65925205, b: 0.5582592, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _HColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+    - _HColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SColor: {r: 0.5981132, g: 0.84472054, b: 1, a: 1}
+    - _SColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
   m_BuildTextureStacks: []
