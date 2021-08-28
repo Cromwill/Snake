@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Stage9
-  m_Shader: {fileID: 4800000, guid: 42f746eaacbc2a24d9618184e5392aa2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 92a98ae8ab837074ab7e4a0db4ebcf16, type: 3}
   m_ShaderKeywords: TCP2_DISABLE_WRAPPED_LIGHT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -67,6 +67,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SketchTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ThresholdTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -77,21 +81,30 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Emission: 0.414
+    - _EnableConstSizeOutline: 0
+    - _EnableTexturedOutline: 0
+    - _EnableZSmooth: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0.355
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Offset1: 0
+    - _Offset2: 0
+    - _Outline: 1
     - _Parallax: 0.02
-    - _RampSmooth: 0.2
+    - _RampSmooth: 1
     - _RampSmoothAdd: 0.63
-    - _RampSmoothing: 0.1
-    - _RampThreshold: 0.5
-    - _RimMax: 0.85
-    - _RimMin: 0.6
+    - _RampSmoothing: 1
+    - _RampThreshold: 1
+    - _RimMax: 1.7
+    - _RimMin: 0
     - _RimPower: 9.2
     - _RimStrength: 0.5
+    - _SketchHalftoneMax: 1
+    - _SketchHalftoneMin: 0.2
+    - _Smoothness: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecBlend: 0.49
     - _SpecSmooth: 1
@@ -101,15 +114,21 @@ Material:
     - _TCP2_RAMPTEXT: 0
     - _TCP2_SPEC_TOON: 0
     - _TCP2_STYLIZED_FRESNEL: 0
+    - _TexLod: 5
     - _ThresholdScale: 4
     - _ThresholdStrength: 1
     - _UVSec: 0
+    - _ZSmooth: -0.5
     - _ZWrite: 1
     - __dummy__: 0
+    - __outline_gui_dummy__: 0
     m_Colors:
-    - _Color: {r: 0.2735849, g: 0.21387306, b: 0.13266286, a: 1}
+    - _Color: {r: 0.91764706, g: 0.8, b: 0.5921569, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _HColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
+    - _HColor: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
+    - _OutlineColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SColor: {r: 0.5981132, g: 0.84472054, b: 1, a: 1}
+    - _SColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SketchColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
