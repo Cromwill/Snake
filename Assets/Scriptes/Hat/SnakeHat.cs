@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class SnakeHat : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _switchEffect;
+
     private Collider _collider;
     private Animator _animator;
     private Head _parent;
@@ -40,32 +42,44 @@ public class SnakeHat : MonoBehaviour
 
     private void OnPlayerFinished()
     {
-        ResetState();
+        TakeOff();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Head head))
+            PutOn(head);
+    }
+
+    public void PutOn(Head head, bool playSound = true)
+    {
+        var oldHat = head.GetComponentInChildren<SnakeHat>();
+        if (oldHat != null)
         {
-            _parent = head;
-            transform.SetParent(head.HatContainer);
-            transform.localPosition = Vector3.zero;
-            transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-            _parent.ObstacleEntered += OnObstacleEntered;
-
-            _snake = _parent.GetComponentInParent<Snake>();
-
-            _animator.SetBool("Hooked", true);
-
-            OnSnake = true;
-            _sound.PlayHatPickedSound();
+            Destroy(oldHat.gameObject);
+            Instantiate(_switchEffect, transform.position + 2f * Vector3.up, _switchEffect.transform.rotation);
         }
+
+        _parent = head;
+        transform.SetParent(head.HatContainer);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
+        _parent.ObstacleEntered += OnObstacleEntered;
+
+        _snake = _parent.GetComponentInParent<Snake>();
+
+        _animator.SetBool("Hooked", true);
+
+        OnSnake = true;
+
+        if (playSound)
+            _sound.PlayHatPickedSound();
     }
 
     private void OnObstacleEntered(Obstacle obstacle)
     {
         //_animator.SetTrigger("Damaged");
-        ResetState();
+        TakeOff();
     }
 
     private void Update()
@@ -92,7 +106,7 @@ public class SnakeHat : MonoBehaviour
         _collider.enabled = true;
     }
 
-    private void ResetState()
+    public void TakeOff()
     {
         _parent.ObstacleEntered -= OnObstacleEntered;
         transform.SetParent(null);
