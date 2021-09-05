@@ -17,17 +17,22 @@ public class HatInitializerEditorWindow : EditorWindow
     public static void OpenWindow()
     {
         var window = GetWindow<HatInitializerEditorWindow>("HatInitializerEditorWindow");
-        window.minSize = new Vector2(200, 100);
+        window.minSize = new Vector2(500, 200);
+        window.maxSize = new Vector2(500, 200);
+        window.ShowModalUtility();
     }
 
     [Obsolete]
     private void OnGUI()
     {
+        EditorGUILayout.HelpBox("Проходит по всем уровням, имя которых удовлетворяет паттерну, и спавнит префаб HatInitializator\n" +
+            "Replace All - если true, удаляет предыдущие версии HatInitializer и спавнит его заного", MessageType.Info);
+
         _levelPattern = EditorGUILayout.TextField("Level pattern", _levelPattern);
         _template = EditorGUILayout.ObjectField("Template", _template, typeof(HatInitializer)) as HatInitializer;
         _replaceAll = EditorGUILayout.Toggle("Replace All", _replaceAll);
 
-        GUILayout.Space(50);
+        GUILayout.FlexibleSpace();
 
         if (GUILayout.Button("Spawn template"))
             SpawnTemplateOnScenes();
