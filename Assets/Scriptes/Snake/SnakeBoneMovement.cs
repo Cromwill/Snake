@@ -12,6 +12,7 @@ public class SnakeBoneMovement : MonoBehaviour
 
     public Vector3 CameraTargetPosition => _cameraTarget.position;
 
+    public event UnityAction<float> FinishDistanceCovered;
     public event UnityAction<float> PartiallyCrawled;
     public event UnityAction FullCrawled;
     public event UnityAction BonusPoleCrawled;
@@ -121,6 +122,8 @@ public class SnakeBoneMovement : MonoBehaviour
 
             _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
         }
+
+        FinishDistanceCovered?.Invoke(headDistance);
 
         if (headDistance == _finishPath.DistanceLength)
             FullCrawled?.Invoke();
