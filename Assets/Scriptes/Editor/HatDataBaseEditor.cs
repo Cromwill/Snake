@@ -98,6 +98,8 @@ public class HatDataBaseEditor : Editor
         GUILayout.EndVertical();
 
         serializedObject.ApplyModifiedProperties();
+        if (GUI.changed)
+            EditorUtility.SetDirty(_dataBase);
     }
 
     private void RenderElement(SerializedProperty element)
