@@ -82,6 +82,16 @@ public class HatDataBaseEditor : Editor
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
 
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        if (GUILayout.Button(new GUIContent("<<", "Сместить влево"), GUILayout.Width(30), GUILayout.Height(30)))
+            _dataBase.MoveFront(_currentRenderIndex);
+        if (GUILayout.Button(new GUIContent(">>", "Сместить вправо"), GUILayout.Width(30), GUILayout.Height(30)))
+            _dataBase.MoveBack(_currentRenderIndex);
+
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+
         GUILayout.Space(30);
         var element = _dataBaseList.GetArrayElementAtIndex(_currentRenderIndex);
         RenderElement(element);
