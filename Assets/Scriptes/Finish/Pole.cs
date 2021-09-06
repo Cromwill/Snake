@@ -19,6 +19,7 @@ public class Pole : MonoBehaviour
     private List<PoleBlock> _blocks;
     private SnakeBoneMovement _snakeBoneMovement;
     private Head _snakeHead;
+    private PoleBlock _currentLightingBlock;
 
     private void OnValidate()
     {
@@ -37,6 +38,15 @@ public class Pole : MonoBehaviour
         SpawnBlocks();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+            foreach (var block in _blocks)
+            {
+                block.LightUp();
+            }
+    }
+
     private void OnEnable()
     {
         _snakeInitializer.Initialized += OnSnakeInitialized;
@@ -48,6 +58,7 @@ public class Pole : MonoBehaviour
 
         if (_snakeBoneMovement)
         {
+            _snakeBoneMovement.FinishDistanceCovered -= OnFinishMoved;
             _snakeBoneMovement.PartiallyCrawled -= OnsnakePartiallyCrawled;
             _snakeBoneMovement.FullCrawled -= OnSnakeFullCrawled;
         }
@@ -58,6 +69,7 @@ public class Pole : MonoBehaviour
         _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
         _snakeHead = snake.GetComponentInChildren<Head>();
 
+        _snakeBoneMovement.FinishDistanceCovered += OnFinishMoved;
         _snakeBoneMovement.PartiallyCrawled += OnsnakePartiallyCrawled;
         _snakeBoneMovement.FullCrawled += OnSnakeFullCrawled;
     }
@@ -74,6 +86,17 @@ public class Pole : MonoBehaviour
         nearestBlock.PingPongColor(Color.white);
 
         SnakeCrawled?.Invoke(nearestBlock.GiftValue);
+    }
+
+    private void OnFinishMoved(float distance)
+    {
+        if (_currentLightingBlock)
+            _currentLightingBlock.LightDown();
+
+        var nearestBlock = GetNearestBlock(_snakeHead.transform.position);
+        nearestBlock.LightUp();
+
+        _currentLightingBlock = nearestBlock;
     }
 
     public Vector3 GetPositionByParameter(float t)

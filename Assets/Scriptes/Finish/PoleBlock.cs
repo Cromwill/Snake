@@ -29,6 +29,18 @@ public class PoleBlock : MonoBehaviour
         GiftValue = giftValue;
     }
 
+    public void LightUp()
+    {
+        _selfMaterial.SetFloat("_Emission", 0.25f);
+        _numberMaterial.color = Color.white;
+    }
+
+    public void LightDown()
+    {
+        _selfMaterial.SetFloat("_Emission", 0f);
+        _numberMaterial.color = Color.gray;
+    }
+
     public void PingPongColor(Color secondColor)
     {
         if (_pingPongColorCoroutine != null)
