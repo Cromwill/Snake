@@ -74,7 +74,7 @@ public class EndOfGameCanvas : MonoBehaviour
         {
             _hatBonusPreview.sprite = _hatData.HatPreview;
             _hatBonus.SetActive(true);
-            _eargedGems.PlayFromToAnimation(_earnedGems, _earnedGems + 100);
+            _eargedGems.PlayFromToAnimation(_earnedGems, _earnedGems + 100, 1.5f);
             _earnedGems += 100;
 
             if (HasInCollection(_hatData) == false)

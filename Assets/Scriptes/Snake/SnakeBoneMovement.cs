@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class SnakeBoneMovement : MonoBehaviour
 {
+    [SerializeField] private float _upShift = 0f;
     [SerializeField] private bool _curveMovement;
     [SerializeField] private float _curveAmplitude;
     [SerializeField] private float _curveSpeed;
@@ -32,13 +33,12 @@ public class SnakeBoneMovement : MonoBehaviour
 
     public void Move(float headDistance, float boneDistance)
     {
-        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
+        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance) + Vector3.up * _upShift;
         
-
         if (headDistance + 0.01f > _track.DistanceLength)
             return;
 
-        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f);
+        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f) + Vector3.up * _upShift;
         _snakeSkeleton.ActiveBones[0].Position += _snakeSkeleton.ActiveBones[0].transform.right * _curveAmplitude * Mathf.Sin(headDistance * _curveSpeed);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
@@ -49,22 +49,22 @@ public class SnakeBoneMovement : MonoBehaviour
             if (distance <= 0)
                 break;
 
-            MoveBoneOnTrack(i, distance);
+            MoveBoneOnTrack(i, distance, _upShift);
         }
     }
 
     public void Move(float headDistance, List<float> distances)
     {
-        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance);
+        _snakeSkeleton.ActiveBones[0].Position = _track.GetPositionByDistance(headDistance) + Vector3.up * _upShift;
 
         float cameraDistance = headDistance + _cameraForward < _track.DistanceLength ? headDistance + _cameraForward : _track.DistanceLength;
 
-        _cameraTarget.position = _track.GetPositionByDistance(cameraDistance);
+        _cameraTarget.position = _track.GetPositionByDistance(cameraDistance) + Vector3.up * _upShift;
 
         if (headDistance + 0.01f > _track.DistanceLength)
             return;
 
-        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f);
+        var forwardVector = -_snakeSkeleton.ActiveBones[0].Position + _track.GetPositionByDistance(headDistance + 0.01f) + Vector3.up * _upShift;
         _snakeSkeleton.ActiveBones[0].Position += _snakeSkeleton.ActiveBones[0].transform.right * _curveAmplitude * Mathf.Sin(headDistance * _curveSpeed);
         _snakeSkeleton.ActiveBones[0].LookRotation(forwardVector);
 
@@ -75,7 +75,7 @@ public class SnakeBoneMovement : MonoBehaviour
             if (distance < 0)
                 break;
 
-            MoveBoneOnTrack(i, distance);
+            MoveBoneOnTrack(i, distance, _upShift);
         }
     }
 
@@ -163,16 +163,16 @@ public class SnakeBoneMovement : MonoBehaviour
             BonusPoleCrawled?.Invoke();
     }
 
-    private void MoveBoneOnTrack(int boneIndex, float boneDistance)
+    private void MoveBoneOnTrack(int boneIndex, float boneDistance, float upShift = 0f)
     {
-        var trackPoint = _track.GetPositionByDistance(boneDistance);
+        var trackPoint = _track.GetPositionByDistance(boneDistance) + Vector3.up * upShift;
         var currentBone = _snakeSkeleton.ActiveBones[boneIndex];
         currentBone.Position = trackPoint;
 
         if (boneDistance + 0.1f > _track.DistanceLength)
             return;
 
-        var forwardVector = _track.GetPositionByDistance(boneDistance + 0.1f) - currentBone.Position;
+        var forwardVector = _track.GetPositionByDistance(boneDistance + 0.1f) - currentBone.Position + Vector3.up * upShift;
         _snakeSkeleton.ActiveBones[boneIndex].LookRotation(forwardVector);
     }
 }

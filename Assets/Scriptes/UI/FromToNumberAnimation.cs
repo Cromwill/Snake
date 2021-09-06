@@ -13,7 +13,7 @@ public class FromToNumberAnimation : MonoBehaviour
     private int _fromValue;
     private int _toValue;
 
-    public void StartAnimation(int from, int to)
+    public void StartAnimation(int from, int to, float startDelay)
     {
         _fromValue = from;
         _toValue = to;
@@ -21,12 +21,12 @@ public class FromToNumberAnimation : MonoBehaviour
         if (_animationCoroutine != null)
             StopCoroutine(_animationCoroutine);
 
-        _animationCoroutine = StartCoroutine(AnimationCoroutine());
+        _animationCoroutine = StartCoroutine(AnimationCoroutine(startDelay));
     }
 
-    private IEnumerator AnimationCoroutine()
+    private IEnumerator AnimationCoroutine(float startDelay)
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(startDelay);
         int sign = (int)Mathf.Sign(_toValue - _fromValue);
         int number = _fromValue;
         while (true)
