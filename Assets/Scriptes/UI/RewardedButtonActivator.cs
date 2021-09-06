@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RewardedButtonActivator : MonoBehaviour
 {
     [SerializeField] private GameObject _button;
 
     private AdSettings _adSettings;
+
+    public event UnityAction Activated;
+
+    public bool IsActivated => _button.activeSelf;
 
     private void Awake()
     {
@@ -32,5 +37,7 @@ public class RewardedButtonActivator : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         _button.SetActive(true);
+
+        Activated?.Invoke();
     }
 }
