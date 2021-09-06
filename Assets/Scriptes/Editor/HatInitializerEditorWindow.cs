@@ -19,7 +19,7 @@ public class HatInitializerEditorWindow : EditorWindow
         var window = GetWindow<HatInitializerEditorWindow>("HatInitializerEditorWindow");
         window.minSize = new Vector2(500, 200);
         window.maxSize = new Vector2(500, 200);
-        window.ShowModalUtility();
+        //window.ShowModalUtility();
     }
 
     [Obsolete]

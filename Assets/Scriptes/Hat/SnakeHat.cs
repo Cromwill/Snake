@@ -6,6 +6,7 @@ using UnityEngine;
 public class SnakeHat : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _switchEffect;
+    [SerializeField] private ParticleSystem _onSnakeEffect;
 
     private Collider _collider;
     private Animator _animator;
@@ -38,6 +39,11 @@ public class SnakeHat : MonoBehaviour
     private void Start()
     {
         _startPosition = transform.position;
+
+        if (OnSnake)
+            _onSnakeEffect.Stop();
+        else
+            _onSnakeEffect.Play();
     }
 
     private void OnPlayerFinished()
@@ -71,6 +77,8 @@ public class SnakeHat : MonoBehaviour
         _animator.SetBool("Hooked", true);
 
         OnSnake = true;
+        _onSnakeEffect.Stop();
+        _onSnakeEffect.transform.parent.localScale = Vector3.one;
 
         if (playSound)
             _sound.PlayHatPickedSound();
