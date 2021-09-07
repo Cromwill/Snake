@@ -44,4 +44,9 @@ public class HatSpawner : MonoBehaviour
 
         return dataBase[dataIndex];
     }
+
+    public void Init(bool isNewHat)
+    {
+        _isNewHat = isNewHat;
+    }
 }

@@ -62,7 +62,7 @@ public class SnakeHat : MonoBehaviour
         var oldHat = head.GetComponentInChildren<SnakeHat>();
         if (oldHat != null)
         {
-            Destroy(oldHat.gameObject);
+            oldHat.Destroy();
             Instantiate(_switchEffect, transform.position + 2f * Vector3.up, _switchEffect.transform.rotation);
         }
 
@@ -125,5 +125,11 @@ public class SnakeHat : MonoBehaviour
         _animator.SetBool("Hooked", false);
         OnSnake = false;
         _sound.PlayHatLosedSound();
+    }
+
+    public void Destroy()
+    {
+        _parent.ObstacleEntered -= OnObstacleEntered;
+        Destroy(gameObject);
     }
 }
