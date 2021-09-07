@@ -172,9 +172,9 @@ public class Snake : MonoBehaviour, IMoveable
         }
     }
 
-    private void StopAcceleration()
+    private void StopAcceleration(bool accelerationReset)
     {
-        _acceleration = 1.0f;
+        _acceleration = accelerationReset ? 1.0f : _acceleration;
         if (_accelerating != null)
             StopCoroutine(_accelerating);
         _accelerating = null;
@@ -183,7 +183,7 @@ public class Snake : MonoBehaviour, IMoveable
     public void SetSpeedRate(float speedRate)
     {
         _speedRate = speedRate;
-        StopAcceleration();
+        StopAcceleration(true);
     }
 
     public virtual void StartMove()
@@ -209,7 +209,8 @@ public class Snake : MonoBehaviour, IMoveable
         _targetSpeed = 0;
         _isMoving = false;
         _armatureAnimator.SetBool("IsMoving", _isMoving);
-        StopAcceleration();
+        StopAcceleration(false);
         _boneStretching.StopStretching();
     }
 }
+ 
