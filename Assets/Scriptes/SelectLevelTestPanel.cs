@@ -78,4 +78,9 @@ public class SelectLevelTestPanel : MonoBehaviour
 
         hatCollection.Save(new JsonSaveLoad());
     }
+
+    public void ReturnAds()
+    {
+        Singleton<AdSettings>.Instance.ReturnAdsTest();
+    }
 }

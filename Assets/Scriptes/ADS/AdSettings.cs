@@ -7,19 +7,24 @@ public class AdSettings : Singleton<AdSettings>
     private const string AppLovinSdkKey = "R5ZeDg0t8rV5BQ4h_72SUwzDKUOipd1Ju_H3yph9eKZV6NZBDqI_rLKZmyFWiyFWdOn4ITSHwMdob2TtWHuzio";
     private const string InterstitialAdId = "071b3528f77ae7f4";
     private const string RewardedAdId = "cfaea1bc2df062fb";
+    private const string RemoveAdsKey = nameof(RemoveAdsKey);
+
     private int retryAttempt;
-
     private const int InterstitialDelay = 40;
-
     private DateTime _lastInterstitialShow;
+    
+    public bool IsAdsRemove { get; private set; }
 
     public event UnityAction InterstitialShowed;
     public event UnityAction InterstitialShowTryed;
     public event UnityAction RewardedLoaded;
     public event UnityAction UserEarnedReward;
+    public event UnityAction AdsRemoved;
 
     protected override void OnAwake()
     {
+        IsAdsRemove = PlayerPrefs.HasKey(RemoveAdsKey);
+
         MaxSdkCallbacks.OnSdkInitializedEvent += (MaxSdkBase.SdkConfiguration sdkConfiguration) => { };
         MaxSdk.SetSdkKey(AppLovinSdkKey);
         MaxSdk.InitializeSdk();
@@ -30,8 +35,27 @@ public class AdSettings : Singleton<AdSettings>
         InitializeRewardedAds();
     }
 
+    public void RemoveAds()
+    {
+        PlayerPrefs.SetInt(RemoveAdsKey, 1);
+        IsAdsRemove = true;
+        AdsRemoved?.Invoke();
+    }
+
+    public void ReturnAdsTest()
+    {
+        PlayerPrefs.DeleteKey(RemoveAdsKey);
+        IsAdsRemove = false;
+    }
+
     public void ShowInterstitial()
     {
+        if (IsAdsRemove)
+        {
+            InterstitialShowTryed?.Invoke();
+            return;
+        }
+
         var dateDiff = DateTime.Now.Subtract(_lastInterstitialShow);
         var delayed = dateDiff.TotalSeconds > InterstitialDelay;
 
@@ -49,11 +73,17 @@ public class AdSettings : Singleton<AdSettings>
 
     public void ShowBanner()
     {
+        if (IsAdsRemove)
+            return;
+
         //MaxSdk.ShowBanner(_adUnitId);
     }
 
     public void InitializeInterstitialAds()
     {
+        if (IsAdsRemove)
+            return;
+
         // Attach callback
         MaxSdkCallbacks.Interstitial.OnAdLoadedEvent += OnInterstitialLoadedEvent;
         MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialLoadFailedEvent;
