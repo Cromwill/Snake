@@ -23,7 +23,7 @@ public class BonusLevelCameraTarget : MonoBehaviour
     private void OnSnakeInitialized(Snake snake)
     {
         _followingSnake = snake;
-        transform.position = _bonusFinish.transform.position;
+        transform.position = new Vector3(_bonusFinish.transform.position.x, _yPosition, _followingSnake.HeadTransform.position.z);
     }
 
     private void Update()

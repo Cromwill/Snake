@@ -19,7 +19,6 @@ public class Pole : MonoBehaviour
     private List<PoleBlock> _blocks;
     private SnakeBoneMovement _snakeBoneMovement;
     private Head _snakeHead;
-    private PoleBlock _currentLightingBlock;
 
     private void OnValidate()
     {
@@ -90,13 +89,8 @@ public class Pole : MonoBehaviour
 
     private void OnFinishMoved(float distance)
     {
-        if (_currentLightingBlock)
-            _currentLightingBlock.LightDown();
-
         var nearestBlock = GetNearestBlock(_snakeHead.transform.position);
         nearestBlock.LightUp();
-
-        _currentLightingBlock = nearestBlock;
     }
 
     public Vector3 GetPositionByParameter(float t)

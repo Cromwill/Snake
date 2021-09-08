@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Canvas))]
 public class GameCanvas : MonoBehaviour
 {
     [SerializeField] private GameObject _startGroup;
+
+    public event UnityAction GameStarted;
 
     private Canvas _selfCanvas;
     private Pole _pole;
@@ -64,6 +67,10 @@ public class GameCanvas : MonoBehaviour
     private void OnSnakeMoving()
     {
         if (_startGroup.activeSelf)
+        {
             _startGroup.SetActive(false);
+            GameStarted?.Invoke();
+        }
+
     }
 }
