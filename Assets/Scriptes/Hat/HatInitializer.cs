@@ -31,7 +31,7 @@ public class HatInitializer : MonoBehaviour
             return;
 
         var snakeHead = _instSnake.GetComponentInChildren<Head>();
-        var inst = Instantiate(selectedHat.Prefab, snakeHead.transform.position, Quaternion.identity);
+        var inst = Instantiate(selectedHat.Prefab, _instSnake.transform.position, Quaternion.identity);
         inst.PutOn(snakeHead, false);
     }
 

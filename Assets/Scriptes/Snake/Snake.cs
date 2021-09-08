@@ -84,9 +84,13 @@ public class Snake : MonoBehaviour, IMoveable
         _finish = finish;
         _bonusFinish = bonusFinish;
 
+        _currentSpeed = 0;
+        _boneStretching.Init(_snakeSkeleton.Bones.Count(), _distanceBetweenSegments, _maxSpeedTime);
+
         _distanceCovered = _snakeSkeleton.MinLength * _distanceBetweenSegments;
         _bonusPoleDistanceCovered = 10 * _distanceBetweenSegments;
         _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, _bonusFinish);
+        _snakeBoneMovement.Move(_distanceCovered, _boneStretching.Distances);
 
         if (bonusFinish)
             bonusFinish.Init(_snakeBoneMovement);
@@ -94,10 +98,6 @@ public class Snake : MonoBehaviour, IMoveable
 
     private void Start()
     {
-        _currentSpeed = 0;
-        _snakeBoneMovement.Init(_snakeSkeleton, _track, _finish, _bonusFinish);
-        _boneStretching.Init(_snakeSkeleton.Bones.Count(), _distanceBetweenSegments, _maxSpeedTime);
-
         OnStart();
     }
 
