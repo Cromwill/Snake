@@ -48,7 +48,7 @@ public class HatSpawnerEditorWindow : EditorWindow
 
             var spawner = FindObjectOfType<HatSpawner>();
             spawner.Init(index % _parameter == 0);
-
+            Debug.Log(EditorSceneManager.GetActiveScene().name + " " + (index % _parameter == 0));
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
             index++;
         }
