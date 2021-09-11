@@ -72,6 +72,7 @@ public class EndOfGameCanvas : MonoBehaviour
 
         if (_hat != null && _hat.OnSnake)
         {
+            HatInitializer.EnableSpawn();
             _hatBonusPreview.sprite = _hatData.HatPreview;
             _hatBonus.SetActive(true);
             _eargedGems.PlayFromToAnimation(_earnedGems, _earnedGems + 100, 1.5f);
@@ -87,6 +88,10 @@ public class EndOfGameCanvas : MonoBehaviour
                 collection.SelectHat(_hatData);
                 collection.Save(new JsonSaveLoad());
             }
+        }
+        else
+        {
+            HatInitializer.DisableSpawn();
         }
 
         gemBalance.Add(_earnedGems);
