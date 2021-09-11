@@ -37,15 +37,6 @@ public class Pole : MonoBehaviour
         SpawnBlocks();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-            foreach (var block in _blocks)
-            {
-                block.LightUp();
-            }
-    }
-
     private void OnEnable()
     {
         _snakeInitializer.Initialized += OnSnakeInitialized;
