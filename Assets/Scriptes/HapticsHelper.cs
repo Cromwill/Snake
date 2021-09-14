@@ -3,10 +3,12 @@ using MoreMountains.NiceVibrations;
 
 public class HapticsHelper : MonoBehaviour
 {
+    [SerializeField] private BackgroundMusic _backgroundMusic;
     [Header("Audio clips")]
     [SerializeField] private AudioClip _pickObject;
     [SerializeField] private AudioClip _obstacleFounded;
     [SerializeField] private AudioClip _victory;
+    [SerializeField] private AudioClip _startFinish;
 
     [Header("Audio Settings")]
 
@@ -19,19 +21,14 @@ public class HapticsHelper : MonoBehaviour
     private FinishTrigger _finishTrigger;
     private Setting _setting;
     private SnakeInitializer _initializer;
-    private InputSelector _inputSelector;
 
     private float _defoultSoundVolume;
     private float _defoultSoundPitch;
 
     private void OnEnable()
     {
-        _initializer = FindObjectOfType<SnakeInitializer>();
         _initializer.Initialized += OnSnakeInitializer;
-        _setting = FindObjectOfType<Setting>();
-
-        if (_inputSelector == null)
-            _inputSelector = FindObjectOfType<InputSelector>();
+        _finishTrigger.PlayerFinished += OnPlayerFinishedStart;
     }
 
     private void OnDisable()
@@ -41,6 +38,8 @@ public class HapticsHelper : MonoBehaviour
 #endif
 
         _initializer.Initialized -= OnSnakeInitializer;
+        _finishTrigger.PlayerFinished -= OnPlayerFinishedStart;
+
         if (_snakeHead != null)
         {
             _snakeHead.FoodFinded -= OnFoodFinded;
@@ -53,6 +52,10 @@ public class HapticsHelper : MonoBehaviour
 #if UNITY_IOS
         MMNViOS.iOSInitializeHaptics();
 #endif
+
+        _finishTrigger = FindObjectOfType<FinishTrigger>();
+        _initializer = FindObjectOfType<SnakeInitializer>();
+        _setting = FindObjectOfType<Setting>();
     }
 
     private void OnSnakeInitializer(Snake snake)
@@ -70,10 +73,15 @@ public class HapticsHelper : MonoBehaviour
         _snakeHead.ObstacleEntered += OnObstacleEntered;
     }
 
-    private void OnFoodFinded(Food food) => HapticPlay(HapticTypes.SoftImpact, _pickObject);
-    private void OnObstacleEntered(Obstacle obstacle) => HapticPlay(HapticTypes.Warning, _obstacleFounded);
-    private void OnPlayerFinished() => HapticPlay(HapticTypes.HeavyImpact, _victory);
-    private void OnPlayerFinished(float value) => HapticPlay(HapticTypes.HeavyImpact, _victory);
+    private void OnFoodFinded(Food food) => HapticPlay(HapticTypes.SoftImpact, _pickObject, false);
+    private void OnObstacleEntered(Obstacle obstacle) => HapticPlay(HapticTypes.Warning, _obstacleFounded, false);
+    private void OnPlayerFinished() => HapticPlay(HapticTypes.HeavyImpact, _victory, false);
+    private void OnPlayerFinished(float value) => HapticPlay(HapticTypes.HeavyImpact, _victory, false);
+    private void OnPlayerFinishedStart()
+    {
+        HapticPlay(HapticTypes.Success, _startFinish, false);
+        _backgroundMusic.StopMusic();
+    }
 
     private void HapticPlay(HapticTypes hapticTypes, AudioClip audio, bool isDefoult = true)
     {
@@ -85,6 +93,7 @@ public class HapticsHelper : MonoBehaviour
             _snakeAudioSource.volume = isDefoult ? _defoultSoundVolume : _obstacleFoundedVolume;
             _snakeAudioSource.pitch = isDefoult ? _defoultSoundPitch : _obstacleFoundedPitch;
 
+            _snakeAudioSource.loop = false;
             _snakeAudioSource.clip = audio;
             _snakeAudioSource.Play();
         }

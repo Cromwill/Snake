@@ -31,10 +31,10 @@ public class PoleBlock : MonoBehaviour
 
     public void LightUp()
     {
-        _selfMaterial.SetColor("_SColor", new Color(0.9f, 0.9f, 0.9f));
+        _selfMaterial.SetColor("_SColor", new Color(0.8f, 0.8f, 0.8f));
 
         Color.RGBToHSV(_selfMaterial.color, out float h, out float s, out float v);
-        var saturatedColor = Color.HSVToRGB(h, 0.9f, v);
+        var saturatedColor = Color.HSVToRGB(h, 0.8f, v);
         
         _selfMaterial.color = saturatedColor;
         _numberMaterial.color = Color.white;
