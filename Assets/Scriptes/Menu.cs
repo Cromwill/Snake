@@ -20,12 +20,11 @@ public class Menu : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex != currentLevelData.CurrentLevel)
             SceneManager.LoadScene(currentLevelData.CurrentLevel);
-
     }
 
     private void Start()
     {
-        //_adSettings.ShowBanner();
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     private void OnEnable()
