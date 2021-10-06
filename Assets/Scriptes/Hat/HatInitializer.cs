@@ -7,7 +7,10 @@ public class HatInitializer : MonoBehaviour
     [SerializeField] private HatDataBase _hatDataBase;
     [SerializeField] private SnakeInitializer _snakeInitializer;
 
+    private const string HatInitializerSpawnKey = nameof(HatInitializerSpawnKey);
     private Snake _instSnake;
+
+    public bool SpawnEnabled => PlayerPrefs.HasKey(HatInitializerSpawnKey);
 
     private void OnEnable()
     {
@@ -22,6 +25,9 @@ public class HatInitializer : MonoBehaviour
     private void OnSnakeInitizlized(Snake snake)
     {
         _instSnake = snake;
+
+        if (SpawnEnabled == false)
+            return;
 
         HatCollection hatCollection = new HatCollection(_hatDataBase);
         hatCollection.Load(new JsonSaveLoad());
@@ -38,5 +44,15 @@ public class HatInitializer : MonoBehaviour
     public void ForceInitialize()
     {
         _snakeInitializer = FindObjectOfType<SnakeInitializer>();
+    }
+
+    public static void DisableSpawn()
+    {
+        PlayerPrefs.DeleteKey(HatInitializerSpawnKey);
+    }
+
+    public static void EnableSpawn()
+    {
+        PlayerPrefs.SetInt(HatInitializerSpawnKey, 1);
     }
 }

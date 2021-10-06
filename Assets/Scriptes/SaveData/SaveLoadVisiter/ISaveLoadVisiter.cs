@@ -14,4 +14,7 @@
 
     void Save(SettingData setting);
     SettingData Load(SettingData setting);
+
+    void Save(SerializableDateTime time);
+    SerializableDateTime Load(SerializableDateTime time);
 }

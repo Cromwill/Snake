@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class JsonSaveLoad : ISaveLoadVisiter
 {
@@ -7,6 +8,7 @@ public class JsonSaveLoad : ISaveLoadVisiter
     private const string CurrentLevelData = nameof(CurrentLevelData);
     private const string HatCollectionKey = nameof(HatCollectionKey);
     private const string SettingKey = nameof(SettingKey);
+    private const string SerializableDateTimeKey = nameof(SerializableDateTimeKey);
 
     #region GemBalance
     public void Save(GemBalance balance)
@@ -105,6 +107,27 @@ public class JsonSaveLoad : ISaveLoadVisiter
         }
 
         return new SettingData(true, true);
+    }
+
+    #endregion
+
+    #region SerializableDateTime
+    public void Save(SerializableDateTime time)
+    {
+        string saveJson = JsonUtility.ToJson(time);
+        PlayerPrefs.SetString(SerializableDateTimeKey, saveJson);
+        PlayerPrefs.Save();
+    }
+
+    public SerializableDateTime Load(SerializableDateTime time)
+    {
+        if (PlayerPrefs.HasKey(SerializableDateTimeKey))
+        {
+            string saveJson = PlayerPrefs.GetString(SerializableDateTimeKey);
+            return JsonUtility.FromJson<SerializableDateTime>(saveJson);
+        }
+
+        return new SerializableDateTime(DateTime.Now);
     }
 
     #endregion
