@@ -32,8 +32,8 @@ public class CameraTarget : MonoBehaviour
 
         if (_snakeBoneMovement != null)
         {
-            _snakeBoneMovement.Partially—rawled -= OnPlayerPartiallyCrawled;
-            _snakeBoneMovement.Full—rawled -= OnPlayerFullCrawled;
+            _snakeBoneMovement.PartiallyCrawled -= OnPlayerPartiallyCrawled;
+            _snakeBoneMovement.FullCrawled -= OnPlayerFullCrawled;
         }
     }
 
@@ -42,8 +42,8 @@ public class CameraTarget : MonoBehaviour
         _followingSnake = snake.GetComponent<SnakeSkeleton>();
         _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
 
-        _snakeBoneMovement.Partially—rawled += OnPlayerPartiallyCrawled;
-        _snakeBoneMovement.Full—rawled += OnPlayerFullCrawled;
+        _snakeBoneMovement.PartiallyCrawled += OnPlayerPartiallyCrawled;
+        _snakeBoneMovement.FullCrawled += OnPlayerFullCrawled;
     }
 
     private void OnPlayerFullCrawled()

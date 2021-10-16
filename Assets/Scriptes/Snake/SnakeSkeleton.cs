@@ -9,7 +9,8 @@ public class SnakeSkeleton : MonoBehaviour
     [SerializeField] private Head _head;
     [SerializeField] private Tail _tail;
 
-    [SerializeField] private List<SnakeBone> _bones;
+    private List<SnakeBone> _bones;
+    private List<SnakeBone> _activeBones;
 
     public int MinLength => 4;
     public int CurrentLength { get; private set; }
@@ -19,7 +20,7 @@ public class SnakeSkeleton : MonoBehaviour
     public Head Head => _head;
     public Tail Tail => _tail;
 
-    private List<SnakeBone> _activeBones;
+    public event UnityAction BoneRemoved;
 
     private void Awake()
     {
@@ -87,6 +88,8 @@ public class SnakeSkeleton : MonoBehaviour
         removedBone.transform.localPosition = Vector3.zero;
 
         _activeBones.RemoveAt(_activeBones.Count - 1);
+
+        BoneRemoved?.Invoke();
     }
 
     public void SetInitialTailSize()

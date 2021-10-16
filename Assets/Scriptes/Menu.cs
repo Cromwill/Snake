@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,8 +5,13 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private bool _isShop;
 
+    private AdSettings _adSettings;
+
     private void Awake()
     {
+        _adSettings = Singleton<AdSettings>.Instance;
+        _adSettings.LoadRewardedAd();
+
         if (_isShop)
             return;
 
@@ -19,6 +22,34 @@ public class Menu : MonoBehaviour
             SceneManager.LoadScene(currentLevelData.CurrentLevel);
     }
 
+    private void Start()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
+
+    private void OnEnable()
+    {
+        _adSettings.InterstitialShowed += LoadNextLevelAfterAd;
+        _adSettings.InterstitialShowTryed += LoadNextLevelAfterAd;
+    }
+
+    private void OnDisable()
+    {
+        _adSettings.InterstitialShowed -= LoadNextLevelAfterAd;
+        _adSettings.InterstitialShowTryed -= LoadNextLevelAfterAd;
+    }
+
+    private void LoadNextLevelAfterAd()
+    {
+        var currentLevelData = new CurrentLevelData();
+        currentLevelData.Load(new JsonSaveLoad());
+
+        currentLevelData.IncreaseLevel();
+        currentLevelData.Save(new JsonSaveLoad());
+
+        SceneManager.LoadScene(currentLevelData.CurrentLevel);
+    }
+
     public void ReloadLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -26,7 +57,7 @@ public class Menu : MonoBehaviour
 
     public void LoadShop()
     {
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("Shop_v2");
     }
 
     public void LoadLevel(string name)
@@ -57,12 +88,11 @@ public class Menu : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        var currentLevelData = new CurrentLevelData();
-        currentLevelData.Load(new JsonSaveLoad());
+        _adSettings.ShowInterstitial();
+    }
 
-        currentLevelData.IncreaseLevel();
-        currentLevelData.Save(new JsonSaveLoad());
-
-        SceneManager.LoadScene(currentLevelData.CurrentLevel);
+    public void LoadHatCollection()
+    {
+        SceneManager.LoadScene("HatCollection");
     }
 }

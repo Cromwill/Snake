@@ -29,6 +29,23 @@ public class PoleBlock : MonoBehaviour
         GiftValue = giftValue;
     }
 
+    public void LightUp()
+    {
+        _selfMaterial.SetColor("_SColor", new Color(0.8f, 0.8f, 0.8f));
+
+        Color.RGBToHSV(_selfMaterial.color, out float h, out float s, out float v);
+        var saturatedColor = Color.HSVToRGB(h, 0.8f, v);
+        
+        _selfMaterial.color = saturatedColor;
+        _numberMaterial.color = Color.white;
+    }
+
+    public void LightDown()
+    {
+        _selfMaterial.SetFloat("_Emission", 0f);
+        _numberMaterial.color = Color.gray;
+    }
+
     public void PingPongColor(Color secondColor)
     {
         if (_pingPongColorCoroutine != null)

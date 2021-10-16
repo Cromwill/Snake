@@ -9,10 +9,12 @@ public class SnakeBoneScaler : MonoBehaviour
 
     private List<Food> _targetFoods;
     private SnakeSkeleton _snakeSkeleton;
+    private FinishTrigger _finishTrigger;
     private float _nextScaleRate;
 
     private void Awake()
     {
+        _finishTrigger = FindObjectOfType<FinishTrigger>();
         _snakeSkeleton = GetComponent<SnakeSkeleton>();
         _targetFoods = new List<Food>();
     }
@@ -21,12 +23,18 @@ public class SnakeBoneScaler : MonoBehaviour
     {
         _snakeSkeleton.Head.TriggerEntered += OnHeadTriggerEntered;
         _snakeSkeleton.Tail.TriggerExited += OnTailTriggerExited;
+
+        if (_finishTrigger)
+            _finishTrigger.PlayerFinished += OnPlayerFinished;
     }
 
     private void OnDisable()
     {
         _snakeSkeleton.Head.TriggerEntered -= OnHeadTriggerEntered;
         _snakeSkeleton.Tail.TriggerExited -= OnTailTriggerExited;
+
+        if (_finishTrigger)
+            _finishTrigger.PlayerFinished -= OnPlayerFinished;
     }
 
     private void OnHeadTriggerEntered(Collider collider)
@@ -41,17 +49,25 @@ public class SnakeBoneScaler : MonoBehaviour
     private void OnTailTriggerExited(Collider collider)
     {
         if (collider.TryGetComponent(out Food food))
-        {
-            if (_targetFoods.Contains(food) == false)
-                return;
+            EatFood(food);
+    }
 
-            _targetFoods.Remove(food);
-            Destroy(food.gameObject);
+    private void OnPlayerFinished()
+    {
+        while (_targetFoods.Count != 0)
+            EatFood(_targetFoods[0]);
+    }
 
-            _snakeSkeleton.AddBoneInTailSmoothly();
-            _snakeSkeleton.AddBoneInTailSmoothly();
+    private void EatFood(Food food)
+    {
+        if (_targetFoods.Contains(food) == false)
+            return;
 
-        }
+        _targetFoods.Remove(food);
+        Destroy(food.gameObject);
+
+        _snakeSkeleton.AddBoneInTailSmoothly();
+        _snakeSkeleton.AddBoneInTailSmoothly();
     }
 
     private void FixedUpdate()
@@ -67,6 +83,7 @@ public class SnakeBoneScaler : MonoBehaviour
         {
             //if (_snakeSkeleton.ActiveBones[i].Enabled == false)
             //    continue;
+
             var scaleDistance = MinDistanceToTarget(_snakeSkeleton.ActiveBones[i].Position);
             if (scaleDistance < _minDistance)
             {
@@ -78,11 +95,13 @@ public class SnakeBoneScaler : MonoBehaviour
                 _nextScaleRate = 1f;
             }
         }
+
     }
 
     private float MinDistanceToTarget(Vector3 bonePosition)
     {
         float minDistance = float.MaxValue;
+
         foreach (var food in _targetFoods)
         {
             var distance = Vector3.Distance(bonePosition, food.ColliderCenterPosition + Vector3.up * 0.3f);

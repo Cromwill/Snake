@@ -1,0 +1,273 @@
+fileFormatVersion: 2
+guid: 992fcc9b3e750bf4f950647d52928519
+timeCreated: 1466959499
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Body
+    100004: Empty
+    100006: Feet.L
+    100008: Feet.R
+    100010: Feet_2.L
+    100012: Feet_2.L_end
+    100014: Feet_2.R
+    100016: Feet_2.R_end
+    100018: Flamingo
+    100020: Flamingo(No_Eyes)
+    100022: //RootNode
+    100024: Head
+    100026: Head_end
+    100028: Head_Target
+    100030: Lower_Leg.L
+    100032: Lower_Leg.R
+    100034: Lower_Leg_Target.L
+    100036: Lower_Leg_Target.L_end
+    100038: Lower_Leg_Target.R
+    100040: Lower_Leg_Target.R_end
+    100042: Neck_1
+    100044: Neck_1_Target
+    100046: Neck_1_Target_end
+    100048: Neck_2
+    100050: Neck_3
+    100052: Neck_4
+    100054: Neck_Final
+    100056: Neck_Start
+    100058: Root
+    100060: Upper_Leg.L
+    100062: Upper_Leg.R
+    100064: Wing_1.L
+    100066: Wing_1.R
+    100068: Wing_2.L
+    100070: Wing_2.L_end
+    100072: Wing_2.R
+    100074: Wing_2.R_end
+    100076: Wing_Target.L
+    100078: Wing_Target.L_end
+    100080: Wing_Target.R
+    100082: Wing_Target.R_end
+    400000: Armature
+    400002: Body
+    400004: Empty
+    400006: Feet.L
+    400008: Feet.R
+    400010: Feet_2.L
+    400012: Feet_2.L_end
+    400014: Feet_2.R
+    400016: Feet_2.R_end
+    400018: Flamingo
+    400020: Flamingo(No_Eyes)
+    400022: //RootNode
+    400024: Head
+    400026: Head_end
+    400028: Head_Target
+    400030: Lower_Leg.L
+    400032: Lower_Leg.R
+    400034: Lower_Leg_Target.L
+    400036: Lower_Leg_Target.L_end
+    400038: Lower_Leg_Target.R
+    400040: Lower_Leg_Target.R_end
+    400042: Neck_1
+    400044: Neck_1_Target
+    400046: Neck_1_Target_end
+    400048: Neck_2
+    400050: Neck_3
+    400052: Neck_4
+    400054: Neck_Final
+    400056: Neck_Start
+    400058: Root
+    400060: Upper_Leg.L
+    400062: Upper_Leg.R
+    400064: Wing_1.L
+    400066: Wing_1.R
+    400068: Wing_2.L
+    400070: Wing_2.L_end
+    400072: Wing_2.R
+    400074: Wing_2.R_end
+    400076: Wing_Target.L
+    400078: Wing_Target.L_end
+    400080: Wing_Target.R
+    400082: Wing_Target.R_end
+    4300000: Flamingo(No_Eyes)
+    4300002: Flamingo
+    7400000: _WalkLeft_
+    9500000: //RootNode
+    13700000: Flamingo
+    13700002: Flamingo(No_Eyes)
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: _WalkLeft_
+      takeName: Armature|ArmatureAction
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/Body
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2/Neck_3
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2/Neck_3/Neck_4
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2/Neck_3/Neck_4/Neck_Final
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2/Neck_3/Neck_4/Neck_Final/Head
+        weight: 1
+      - path: Armature/Root/Body/Neck_Start/Neck_1/Neck_2/Neck_3/Neck_4/Neck_Final/Head/Head_end
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.L
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.L/Lower_Leg.L
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.L/Lower_Leg.L/Feet.L
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.L/Lower_Leg.L/Feet.L/Feet_2.L
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.L/Lower_Leg.L/Feet.L/Feet_2.L/Feet_2.L_end
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.R
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.R/Lower_Leg.R
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.R/Lower_Leg.R/Feet.R
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.R/Lower_Leg.R/Feet.R/Feet_2.R
+        weight: 1
+      - path: Armature/Root/Body/Upper_Leg.R/Lower_Leg.R/Feet.R/Feet_2.R/Feet_2.R_end
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.L
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.L/Wing_2.L
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.L/Wing_2.L/Wing_2.L_end
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.R
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.R/Wing_2.R
+        weight: 1
+      - path: Armature/Root/Body/Wing_1.R/Wing_2.R/Wing_2.R_end
+        weight: 1
+      - path: Armature/Root/Head_Target
+        weight: 1
+      - path: Armature/Root/Head_Target/Neck_1_Target
+        weight: 1
+      - path: Armature/Root/Head_Target/Neck_1_Target/Neck_1_Target_end
+        weight: 1
+      - path: Armature/Root/Lower_Leg_Target.L
+        weight: 1
+      - path: Armature/Root/Lower_Leg_Target.L/Lower_Leg_Target.L_end
+        weight: 1
+      - path: Armature/Root/Lower_Leg_Target.R
+        weight: 1
+      - path: Armature/Root/Lower_Leg_Target.R/Lower_Leg_Target.R_end
+        weight: 1
+      - path: Armature/Root/Wing_Target.L
+        weight: 1
+      - path: Armature/Root/Wing_Target.L/Wing_Target.L_end
+        weight: 1
+      - path: Armature/Root/Wing_Target.R
+        weight: 1
+      - path: Armature/Root/Wing_Target.R/Wing_Target.R_end
+        weight: 1
+      - path: Empty
+        weight: 1
+      - path: Flamingo
+        weight: 1
+      - path: Flamingo(No_Eyes)
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

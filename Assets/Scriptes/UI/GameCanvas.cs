@@ -1,51 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Canvas))]
 public class GameCanvas : MonoBehaviour
 {
     [SerializeField] private GameObject _startGroup;
 
+    public event UnityAction GameStarted;
+
     private Canvas _selfCanvas;
     private Pole _pole;
     private SnakeInitializer _snakeInitializer;
     private Snake _snake;
+    private BonusFinish _bonusFinish;
 
     private void Awake()
     {
         _selfCanvas = GetComponent<Canvas>();
         _pole = FindObjectOfType<Pole>();
         _snakeInitializer = FindObjectOfType<SnakeInitializer>();
+        _bonusFinish = FindObjectOfType<BonusFinish>();
     }
 
     private void OnEnable()
     {
-        _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled += OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Finished += OnBonusPoleCrawled;
+
         _snakeInitializer.Initialized += OnSnakeInitialized;
     }
 
     private void OnDisable()
     {
-        _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_pole)
+            _pole.SnakeCrawled -= OnSnakeCrawled;
+        if (_bonusFinish)
+            _bonusFinish.Finished -= OnBonusPoleCrawled;
 
         if (_snake)
             _snake.StartMoving -= OnSnakeMoving;
+
+        _snakeInitializer.Initialized -= OnSnakeInitialized;
     }
 
     private void OnSnakeCrawled(int gemValue)
     {
         _selfCanvas.enabled = false;
     }
+
+    private void OnBonusPoleCrawled()
+    {
+        _selfCanvas.enabled = false;
+    }
+
     private void OnSnakeInitialized(Snake snake)
     {
         _snake = snake;
+
         _snake.StartMoving += OnSnakeMoving;
     }
 
     private void OnSnakeMoving()
     {
         if (_startGroup.activeSelf)
+        {
             _startGroup.SetActive(false);
+            GameStarted?.Invoke();
+        }
+
     }
 }

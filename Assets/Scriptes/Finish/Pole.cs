@@ -10,11 +10,11 @@ public class Pole : MonoBehaviour
     [SerializeField] private float _angleDelta;
     [SerializeField] private PoleBlock _blockTemplate;
     [SerializeField] private Texture[] _textures;
-    [SerializeField] private float _radius—oefficient;
+    [SerializeField] private float _radiusCoefficient;
 
     public event UnityAction<int> SnakeCrawled;
 
-    public float DistanceLength { get; private set; }
+    public float DistanceLength => transform.lossyScale.y * _angleDelta / 2f;
 
     private List<PoleBlock> _blocks;
     private SnakeBoneMovement _snakeBoneMovement;
@@ -25,10 +25,15 @@ public class Pole : MonoBehaviour
         if (_angleDelta <= 0)
             _angleDelta = 1f;
     }
+    
+    private void Awake()
+    {
+        if (TryGetComponent(out MeshRenderer meshRenderer))
+            meshRenderer.enabled = false;
+    }
 
     private void Start()
     {
-        DistanceLength = transform.lossyScale.y * _angleDelta / 2f;
         SpawnBlocks();
     }
 
@@ -43,8 +48,9 @@ public class Pole : MonoBehaviour
 
         if (_snakeBoneMovement)
         {
-            _snakeBoneMovement.Partially—rawled -= OnsnakePartiallyCrawled;
-            _snakeBoneMovement.Full—rawled -= OnSnakeFullCrawled;
+            _snakeBoneMovement.FinishDistanceCovered -= OnFinishMoved;
+            _snakeBoneMovement.PartiallyCrawled -= OnsnakePartiallyCrawled;
+            _snakeBoneMovement.FullCrawled -= OnSnakeFullCrawled;
         }
     }
 
@@ -53,8 +59,9 @@ public class Pole : MonoBehaviour
         _snakeBoneMovement = snake.GetComponent<SnakeBoneMovement>();
         _snakeHead = snake.GetComponentInChildren<Head>();
 
-        _snakeBoneMovement.Partially—rawled += OnsnakePartiallyCrawled;
-        _snakeBoneMovement.Full—rawled += OnSnakeFullCrawled;
+        _snakeBoneMovement.FinishDistanceCovered += OnFinishMoved;
+        _snakeBoneMovement.PartiallyCrawled += OnsnakePartiallyCrawled;
+        _snakeBoneMovement.FullCrawled += OnSnakeFullCrawled;
     }
 
     private void OnSnakeFullCrawled()
@@ -71,14 +78,20 @@ public class Pole : MonoBehaviour
         SnakeCrawled?.Invoke(nearestBlock.GiftValue);
     }
 
+    private void OnFinishMoved(float distance)
+    {
+        var nearestBlock = GetNearestBlock(_snakeHead.transform.position);
+        nearestBlock.LightUp();
+    }
+
     public Vector3 GetPositionByParameter(float t)
     {
         float deltaRad = 2 * Mathf.PI * t * _angleDelta;
 
         var posHeight = transform.position + Vector3.down * transform.lossyScale.y + Vector3.up * 2 * transform.lossyScale.y * t;
 
-        posHeight += transform.forward * Mathf.Cos(deltaRad) * _radius—oefficient * transform.lossyScale.z / 2f;
-        posHeight += transform.right * Mathf.Sin(deltaRad) * _radius—oefficient * transform.lossyScale.x / 2f;
+        posHeight += transform.forward * Mathf.Cos(deltaRad) * _radiusCoefficient * transform.lossyScale.z / 2f;
+        posHeight += transform.right * Mathf.Sin(deltaRad) * _radiusCoefficient * transform.lossyScale.x / 2f;
 
         return posHeight;
     }

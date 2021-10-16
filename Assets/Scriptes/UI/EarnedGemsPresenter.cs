@@ -13,8 +13,8 @@ public class EarnedGemsPresenter : MonoBehaviour
         _gemValue.text = string.Format("+{0}", gemValue.ToString());
     }
 
-    public void PlayFromToAnimation(int from, int to)
+    public void PlayFromToAnimation(int from, int to, float startDelay)
     {
-        _fromToAnimation.StartAnimation(from, to);
+        _fromToAnimation.StartAnimation(from, to, startDelay);
     }
 }

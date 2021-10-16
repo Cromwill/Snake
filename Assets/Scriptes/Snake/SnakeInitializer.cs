@@ -6,7 +6,9 @@ public class SnakeInitializer : MonoBehaviour
     [SerializeField] private SnakeDataBase _snakeDataBase;
     [SerializeField] private Track _track;
     [SerializeField] private FinishPath _finish;
+    [SerializeField] private BonusFinish _bonusFinish;
     [SerializeField] private PathLineDrawer _lineDrawer;
+    [SerializeField] private bool isBonusLevel = false;
 
     public event UnityAction<Snake> Initialized;
 
@@ -18,7 +20,10 @@ public class SnakeInitializer : MonoBehaviour
         var selectedSnake = snakeInventory.SelectedSnake.Prefab;
 
         var inst = Instantiate(selectedSnake, transform.position, transform.rotation);
-        inst.Init(_track, _finish);
+        inst.Init(_track, _finish, _bonusFinish);
+
+        if (isBonusLevel)
+            inst.SetSpeedRate(1.5f);
 
         Initialized?.Invoke(inst);
     }
