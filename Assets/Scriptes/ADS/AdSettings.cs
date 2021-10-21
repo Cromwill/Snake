@@ -251,6 +251,7 @@ public class AdSettings : Singleton<AdSettings>
     private void OnRewardedAdHiddenEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
     {
         // Rewarded ad is hidden. Pre-load the next ad
+        _lastInterstitialShow = DateTime.Now;
         LoadRewardedAd();
     }
 
