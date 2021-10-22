@@ -5,8 +5,15 @@ using UnityEngine.Events;
 public class AdSettings : Singleton<AdSettings>
 {
     private const string AppLovinSdkKey = "R5ZeDg0t8rV5BQ4h_72SUwzDKUOipd1Ju_H3yph9eKZV6NZBDqI_rLKZmyFWiyFWdOn4ITSHwMdob2TtWHuzio";
+
+#if !UNITY_ANDROID
     private const string InterstitialAdId = "94df4f5306ef82e6";
     private const string RewardedAdId = "504d6c9a3f7c0d0a";
+#elif UNITY_ANDROID
+    private const string InterstitialAdId = "071b3528f77ae7f4";
+    private const string RewardedAdId = "cfaea1bc2df062fb";
+#endif
+
     private const string RemoveAdsKey = nameof(RemoveAdsKey);
 
     private int retryAttempt;
@@ -152,7 +159,7 @@ public class AdSettings : Singleton<AdSettings>
         //MaxSdk.SetBannerBackgroundColor(BannerAdId, Color.white);
     }
 
-    #region InterstitialCallbacks
+#region InterstitialCallbacks
 
     private void LoadInterstitial()
     {
@@ -205,9 +212,9 @@ public class AdSettings : Singleton<AdSettings>
         VideoAdsWatched?.Invoke("interstitial", _placement, "hiding", true);
         LoadInterstitial();
     }
-    #endregion
+#endregion
 
-    #region RewardedCallback
+#region RewardedCallback
 
     public void LoadRewardedAd()
     {
@@ -271,5 +278,5 @@ public class AdSettings : Singleton<AdSettings>
         // Ad revenue paid. Use this callback to track user revenue.
     }
 
-    #endregion
+#endregion
 }
