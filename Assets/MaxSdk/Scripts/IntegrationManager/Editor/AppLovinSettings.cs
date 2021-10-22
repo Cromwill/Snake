@@ -45,6 +45,8 @@ public class AppLovinSettings : ScriptableObject
     [SerializeField] private bool qualityServiceEnabled = true;
     [SerializeField] private string sdkKey;
 
+    [SerializeField] private bool setAttributionReportEndpoint;
+
     [SerializeField] private bool consentFlowEnabled;
     [SerializeField] private string consentFlowPrivacyPolicyUrl = string.Empty;
     [SerializeField] private string consentFlowTermsOfServiceUrl = string.Empty;
@@ -122,6 +124,15 @@ public class AppLovinSettings : ScriptableObject
     {
         get { return Instance.sdkKey; }
         set { Instance.sdkKey = value; }
+    }
+
+    /// <summary>
+    /// Whether or not to set `NSAdvertisingAttributionReportEndpoint` in Info.plist.
+    /// </summary>
+    public bool SetAttributionReportEndpoint
+    {
+        get { return Instance.setAttributionReportEndpoint; }
+        set { Instance.setAttributionReportEndpoint = value; }
     }
 
     /// <summary>

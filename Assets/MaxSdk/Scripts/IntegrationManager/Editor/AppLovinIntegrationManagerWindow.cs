@@ -185,23 +185,7 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
                 GUILayout.Space(5);
 
                 // Draw AppLovin MAX plugin details
-                GUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("AppLovin MAX Plugin Details", titleLabelStyle, GUILayout.Width(220f)); // Seems like LabelField has an arbitrarily fixed width set by default. Need to set it to the preferred width (arrived at by trail & error) for the text to not be cut off (https://docs.unity3d.com/ScriptReference/EditorGUIUtility-labelWidth.html)
-                GUILayout.FlexibleSpace();
-
-                var autoUpdateEnabled = GUILayout.Toggle(EditorPrefs.GetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, true), "  Enable Auto Update");
-                EditorPrefs.SetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, autoUpdateEnabled);
-                GUILayout.Space(10);
-
-#if UNITY_2018_2_OR_NEWER
-                const string verboseLoggingText = "  Enable Verbose Logging";
-#else
-                const string verboseLoggingText = "  Enable Build Verbose Logging";
-#endif
-                var verboseLoggingEnabled = GUILayout.Toggle(EditorPrefs.GetBool(MaxSdkLogger.KeyVerboseLoggingEnabled, false), verboseLoggingText);
-                EditorPrefs.SetBool(MaxSdkLogger.KeyVerboseLoggingEnabled, verboseLoggingEnabled);
-                GUILayout.Space(10);
-                GUILayout.EndHorizontal();
+                EditorGUILayout.LabelField("AppLovin MAX Plugin Details", titleLabelStyle);
 
                 DrawPluginDetails();
 
@@ -215,6 +199,9 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
 
                 EditorGUILayout.LabelField("Privacy Settings", titleLabelStyle);
                 DrawPrivacySettings();
+
+                EditorGUILayout.LabelField("Other Settings", titleLabelStyle);
+                DrawOtherSettings();
 
                 // Draw Unity environment details
                 EditorGUILayout.LabelField("Unity Environment Details", titleLabelStyle);
@@ -664,6 +651,45 @@ namespace AppLovinMax.Scripts.IntegrationManager.Editor
 
             GUILayout.Space(5);
             GUILayout.EndHorizontal();
+        }
+
+        private void DrawOtherSettings()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            using (new EditorGUILayout.VerticalScope("box"))
+            {
+                GUILayout.Space(5);
+                AppLovinSettings.Instance.SetAttributionReportEndpoint = DrawOtherSettingsToggle(AppLovinSettings.Instance.SetAttributionReportEndpoint, "  Set Advertising Attribution Report Endpoint in Info.plist (iOS only)");
+                GUILayout.Space(5);
+                var autoUpdateEnabled = DrawOtherSettingsToggle(EditorPrefs.GetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, true), "  Enable Auto Update");
+                EditorPrefs.SetBool(AppLovinAutoUpdater.KeyAutoUpdateEnabled, autoUpdateEnabled);
+                GUILayout.Space(5);
+                var verboseLoggingEnabled = DrawOtherSettingsToggle(EditorPrefs.GetBool(MaxSdkLogger.KeyVerboseLoggingEnabled, false),
+#if UNITY_2018_2_OR_NEWER
+                    "  Enable Verbose Logging"
+#else
+                    "  Enable Build Verbose Logging"
+#endif
+                );
+                EditorPrefs.SetBool(MaxSdkLogger.KeyVerboseLoggingEnabled, verboseLoggingEnabled);
+                GUILayout.Space(5);
+            }
+
+            GUILayout.Space(5);
+            GUILayout.EndHorizontal();
+        }
+
+        private bool DrawOtherSettingsToggle(bool value, string text)
+        {
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                GUILayout.Space(4);
+                var toggleValue = GUILayout.Toggle(value, text);
+                GUILayout.Space(4);
+
+                return toggleValue;
+            }
         }
 
         private void DrawUnityEnvironmentDetails()
