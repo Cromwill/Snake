@@ -152,7 +152,7 @@ public class SnakeShopV2 : MonoBehaviour
         gemBalance.SpendGem(ItemCost);
         gemBalance.Save(new JsonSaveLoad());
 
-        var presenter = _presenters.Find(presenter => presenter.Data.GUID == unlockedSnake.GUID);
+        var presenter = _presenters.Find(p => p.Data.GUID == unlockedSnake.GUID);
         SelectItem(presenter);
 
         var page = _presenters.IndexOf(presenter) / _itemPerPage;
