@@ -12,6 +12,8 @@ public class ProgressView : MonoBehaviour
     private SnakeInitializer _snakeInitializer;
     private Snake _snake;
 
+    public float Value => _progress.value;
+
     private void Awake()
     {
         _snakeInitializer = FindObjectOfType<SnakeInitializer>();
