@@ -48,7 +48,7 @@ public class AppMetricaEventSender : MonoBehaviour
         _adSettings.VideoAdsWatched -= OnVideoAdsWatched;
     }
 
-    public void ForceInitialize(bool isBonus)
+    public void ForceInit(bool isBonus)
     {
         _startTrigger = FindObjectOfType<GameCanvas>();
         _finishTrigger = FindObjectOfType<FinishTrigger>();

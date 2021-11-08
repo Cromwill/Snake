@@ -253,7 +253,11 @@ PlayerSettings:
     height: 180
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
+<<<<<<< HEAD
   AndroidMinifyWithR8: 1
+=======
+  AndroidMinifyWithR8: 0
+>>>>>>> origin/FixedAndroidBuild
   AndroidMinifyRelease: 0
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
@@ -511,7 +515,7 @@ PlayerSettings:
   m_BuildTargetGraphicsAPIs:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 150000000b00000008000000
-    m_Automatic: 0
+    m_Automatic: 1
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
     m_Automatic: 1
@@ -886,11 +890,19 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
+<<<<<<< HEAD
   cloudProjectId: 46ddcb81-da54-42f2-bbb2-78fb29517877
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: 'Snake Way 3D: Adventure Run (3)'
   organizationId: cromwill
+=======
+  cloudProjectId: 8a7ef04c-9b0f-414a-b3e7-9b526200cf67
+  framebufferDepthMemorylessMode: 0
+  qualitySettingsNames: []
+  projectName: 'Snake Way 3D: Adventure Run (1)'
+  organizationId: artemvetik
+>>>>>>> origin/FixedAndroidBuild
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0

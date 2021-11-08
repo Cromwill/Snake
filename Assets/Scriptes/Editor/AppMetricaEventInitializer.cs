@@ -58,7 +58,7 @@ public class AppMetricaEventInitializer : EditorWindow
             if (Regex.IsMatch(sceneName, _levelPattern) == false)
                 isBonus = true;
 
-             var oldAppMetricaSender = FindObjectOfType<AppMetricaEventSender>();
+            var oldAppMetricaSender = FindObjectOfType<AppMetricaEventSender>();
             if (oldAppMetricaSender)
             {
                 if (_replaceAll == false)
@@ -68,7 +68,7 @@ public class AppMetricaEventInitializer : EditorWindow
             }
 
             var inst = PrefabUtility.InstantiatePrefab(_template);
-            (inst as AppMetricaEventSender).ForceInitialize(isBonus);
+            (inst as AppMetricaEventSender).ForceInit(isBonus);
 
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
         }
