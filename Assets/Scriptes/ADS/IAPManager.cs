@@ -5,7 +5,7 @@ using UnityEngine.Purchasing;
 
 public class IAPManager : MonoBehaviour
 {
-    private const string RemoveAds = "snakes.way.rush.NoAds";
+    private const string RemoveAds = "snakes.way.rush.noads";
 
     public void OnPurchaseComplete(Product product)
     {
